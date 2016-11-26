@@ -32,6 +32,54 @@ a {
   @include transform(translateY(-50%));
 }
 
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animelement {
+  animation-duration: 0.25s;
+  transition-timing-function: ease-in;
+  animation-fill-mode: both;
+}
+
+.animate-enter {
+  transition: 1s linear all;
+  opacity: 0;
+}
+
+.animate-enter.animate-enter-active {
+  opacity: 1;
+}
+
+.animate-leave {
+  transition: 1s linear all;
+  opacity: 0;
+}
+
+.animate-leave.animate-leave-active {
+  opacity: 1;
+}
+
 .title-bar {
   background-color: $primarycolor;
   position: fixed;

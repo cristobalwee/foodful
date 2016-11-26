@@ -1,4 +1,4 @@
-var app = angular.module('foodful',['ngRoute']);
+var app = angular.module('foodful',['ngRoute', 'ngAnimate']);
 
 app.config(function ($routeProvider) {
   $routeProvider
