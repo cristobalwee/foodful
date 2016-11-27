@@ -94,7 +94,17 @@ a {
     left: 50%;
     @include transform(translateX(50%));
     margin-bottom: 0.5rem;
+    transition: all 0.5s ease;
+
+    &:hover {
+      background-color: $secondarycolor;
+      transition: all 0.5s ease;
+    }
   }
+}
+
+#first {
+  animation: indicatoranim 1s both ease-in-out;
 }
 
 @keyframes scroll {
@@ -120,7 +130,7 @@ a {
 @keyframes fadeInUp {
   0% {
     opacity: 0;
-    transform: translate3d(0, 75%, 0);
+    transform: translate3d(0, 50%, 0);
   }
 
   100% {
@@ -137,7 +147,7 @@ a {
 
   100% {
     opacity: 1;
-    transform: translate3d(0, -75%, 0);
+    transform: translate3d(0, -50%, 0);
   }
 }
 
@@ -155,6 +165,22 @@ a {
   100% {
     opacity: 1;
     transform: none;
+  }
+}
+
+@keyframes indicatoranim {
+  0% {
+    opacity: 0;
+    transform: translate3d(100%, -50%, 0);
+  }
+
+  70% {
+    opacity: 0;
+    transform: translate3d(100%, -50%, 0);
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 
@@ -372,7 +398,7 @@ a {
     color: $secondarycolor;
     text-align: left;
     line-height: 110%;
-    font-size: 1rem;
+    font-size: 1.3rem;
   }
 
   img {
@@ -411,6 +437,10 @@ a {
     background-color: $secondarycolor;
     color: white;
     margin-top: 4rem;
+  }
+
+  #about {
+    color: $secondarycolor;
   }
 }
 
