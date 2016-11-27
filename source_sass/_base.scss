@@ -26,16 +26,101 @@ a {
   text-align: center;
 }
 
+.bottom {
+  position: absolute;
+  bottom: 1rem;
+}
+
 .content {
   position: relative;
   top: 50%;
   @include transform(translateY(-50%));
 }
 
+.padleft {
+  padding-left: 2rem;
+}
+
+#factscontent, #legalcontent {
+  position: relative;
+  top: 50%;
+  @include transform(translateY(-45%));
+}
+
+#scrollanim {
+  left: 0;
+}
+
+.mouse {
+  animation: footeranim 1s both ease-in-out;
+  width: 2rem;
+  height: 3rem;
+  border: solid 2px $secondarycolor;
+  margin: 0 auto;
+  @include border-radius(24px);
+
+  .scrollwheel {
+    width: 4px;
+    height: 4px;
+    @include border-radius(50%);
+    position: absolute;
+    top: 0.8rem;
+    left: 50%;
+    @include transform(translateX(-50%));
+    background-color: $secondarycolor;
+    animation: scroll 1.8s linear infinite;
+  }
+}
+
+.indicator {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  @include transform(translateY(-50%));
+
+  .currentposition {
+    width: 1rem;
+    height: 1rem;
+    @include border-radius(50%);
+    background-color: $secondarycolor;
+    margin-bottom: 0.5rem;
+  }
+
+  .otherposition {
+    width: 0.5rem;
+    height: 0.5rem;
+    @include border-radius(50%);
+    background-color: $primarycolor;
+    left: 50%;
+    @include transform(translateX(50%));
+    margin-bottom: 0.5rem;
+  }
+}
+
+@keyframes scroll {
+  0% {
+    opacity: 0;
+  }
+
+  40% {
+    top: 0.8rem;
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+    top: 2rem;
+  }
+}
+
 @keyframes fadeInUp {
   0% {
     opacity: 0;
-    transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 75%, 0);
   }
 
   100% {
@@ -47,7 +132,24 @@ a {
 @keyframes fadeInDown {
   0% {
     opacity: 0;
-    transform: translate3d(0, -100%, 0);
+    transform: none;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, -75%, 0);
+  }
+}
+
+@keyframes footeranim {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  70% {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
   }
 
   100% {
@@ -57,27 +159,17 @@ a {
 }
 
 .animelement {
-  animation-duration: 0.25s;
-  transition-timing-function: ease-in;
+  animation-duration: 0.75s;
+  transition-timing-function: ease-in-out;
   animation-fill-mode: both;
-}
-
-.animate-enter {
-  transition: 1s linear all;
-  opacity: 0;
-}
-
-.animate-enter.animate-enter-active {
-  opacity: 1;
+  animation-name: fadeInUp;
 }
 
 .animate-leave {
-  transition: 1s linear all;
-  opacity: 0;
-}
-
-.animate-leave.animate-leave-active {
-  opacity: 1;
+  animation-duration: 0.75s;
+  transition-timing-function: ease-in-out;
+  animation-fill-mode: both;
+  animation-name: fadeInDown;
 }
 
 .title-bar {
@@ -188,5 +280,152 @@ a {
 
   #loaves {
     height: 18rem;
+    //float: left;
+    padding-right: 3rem;
+    margin: 0 auto;
+  }
+}
+
+#facts {
+  width: 100vw;
+  height: 100vh;
+  padding-left: 10rem;
+  padding-right: 10rem;
+
+  h2 {
+    font-family: $font;
+    color: $secondarycolor;
+    line-height: 110%;
+    text-align: center;
+    margin-bottom: 5rem;
+    padding: 0 5rem;
+  }
+
+  p {
+    font-family: $font;
+    color: $secondarycolor;
+    text-align: justify;
+    font-size: 1.2rem;
+    line-height: 110%;
+  }
+
+  img {
+    height: 5rem;
+    margin-bottom: 2rem;
+  }
+
+  .padded {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+#purpose {
+  width: 100vw;
+  height: 100vh;
+  padding-left: 10rem;
+  padding-right: 10rem;
+  text-align: center;
+
+  h2 {
+    font-family: $font;
+    color: $secondarycolor;
+    line-height: 110%;
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 0 5rem;
+  }
+
+  p {
+    font-family: $font;
+    color: $secondarycolor;
+    text-align: justify;
+    font-size: 1.3rem;
+    line-height: 110%;
+    padding-left: 10rem;
+    padding-right: 10rem;
+  }
+
+  img {
+    height: 6rem;
+    margin-bottom: 3rem;
+  }
+}
+
+#legal {
+  width: 100vw;
+  height: 100vh;
+  padding-left: 10rem;
+  padding-right: 10rem;
+  text-align: center;
+
+  h2 {
+    font-family: $font;
+    color: $secondarycolor;
+    line-height: 110%;
+    text-align: left;
+    margin-bottom: 2rem;
+  }
+
+  p {
+    font-family: $font;
+    color: $secondarycolor;
+    text-align: left;
+    line-height: 110%;
+    font-size: 1rem;
+  }
+
+  img {
+    height: 12rem;
+    margin-top: 3rem;
+  }
+}
+
+#contact {
+  width: 100vw;
+  height: 100vh;
+  padding-left: 10rem;
+  padding-right: 10rem;
+  text-align: center;
+
+  h2 {
+    font-family: $font;
+    color: $secondarycolor;
+    line-height: 110%;
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  img {
+    height: 6rem;
+  }
+
+  button {
+    padding: 1rem 1.5rem;
+    border: solid 1px $secondarycolor;
+    @include border-radius(4px);
+    font-family: $font;
+  }
+
+  #signup {
+    background-color: $secondarycolor;
+    color: white;
+    margin-top: 4rem;
+  }
+}
+
+.footer {
+  background-color: $primarycolor;
+  position: fixed;
+  bottom: 0;
+  padding: 2rem 2rem;
+  z-index: 4;
+  text-align: center;
+  width: 100%;
+  animation: footeranim 1s both ease-in-out;
+
+  img {
+    height: 1.2rem;
+    margin: 0 1rem;
   }
 }
