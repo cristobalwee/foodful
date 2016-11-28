@@ -1,13 +1,14 @@
 <div data-sticky-container>
   <div class="title-bar" data-sticky data-options="marginTop:0;" style="width:100%">
     <div class="title-bar-left">
-      <a href="#/" class="homelink"><img src="./media/logo.svg"></a>
+      <a href="#/" onclick="resetPosition()" class="homelink"><img src="./media/logo.svg"></a>
       <h4>foodful</h4>
     </div>
     <div class="title-bar-right">
-      <input ng-model="searchText" type="text" placeholder="find a food bank">
-      <a href="#">login</a>
-      <a href="#">about</a>
+      <input class="responsivehide" ng-model="searchText" type="text" placeholder="find a food bank">
+      <a class="responsivehide" href="#/login">login</a>
+      <a class="responsivehide" href="#/about">about</a>
+      <img class="responsive" src="./media/menuicon.svg">
     </div>
   </div>
 </div>
@@ -22,10 +23,10 @@
       <img id="loaves" src="./media/loaves.svg">
     </div>
   </div>
-  <div class="column row bottom center expanded" id="scrollanim">
-    <a href="#/facts"><div class="mouse center link">
-      <div class="scrollwheel">
-      </div>
-    </div></a>
-  </div>
+</div>
+<div class="column row bottom center expanded" id="scrollanim">
+  <a href="#/facts"><div class="mouse center link">
+    <div class="scrollwheel">
+    </div>
+  </div></a>
 </div>
