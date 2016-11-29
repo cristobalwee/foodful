@@ -51,7 +51,7 @@ var enter = function(partial) {
   if (!tween) {
     return;
   };
-  TweenLite.to($view, 1, {position: "absolute", top: "-1000px", backgroundColor: "rgba(255, 255, 255, 0)",ease: Power3.easeInOut});
+  TweenLite.to($view, 1, {position: "absolute", top: "-750px", autoAlpha: 0,ease: Power3.easeInOut});
   setTimeout(function() {
     window.location.href = views[position];
   }, 1050);
@@ -82,7 +82,7 @@ var exit = function(partial) {
   if (!tween) {
     return;
   };
-  TweenLite.to($view, 1, {position: "absolute", top: "1000px", backgroundColor: "rgba(255, 255, 255, 0)",ease: Power3.easeInOut});
+  TweenLite.to($view, 1, {position: "absolute", top: "750px", autoAlpha: 0,ease: Power3.easeInOut});
   setTimeout(function() {
     window.location.href = views[position];
   }, 2050);
@@ -131,7 +131,7 @@ $("body").on("mousewheel", function(e) {
 }, 750);*/
 
 $(".homelink").on("click", function() {
-  position = 0;
+  console.log($(this).data("link"));
 });
 
 var resetPosition = function() {
@@ -164,6 +164,6 @@ var animate = function(input) {
       alert("ok");
   }
   if (tween) {
-    TweenLite.to($view, 1, {position: "absolute", top: "1000px", backgroundColor: "rgba(255, 255, 255, 0)",ease: Power3.easeInOut});
+    TweenLite.to($view, 1, {position: "absolute", top: "400px", autoAlpha:0 ,ease: Power3.easeInOut});
   }
 };
