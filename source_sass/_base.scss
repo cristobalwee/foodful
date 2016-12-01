@@ -91,6 +91,31 @@ a {
     animation: positionanim 1s both;
   }
 
+  #currenthouse {
+    width: 2rem;
+    height: 2rem;
+
+    img {
+      animation: positionanim2 1s both;
+      width: 1rem;
+      margin: 0 auto;
+      vertical-align: middle;
+      @include transition(all 0.5s ease);
+    }
+  }
+
+  #house {
+    width: 2rem;
+    height: 2rem;
+
+    img {
+      width: 1rem;
+      margin: 0 auto;
+      vertical-align: middle;
+      @include transition(all 0.5s ease);
+    }
+  }
+
   .otherposition {
     width: 0.5rem;
     height: 0.5rem;
@@ -99,11 +124,11 @@ a {
     left: 50%;
     @include transform(translateX(50%));
     margin-bottom: 0.5rem;
-    transition: all 0.5s ease;
+    @include transition(all 0.5s ease);
 
     &:hover {
       background-color: $secondarycolor;
-      transition: all 0.5s ease;
+      @include transition(all 0.5s ease);
     }
   }
 }
@@ -193,6 +218,12 @@ a {
   from {
     @include transform(scale(0.5));
     background-color: $primarycolor;
+  }
+}
+
+@keyframes positionanim2 {
+  from {
+    @include transform(scale(0.5));
   }
 }
 
@@ -471,6 +502,13 @@ a {
   img {
     height: 1.2rem;
     margin: 0 1rem;
+    @include transition(all 0.5s ease);
+
+    &:hover {
+      cursor: pointer;
+      @include transition(all 0.5s ease);
+      @include transform(translateY(-0.3rem));
+    }
   }
 }
 
@@ -529,6 +567,24 @@ a {
     font-family: $font;
     background-color: $secondarycolor;
     color: white;
+  }
+}
+
+@media only screen and (min-width: 1300px) {
+  #purpose {
+    p {
+      font-size: 1.5rem;
+    }
+  }
+
+  #legal {
+    p {
+      font-size: 1.4rem;
+    }
+
+    img {
+      margin-top: 8rem;
+    }
   }
 }
 

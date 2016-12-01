@@ -1,7 +1,7 @@
 <div data-sticky-container>
   <div class="title-bar" data-sticky data-options="marginTop:0;" style="width:100%">
     <div class="title-bar-left">
-      <a href="javascript:void(0)" data-link="#/" onclick="resetPosition()" class="homelink"><img src="./media/logo.svg"></a>
+      <a href="#/" onclick="setPosition(0)" class="homelink"><img src="./media/logo.svg"></a>
       <h4>foodful</h4>
     </div>
     <div class="title-bar-right">
@@ -28,5 +28,18 @@
   <a href="#/facts"><div class="mouse center link">
     <div class="scrollwheel">
     </div>
+  </div></a>
+</div>
+<div class="indicator" id="first">
+  <div id="currenthouse">
+    <img src="./media/house.svg">
+  </div>
+  <a href="#/facts" onclick="setPosition(1)"><div class="otherposition">
+  </div></a>
+  <a href="#/purpose" onclick="setPosition(2)"><div class="otherposition">
+  </div></a>
+  <a href="#/legal" onclick="setPosition(3)"><div class="otherposition">
+  </div></a>
+  <a href="#/contact" onclick="setPosition(4)"><div class="otherposition">
   </div></a>
 </div>
