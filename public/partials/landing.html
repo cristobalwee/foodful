@@ -5,32 +5,65 @@
       <h4>foodful</h4>
     </div>
     <div class="title-bar-right">
-      <input class="responsivehide" ng-model="searchText" type="text" placeholder="find a food bank">
-      <a class="responsivehide" href="#/login">login</a>
-      <a class="responsivehide" href="#/about">about</a>
-      <img class="responsive" src="./media/menuicon.svg">
+      <div class="responsive">
+        <button type="button" onclick="toggleMenu()" data-toggle><img src="./media/menuicon.svg"></button>
+      </div>
+      <div class="responsivehide">
+        <input ng-model="searchText" type="text" placeholder="find a food bank">
+        <a href="#/login">login</a>
+        <a href="#/about">about</a>
+      </div>
     </div>
+  </div>
+</div>
+<div id="menu">
+  <div data-sticky-container>
+    <div class="title-bar" data-sticky data-options="marginTop:0;" style="width:100%">
+      <div class="title-bar-left">
+        <a href="javascript:void(0)" class="homelink"><img src="./media/logo.svg"></a>
+        <h4>foodful</h4>
+      </div>
+      <div class="title-bar-right">
+          <button type="button" onclick="closeMenu()" data-toggle><img src="./media/closeicon.svg"></button>
+      </div>
+    </div>
+  </div>
+  <div id="menucontent">
+    <input ng-model="searchText" type="text" placeholder="find a food bank"><br>
+    <a href="#/login">login</a><br>
+    <a href="#/facts">facts</a><br>
+    <a href="#/purpose">purpose</a><br>
+    <a href="#/legal">legal</a><br>
+    <a href="#/about">about</a><br>
+  </div>
+  <div class="footer">
+    <img src="./media/social_facebook.svg">&nbsp;
+    <img src="./media/social_twitter.svg">&nbsp;
+    <img src="./media/social_tumblr.svg">&nbsp;
   </div>
 </div>
 <div id="landing" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}" class="animelement">
   <div class="row content">
     <div class="medium-6 columns left">
       <h2>A single restaurant wastes about 100,000 lbs of food a year</h2><br>
-      <h5>That’s a lot of bread - 80,000 loaves of bread, to be exact</h5><br>
-      <button id="makedifference">make a difference</button>&nbsp;&nbsp;<a href="#/about"><button id="morefoodful">what's foodful?</button></a>
+      <span class="responsivehide"><h5>That’s a lot of bread - 80,000 loaves of bread, to be exact</h5></span><br>
+      <span class="responsivehide"><button class="makedifference">make a difference</button>&nbsp;&nbsp;<a href="#/about"><button class="morefoodful">what's foodful?</button></a></span>
     </div>
     <div class="medium-6 columns right">
       <img id="loaves" src="./media/loaves.svg">
+      <div class="responsive" id="responsivebtn">
+        <button class="makedifference">make a difference</button>&nbsp;&nbsp;<a href="#/about"><button class="morefoodful">what's foodful?</button></a>
+      </div>
     </div>
   </div>
 </div>
-<div class="column row bottom center expanded" id="scrollanim">
+<div class="column row bottom center expanded responsivehide" id="scrollanim">
   <a href="#/facts"><div class="mouse center link">
     <div class="scrollwheel">
     </div>
   </div></a>
 </div>
-<div class="indicator" id="first">
+<div class="indicator responsivehide" id="first">
   <div id="currenthouse">
     <img src="./media/house.svg">
   </div>
