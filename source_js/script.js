@@ -1,7 +1,6 @@
 var isMobile = false;
 if (screen.width <= 640) {
   isMobile = true;
-  console.log(isMobile);
 };
 
 var position = 0;
