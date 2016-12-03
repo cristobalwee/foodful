@@ -1,4 +1,4 @@
-var app = angular.module('foodful',['ngRoute', 'ngAnimate']);
+var app = angular.module('foodful',['ngRoute', 'ngAnimate', 'ngMap']);
 
 app.config(function ($routeProvider) {
   $routeProvider
@@ -30,5 +30,10 @@ app.config(function ($routeProvider) {
     .when('/about', {
       templateUrl: 'partials/about.html',
       controller: 'AboutController'
+    })
+
+    .when('/search', {
+      templateUrl: 'partials/search.html',
+      controller: 'SearchController'
     })
 })
