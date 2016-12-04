@@ -11,6 +11,9 @@ Spawned as a final project for UIUC's CS498RK: The Art of Web Programming, Foodf
 * The U.S per capita waste has increased by almost 50% since 1974, from 30% of all available food to over 40%
 * Food waste accounts for a loss of about $165 billion per year, an estimated $40 billion of which comes from household waste
 * A mere 15% decrease in food waste would result in enough food to feed 25,000,000 Americans
+* In 2010, America wasted 33.79 million lbs of food - enough to fill the Empire State Building 91 times
+
+##### Facts taken from http://visual.ly/21-shocking-us-food-waste-facts-statistics
 
 ## Our Purpose
 
