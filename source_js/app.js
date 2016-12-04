@@ -36,4 +36,14 @@ app.config(function ($routeProvider) {
       templateUrl: 'partials/search.html',
       controller: 'SearchController'
     })
+    
+    .when('/login', {
+      templateUrl: 'partials/login.html',
+      controller: 'LoginController'
+    })
+    
+    .when('/register', {
+      templateUrl: 'partials/register.html',
+      controller: 'RegisterController'
+    })
 })
