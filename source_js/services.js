@@ -1,6 +1,6 @@
 var foodfulServices = angular.module('foodfulServices', []);
 
-foodfulServices.factory('UserAuth', function($http)) {
+foodfulServices.factory('UserAuth', function($http) {
     var api = 'fa16-cs498rk-016.cs.illinois.edu:3000/api';
     return {
     registerUser: function(userData) {
@@ -11,6 +11,6 @@ foodfulServices.factory('UserAuth', function($http)) {
         });
     }
     }
-}
+});
 
 

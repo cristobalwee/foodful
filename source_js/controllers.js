@@ -1,32 +1,34 @@
-app.controller('LandingController', ['$scope', '$http', function($scope, $http) {
+var foodfulControllers = angular.module('foodfulControllers', []);
+
+foodfulControllers.controller('LandingController', ['$scope', '$http', function($scope, $http) {
 
 }]);
 
-app.controller('FactsController', ['$scope', '$http', function($scope, $http) {
+foodfulControllers.controller('FactsController', ['$scope', '$http', function($scope, $http) {
 
 }]);
 
-app.controller('PurposeController', ['$scope', '$http', function($scope, $http) {
+foodfulControllers.controller('PurposeController', ['$scope', '$http', function($scope, $http) {
 
 }]);
 
-app.controller('LegalController', ['$scope', '$http', function($scope, $http) {
+foodfulControllers.controller('LegalController', ['$scope', '$http', function($scope, $http) {
 
 }]);
 
-app.controller('ContactController', ['$scope', '$http', function($scope, $http) {
+foodfulControllers.controller('ContactController', ['$scope', '$http', function($scope, $http) {
 
 }]);
 
-app.controller('AboutController', ['$scope', '$http', function($scope, $http) {
+foodfulControllers.controller('AboutController', ['$scope', '$http', function($scope, $http) {
 
 }]);
 
-app.controller('LoginController', ['$scope', 'UserAuth', function($scope, UserAuth) {
+foodfulControllers.controller('LoginController', ['$scope', 'UserAuth', function($scope, UserAuth) {
     
 }]);
 
-app.controller('RegisterController', ['$scope', 'UserAuth', function($scope, UserAuth) {
+foodfulControllers.controller('RegisterController', ['$scope', 'UserAuth', function($scope, UserAuth) {
     $scope.registerData = {};
     $scope.register = function() {
         $scope.registerData.location = "";
@@ -53,7 +55,7 @@ app.controller('RegisterController', ['$scope', 'UserAuth', function($scope, Use
     }
 }]);
 
-app.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', function($scope, $http, NgMap, NavigatorGeolocation) {
+foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', function($scope, $http, NgMap, NavigatorGeolocation) {
 
 	$scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAXUxA57EfUTXdhcK27-kc6r6HFqPBT5J4&libraries=places";
 
