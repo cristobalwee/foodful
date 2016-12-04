@@ -1,4 +1,4 @@
-var app = angular.module('foodful',['ngRoute', 'ngAnimate', 'ngMap']);
+var app = angular.module('foodful', ['ngRoute', 'ngAnimate', 'ngMap', 'foodfulControllers', 'foodfulServices']);
 
 app.config(function ($routeProvider) {
   $routeProvider
@@ -35,5 +35,15 @@ app.config(function ($routeProvider) {
     .when('/search', {
       templateUrl: 'partials/search.html',
       controller: 'SearchController'
+    })
+    
+    .when('/login', {
+      templateUrl: 'partials/login.html',
+      controller: 'LoginController'
+    })
+    
+    .when('/register', {
+      templateUrl: 'partials/register.html',
+      controller: 'RegisterController'
     })
 })
