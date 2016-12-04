@@ -6,6 +6,9 @@
     "biplabdeka <biplab.deka@gmail.com>",
     "sskhandek <sskhandek@gmail.com>"
   ],
+  "scripts": {
+    "start": "node app.js"
+  }
   "dependencies": {
     "angular-google-maps": "^2.4.0",
     "express": "^4.11.1",
