@@ -45,6 +45,17 @@ a {
   display: none;
 }
 
+#loading {
+  width: 100vw;
+  height: 100vh;
+  background-color: $primarycolor;
+  z-index: 99;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
 #factscontent, #legalcontent, #aboutcontent {
   position: relative;
   top: 50%;

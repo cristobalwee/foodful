@@ -3,6 +3,10 @@ if (screen.width <= 640) {
   isMobile = true;
 };
 
+/*$(window).load(function() {
+  $("#loading").hide();
+});*/
+
 var position = 0;
 var views = ['#/', '#/facts', '#/purpose', '#/legal', '#/contact'];
 var scrollflag = true;
@@ -10,7 +14,7 @@ var scrollflag = true;
 if (!isMobile) {
   $("body").bind("mousewheel", function(e) {
     var $indicator = $(".currentposition");
-    if (scrollflag) {
+    if (scrollflag && position >= 0) {
       if (e.originalEvent.wheelDelta /120 < 0 && position < 4) {
         TweenLite.to($indicator, 0.75, {scale: 0.5, backgroundColor: "#d0e8f9"});
       };
