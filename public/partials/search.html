@@ -1,5 +1,26 @@
 
-<div map-lazy-load="https://maps.google.com/maps/api/js"
-  map-lazy-load-params="{{googleMapsUrl}}">
-  <ng-map center="[40.6892,-74.0444]" zoom="18"></ng-map>
+<div>
+	<h1> MAP </h1>
+	<h2> IMPLEMENT ME AND REDESIGN ME</h2>
+	<div map-lazy-load="https://maps.googleapis.com/maps/api/js?libraries=places"
+		map-lazy-load-params="{{googleMapsUrl}}">
+		<input places-auto-complete types="['geocode']" on-place-changed="myCallback(place)" component-restrictions="{country:'au'}"/>
+		<ng-map center="[{{lat}}, {{lng}}]" zoom="18" style="height: 300px; width: 100%;">
+		</ng-map>
+	</div>
+
+	<div>
+		<form>
+			<div>
+				<label>Search for</label>
+				<input type="radio" name="type" />Donators
+				<input type="radio" name="type"/>Donatees
+				<input type="text" placeholder="My Location">
+			</div>
+			<div>
+				<button type="submit" class="primary button">Search</button>
+			</div>
+		</form>	
+	</div>
+	
 </div>
