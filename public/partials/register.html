@@ -1,0 +1,94 @@
+<form name="registerForm" ng-submit="register()">
+<div class="row">
+    <!--
+        required:
+        type_id (radiobutton)
+        name (textbox)
+        email
+        phone number
+        location (address)
+        start hour, start minute, am/pm, end hour, end minute, am/pm
+        password (confirm)
+        
+        not required:
+        business description
+    -->
+    <label>
+    Type
+    <input ng-model="registerData.typeID" type="radio" name="typeid" value="1" checked>
+    <label>Donatee</label>
+    <input ng-model="registerData.typeID" type="radio" name="typeid" value="0">
+    <label>Donor</label>
+    </label>
+    
+    <label>
+    Name
+    <input ng-model="registerData.name" type="text" required>
+    </label>
+    
+    <label>
+    Email
+    <input ng-model="registerData.email" type="email" required>
+    </label>
+    
+    <label>
+    Phone number
+    <input ng-model="registerData.phone_number" type="tel" required>
+    </label>
+    
+    <label>
+    Address
+    <input ng-model="address" type="text" required>
+    </label>
+    <label>
+    City
+    <input ng-model="city" type="text" required>
+    </label>
+    <label>
+    State
+    <input ng-model="state" type="text" required>
+    </label>
+    <label>
+    Zip code
+    <input ng-model="zipcode" type="text" required>
+    </label>
+    
+    <label>
+    Start hour
+    <input ng-model="registerData.start_hour" type="text" required>
+    Start minute
+    <input ng-model="registerData.start_minute" type="text" required>
+    <select ng-model="startTime">
+        <option value="AM">A.M.</option>
+        <option value="PM">P.M.</option>
+    </select>
+    End hour
+    <input ng-model="registerData.end_hour" type="text" required>
+    End minute
+    <input ng-model="registerData.end_minute" type="text" required>
+    <select ng-model="endTime">
+        <option value="AM">A.M.</option>
+        <option value="PM">P.M.</option>
+    </select>
+    </label>
+    
+    <label>
+    Password
+    <input ng-model="registerData.password" type="password" required>
+    </label>
+    
+    <label>
+    Confirm password
+    <input ng-model="pwConfirm" type="password" required>
+    </label>
+    
+    <label>
+    Description
+    <input ng-model="registerData.description" type="text">
+    </label>
+    
+    <button type="submit" class="primary button">Submit</button>
+</div>
+</form>
+
+
