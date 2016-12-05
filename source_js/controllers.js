@@ -49,7 +49,7 @@ foodfulControllers.controller('RegisterController', ['$scope', 'UserAuth', funct
         $scope.registerData.location += $scope.state + " ";
         $scope.registerData.location += $scope.zipcode;
         */
-        $scope.registerData.name = "d";
+        /*$scope.registerData.name = "d";
         $scope.registerData.email = "dasdfsd@gmail.com";
         $scope.registerData.phone_number = "1112223333";
         $scope.registerData.start_hour = "10";
@@ -60,8 +60,8 @@ foodfulControllers.controller('RegisterController', ['$scope', 'UserAuth', funct
         $scope.pwConfirm = "pw1";
         $scope.startTime = "AM";
         $scope.endTime = "AM";
-        $scope.registerData.typeID = 1;
-        $scope.registerData.location = "[1, 2]";
+        $scope.registerData.typeID = 1;*/
+        $scope.registerData.location = [1, 2];
         if ($scope.startTime == 'PM') {
             $scope.registerData.start_hour += 12;
         }
