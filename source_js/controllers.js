@@ -44,17 +44,23 @@ foodfulControllers.controller('AboutController', ['$scope', '$http', function($s
 foodfulControllers.controller('LoginController', ['$scope', '$location', 'UserAuth', function($scope, $location, UserAuth) {
     position = -1;
     document.body.style.overflow = "scroll";
-    $scope.loginData = {};
-    $scope.login = function() {
-        UserAuth.loginUser($scope.loginData).then(function(arg) {
-            UserAuth.saveToken(arg.data.token);
-            console.log('logged in!');
-            console.log(arg);
-            $location.path('profile');
-        }).catch(function(arg) {
-            console.log(arg);
-        });
-    };
+    // If there is no userlogged in, the login page
+    if (UserAuth.currentUser() == null){
+        $scope.loginData = {};
+        $scope.login = function() {
+            UserAuth.loginUser($scope.loginData).then(function(arg) {
+                UserAuth.saveToken(arg.data.token);
+                console.log('logged in!');
+                console.log(arg);
+                $location.path('profile');
+            }).catch(function(arg) {
+                console.log(arg);
+            });
+        };
+    }else{
+        // redirect to login page
+        $location.path('/profile');
+    }
 }]);
 
 foodfulControllers.controller('RegisterController', ['$scope', '$location', 'UserAuth', 'GeoCoder', function($scope, $location, UserAuth, GeoCoder) {
@@ -128,8 +134,13 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
 }]);
 
 foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
+<<<<<<< HEAD
   position = -1;
   document.body.style.overflow = "scroll";
+=======
+    position = -1;
+    document.body.style.overflow = "scroll";
+>>>>>>> b9a1d4fc58d938616703337471530ac3adb65b9a
   Prof.getProfile().success(function(data) {
     console.log(data);
     $scope.user = data.data;
