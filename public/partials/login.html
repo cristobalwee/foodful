@@ -1,16 +1,23 @@
-<form name="loginForm" ng-submit="login()">
-<div class="row">
-    <label>
-    Email
-    <input ng-model="loginData.email" type="email" required>
-    </label>
-    
-    <label>
-    Password
-    <input ng-model="loginData.password" type="password" required>
-    </label>
-    
-    <button type="submit" class="primary button">Submit</button>
+<div id="login">
+  <form name="loginForm" ng-submit="login()">
+    <div class="row center">
+      <div class="small-12 columns">
+        <img src="./media/logo.svg">
+        <h3>foodful</h3>
+      </div>
+      <div class="small-12 columns">
+        <input ng-model="loginData.email" type="email" placeholder="email" required>
+      </div>
+      <div class="small-12 columns">
+        <input ng-model="loginData.password" type="password" placeholder="password" required>
+      </div>
+      <div class="small-12 columns">
+        <button type="submit" class="primary button">log in</button>
+      </div>
+      <br><br>
+      <div class="small-12 columns">
+        <p>new to foodful? <a href="#/register">sign up</a></p>
+      </div>
+    </div>
+  </form>
 </div>
-
-

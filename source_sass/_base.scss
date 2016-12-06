@@ -670,6 +670,88 @@ a {
   }
 }
 
+#login {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: $primarycolor;
+  text-align: center;
+
+  form {
+    background-color: white;
+    @include border-radius(8px);
+    padding: 2rem;
+    padding-bottom: 0.5rem;
+    position: relative;
+    width: 35%;
+    margin: 0 auto;
+    vertical-align: middle;
+    top: 50vh;
+    @include transform(translate3d(0, -50%, 0));
+
+    img {
+      height: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-family: $font;
+      color: $secondarycolor;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    input {
+      border: solid 1px $secondarycolor;
+      @include border-radius(8px);
+      display: inline !important;
+      width: 90%;
+      font-family: $font;
+      color: $secondarycolor;
+
+      &::-webkit-input-placeholder {
+        color: $secondarycolor;
+        font-family: $font;
+      }
+
+      &::-moz-placeholder {
+        color: $secondarycolor;
+        font-family: $font;
+      }
+
+      &:-ms-input-placeholder {
+        color: $secondarycolor;
+        font-family: $font;
+      }
+
+      &:-moz-placeholder {
+        color: $secondarycolor;
+        font-family: $font;
+      }
+    }
+
+    button {
+      padding: 1rem 1.5rem;
+      border: solid 1px $secondarycolor;
+      @include border-radius(4px);
+      font-family: $font;
+      background-color: $secondarycolor;
+      color: white;
+    }
+
+    p {
+      font-family: $font;
+      color: $secondarycolor;
+      text-align: center;
+      padding-top: 2rem;
+    }
+
+    a {
+      text-decoration: underline;
+      color: $secondarycolor;
+    }
+  }
+}
+
 @media only screen and (min-width: 1300px) {
   #purpose {
     p {

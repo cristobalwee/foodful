@@ -3,29 +3,48 @@ var foodfulControllers = angular.module('foodfulControllers', []);
 foodfulControllers.controller('LandingController', ['$scope', 'UserAuth', function($scope, UserAuth) {
     $scope.isLogged = UserAuth.isLoggedIn();
     console.log($scope.isLogged);
+    position = 0;
+    if (!isMobile) {
+      document.body.style.overflow = "hidden";
+    }
 }]);
 
 foodfulControllers.controller('FactsController', ['$scope', '$http', function($scope, $http) {
-
+    position = 1;
+    if (!isMobile) {
+      document.body.style.overflow = "hidden";
+    }
 }]);
 
 foodfulControllers.controller('PurposeController', ['$scope', '$http', function($scope, $http) {
-
+    position = 2;
+    if (!isMobile) {
+      document.body.style.overflow = "hidden";
+    }
 }]);
 
 foodfulControllers.controller('LegalController', ['$scope', '$http', function($scope, $http) {
-
+    position = 3;
+    if (!isMobile) {
+      document.body.style.overflow = "hidden";
+    }
 }]);
 
 foodfulControllers.controller('ContactController', ['$scope', '$http', function($scope, $http) {
-
+    position = 4;
+    if (!isMobile) {
+      document.body.style.overflow = "hidden";
+    }
 }]);
 
 foodfulControllers.controller('AboutController', ['$scope', '$http', function($scope, $http) {
-
+    position = -1;
+    document.body.style.overflow = "scroll";
 }]);
 
 foodfulControllers.controller('LoginController', ['$scope', '$location', 'UserAuth', function($scope, $location, UserAuth) {
+    position = -1;
+    document.body.style.overflow = "scroll";
     $scope.loginData = {};
     $scope.login = function() {
         UserAuth.loginUser($scope.loginData).then(function(arg) {
@@ -40,6 +59,8 @@ foodfulControllers.controller('LoginController', ['$scope', '$location', 'UserAu
 }]);
 
 foodfulControllers.controller('RegisterController', ['$scope', 'UserAuth', function($scope, UserAuth) {
+    position = -1;
+    document.body.style.overflow = "scroll";
     $scope.registerData = {};
     $scope.register = function() {
         /*
