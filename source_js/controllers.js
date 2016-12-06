@@ -127,10 +127,6 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
 		$scope.lat = position.coords.latitude;
 		$scope.lng = position.coords.longitude;
 	});
-
-
-
-
 }]);
 
 foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
@@ -147,9 +143,18 @@ foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', f
   });
 }]);
 
-foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
-     position = -1;
+foodfulControllers.controller('PublicProfileController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
+    position = -1;
     document.body.style.overflow = "scroll";
+    /* Control the Public Profile */
+    
+
+
+
+}]);
+foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
+  position = -1;
+  document.body.style.overflow = "scroll";
   Prof.getProfile().success(function(data) {
     $scope.displayText = "";
     $scope.showDisplay = false;
