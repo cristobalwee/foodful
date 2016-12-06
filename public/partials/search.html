@@ -33,21 +33,36 @@
 				<div class="column row">
 					<input id="mapsearch" places-auto-complete types="['geocode']" on-place-changed="myCallback(place)" component-restrictions="{country:'us'}">
 				</div>
-				<div class="row">
-					<div class="small-4 columns">
-						<p class="inline">donators</p>&nbsp;<input class="radio" type="radio" name="type">
-					</div>
-					<div class="small-4 columns">
-						<p class="inline">donatees</p>&nbsp;<input class="radio" type="radio" name="type">
-					</div>
-					<div class="small-4 columns">
+        <div class="row">
+					<div class="small-6 columns">
 						<select ng-model="filter">
-              <option value="" disabled selected>filter</option>
-              <option value="0">rating</option>
-              <option value="1">distance</option>
+              <option value="" disabled selected>distance</option>
+              <option value="10">within 10mi</option>
+              <option value="20">within 20mi</option>
+              <option value="30">within 30mi</option>
+              <option value="40">within 40mi</option>
+              <option value="50">within 50mi</option>
             </select>
 					</div>
+          <div class="small-6 columns">
+            <select ng-model="filter">
+              <option value="" disabled selected>rating</option>
+              <option value="1">&starf; and above</option>
+              <option value="2">&starf;&starf; and above</option>
+              <option value="3">&starf;&starf;&starf; and above</option>
+              <option value="4">&starf;&starf;&starf;&starf; and above</option>
+              <option value="5">&starf;&starf;&starf;&starf;&starf; and above</option>
+            </select>
+          </div>
 				</div>
+				<div class="row">
+					<div class="small-6 columns">
+						<p class="inline">donators</p>&nbsp;<input class="radio" type="radio" name="type">
+					</div>
+					<div class="small-6 columns">
+						<p class="inline">donatees</p>&nbsp;<input class="radio" type="radio" name="type">
+					</div>
+        </div>
 				<div>
 					<button type="submit" class="primary button">Search</button>
 				</div>

@@ -680,6 +680,17 @@ a {
   background-color: $primarycolor;
   text-align: center;
 
+  .backbtn {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+
+    p {
+      font-family: $font;
+      color: $secondarycolor;
+    }
+  }
+
   form {
     background-color: white;
     @include border-radius(8px);
@@ -762,6 +773,17 @@ a {
   background-color: $primarycolor;
   text-align: center;
   padding-bottom: 20vh;
+
+  .backbtn {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+
+    p {
+      font-family: $font;
+      color: $secondarycolor;
+    }
+  }
 
   form {
     background-color: white;

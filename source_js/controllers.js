@@ -60,6 +60,7 @@ foodfulControllers.controller('LoginController', ['$scope', '$location', 'UserAu
 foodfulControllers.controller('RegisterController', ['$scope', '$location', 'UserAuth', 'GeoCoder', function($scope, $location, UserAuth, GeoCoder) {
     position = -1;
     document.body.style.overflow = "scroll";
+      $scope.states = ["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID", "IL","IN","KS","KY","LA","MA","MD","ME","MH","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
     $scope.registerData = {};
     $scope.register = function() {
         /*
@@ -81,7 +82,7 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
         $scope.locstring += $scope.city + " ";
         $scope.locstring += $scope.state + " ";
         $scope.locstring += $scope.zipcode;
-        
+
         if ($scope.startTime == 'PM') {
             $scope.registerData.start_hour += 12;
         }
