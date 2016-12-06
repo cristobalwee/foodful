@@ -1,26 +1,57 @@
-
-<div>
-	<h1> MAP </h1>
-	<h2> IMPLEMENT ME AND REDESIGN ME</h2>
-	<div map-lazy-load="https://maps.googleapis.com/maps/api/js?libraries=places"
-		map-lazy-load-params="{{googleMapsUrl}}">
-		<input places-auto-complete types="['geocode']" on-place-changed="myCallback(place)" component-restrictions="{country:'au'}"/>
-		<ng-map center="[{{lat}}, {{lng}}]" zoom="18" style="height: 300px; width: 100%;">
-		</ng-map>
-	</div>
-
-	<div>
-		<form>
-			<div>
-				<label>Search for</label>
-				<input type="radio" name="type" />Donators
-				<input type="radio" name="type"/>Donatees
-				<input type="text" placeholder="My Location">
+<div data-sticky-container>
+  <div class="title-bar" data-sticky data-options="marginTop:0;" style="width:100%">
+    <div class="title-bar-left">
+      <a href="#/" class="homelink"><img src="./media/logo.svg"></a>
+      <h4>foodful</h4>
+    </div>
+    <div class="title-bar-right">
+      <div class="responsive">
+        <button type="button" onclick="toggleMenu()" data-toggle><img src="./media/menuicon.svg"></button>
+      </div>
+      <div class="responsivehide">
+				<input ng-model="searchText" type="text" placeholder="find a food bank">
+        <a href="#/login">login</a>
+        <a href="#/about">about</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="search">
+	<div class="row">
+		<div class="medium-8 columns">
+			<div map-lazy-load="https://maps.googleapis.com/maps/api/js?libraries=places"
+				map-lazy-load-params="{{googleMapsUrl}}">
+				<ng-map id="map" center="[{{lat}}, {{lng}}]" zoom="18" style="height: 25rem; width: 100%;">
+				</ng-map>
 			</div>
-			<div>
-				<button type="submit" class="primary button">Search</button>
-			</div>
-		</form>	
+		</div>
+		<div class="medium-4 columns">
+			<form class="center">
+				<div class="column row">
+					<h4>Search</h4>
+				</div>
+				<div class="column row">
+					<input id="mapsearch" places-auto-complete types="['geocode']" on-place-changed="myCallback(place)" component-restrictions="{country:'us'}">
+				</div>
+				<div class="row">
+					<div class="small-4 columns">
+						<p class="inline">donators</p>&nbsp;<input class="radio" type="radio" name="type">
+					</div>
+					<div class="small-4 columns">
+						<p class="inline">donatees</p>&nbsp;<input class="radio" type="radio" name="type">
+					</div>
+					<div class="small-4 columns">
+						<select ng-model="filter">
+              <option value="" disabled selected>filter</option>
+              <option value="0">rating</option>
+              <option value="1">distance</option>
+            </select>
+					</div>
+				</div>
+				<div>
+					<button type="submit" class="primary button">Search</button>
+				</div>
+			</form>
+		</div>
 	</div>
-	
 </div>

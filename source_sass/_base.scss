@@ -45,6 +45,10 @@ a {
   display: none;
 }
 
+.inline {
+  display: inline !important;
+}
+
 #loading {
   width: 100vw;
   height: 100vh;
@@ -752,6 +756,203 @@ a {
   }
 }
 
+#register {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: $primarycolor;
+  text-align: center;
+  padding-bottom: 20vh;
+
+  form {
+    background-color: white;
+    @include border-radius(8px);
+    padding: 2rem;
+    padding-bottom: 0.5rem;
+    position: relative;
+    width: 75%;
+    margin: 0 auto;
+    vertical-align: middle;
+    top: 10vh;
+
+    img {
+      height: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-family: $font;
+      color: $secondarycolor;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    input, select {
+      border: solid 1px $secondarycolor;
+      @include border-radius(8px);
+      display: inline !important;
+      width: 90%;
+      font-family: $font;
+      color: $secondarycolor;
+
+      &::-webkit-input-placeholder {
+        color: $secondarycolor;
+        font-family: $font;
+      }
+
+      &::-moz-placeholder {
+        color: $secondarycolor;
+        font-family: $font;
+      }
+
+      &:-ms-input-placeholder {
+        color: $secondarycolor;
+        font-family: $font;
+      }
+
+      &:-moz-placeholder {
+        color: $secondarycolor;
+        font-family: $font;
+      }
+    }
+
+    #description {
+      padding-bottom: 4rem;
+      padding-top: 1rem;
+      word-break: break-word;
+    }
+
+    .hrmin {
+      width: 28%;
+    }
+
+    button {
+      padding: 1rem 1.5rem;
+      border: solid 1px $secondarycolor;
+      @include border-radius(4px);
+      font-family: $font;
+      background-color: $secondarycolor;
+      color: white;
+    }
+
+    p {
+      font-family: $font;
+      color: $secondarycolor;
+      text-align: center;
+      padding-top: 2rem;
+    }
+
+    a {
+      text-decoration: underline;
+      color: $secondarycolor;
+    }
+  }
+}
+
+#search {
+  margin-top: 8rem;
+
+  form {
+    h4 {
+      font-family: $font;
+      color: $secondarycolor;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    input, select {
+      border: solid 1px $secondarycolor;
+      @include border-radius(8px);
+      display: inline !important;
+      font-family: $font;
+      color: $secondarycolor;
+
+      &::-webkit-input-placeholder {
+        color: $secondarycolor;
+        font-family: $font;
+      }
+
+      &::-moz-placeholder {
+        color: $secondarycolor;
+        font-family: $font;
+      }
+
+      &:-ms-input-placeholder {
+        color: $secondarycolor;
+        font-family: $font;
+      }
+
+      &:-moz-placeholder {
+        color: $secondarycolor;
+        font-family: $font;
+      }
+    }
+
+    button {
+      padding: 1rem 1.5rem;
+      border: solid 1px $secondarycolor;
+      @include border-radius(4px);
+      font-family: $font;
+      background-color: $secondarycolor;
+      color: white;
+      margin-top: 0.5rem;
+    }
+
+    p, label {
+      font-family: $font;
+      color: $secondarycolor;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    input[type=radio] {
+      display: inline !important;
+      width: 1rem;
+    }
+
+    a {
+      text-decoration: underline;
+      color: $secondarycolor;
+    }
+  }
+
+  #map {
+    @include border-radius(8px);
+    outline: solid 1px $secondarycolor;
+    margin-bottom: 1rem;
+  }
+
+  #mapsearch {
+    border: solid 1px $secondarycolor;
+    @include border-radius(8px);
+    display: inline !important;
+    font-family: $font;
+    color: $secondarycolor;
+    padding: 0.5rem;
+    width: 100%;
+    margin-bottom: 1rem;
+
+    &::-webkit-input-placeholder {
+      color: $secondarycolor;
+      font-family: $font;
+    }
+
+    &::-moz-placeholder {
+      color: $secondarycolor;
+      font-family: $font;
+    }
+
+    &:-ms-input-placeholder {
+      color: $secondarycolor;
+      font-family: $font;
+    }
+
+    &:-moz-placeholder {
+      color: $secondarycolor;
+      font-family: $font;
+    }
+  }
+}
+
 @media only screen and (min-width: 1300px) {
   #purpose {
     p {
@@ -834,6 +1035,12 @@ a {
       padding-right: 6rem;
     }
   }
+
+  #login {
+    form {
+      width: 65%;
+    }
+  }
 }
 
 @media only screen and (max-width: 640px) {
@@ -908,6 +1115,12 @@ a {
   #factscontent {
     padding-top: 15rem;
     padding-bottom: 5rem;
+  }
+
+  #login {
+    form {
+      width: 75%;
+    }
   }
 }
 
