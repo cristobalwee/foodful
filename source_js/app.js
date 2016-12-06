@@ -57,15 +57,14 @@ app.config(function ($routeProvider) {
       controller: 'EditProfileController'
     })
 
-<<<<<<< HEAD
     .when('/profile/:id', {
       templateUrl: 'partials/publicprofile.html',
       controller: 'PublicProfileController'
-=======
+    })
+
     .when('/favorites', {
       templateUrl: 'partials/favorites.html',
       controller: 'FavoritesController'
->>>>>>> 9ddee6a24ad60ed50aa05104c39c0f80f540e3e6
     })
 
 })

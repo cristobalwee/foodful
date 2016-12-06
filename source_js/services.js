@@ -71,7 +71,12 @@ foodfulServices.factory('Prof', function($http, $window, UserAuth) {
     });
   };
 
+  var getPublicProfile = function(id) {
+      return $http.get(api + '/profile/' + id);
+  }
+
   return {
-    getProfile : getProfile
+    getProfile : getProfile,
+    getPublicProfile : getPublicProfile
   };
 });
