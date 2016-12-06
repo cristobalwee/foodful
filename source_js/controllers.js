@@ -76,11 +76,11 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
         $scope.endTime = "AM";
         $scope.registerData.typeID = 1;
         */
-        $scope.locstring = "";
-        $scope.locstring += $scope.address + " ";
-        $scope.locstring += $scope.city + " ";
-        $scope.locstring += $scope.state + " ";
-        $scope.locstring += $scope.zipcode;
+        $scope.registerData.address = "";
+        $scope.registerData.address += $scope.address + " ";
+        $scope.registerData.address += $scope.city + " ";
+        $scope.registerData.address += $scope.state + " ";
+        $scope.registerData.address += $scope.zipcode;
         
         if ($scope.startTime == 'PM') {
             $scope.registerData.start_hour += 12;
@@ -91,7 +91,7 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
         if ($scope.pwConfirm != $scope.registerData.password) {
             console.log('password is different');
         } else {
-            GeoCoder.geocode({address: $scope.locstring}).then(function(result) {
+            GeoCoder.geocode({address: $scope.registerData.address}).then(function(result) {
                 $scope.registerData.loc = [];
                 $scope.registerData.loc[0] = result[0].geometry.location.lng();
                 $scope.registerData.loc[1] = result[0].geometry.location.lat();
@@ -119,6 +119,12 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
 		$scope.lat = position.coords.latitude;
 		$scope.lng = position.coords.longitude;
 	});
+    
+    $scope.markers = [];
+    $scope.markers.append('908 w. stoughton st. urbana illinois 61801');
+    $scope.markers.append('603 S Wright St, Champaign, IL 61820');
+    $scope.markers.append('522 E Green St, Champaign, IL 61820');
+    
 
     $scope.getNearby = function() {
         
