@@ -54,6 +54,17 @@ foodfulServices.factory('UserAuth', function($http, $window) {
     }
 });
 
+foodfulServices.factory('NavService', function($http) {
+    
+    var getNearby = function(params) {
+        return $http.post('#/search', params);
+    }
+    
+    return {
+        getNearby: getNearby
+    }
+});
+
 
 
 

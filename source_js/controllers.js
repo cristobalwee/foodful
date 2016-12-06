@@ -109,18 +109,24 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
     };
 }]);
 
-foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', function($scope, $http, NgMap, NavigatorGeolocation) {
+foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', 'NavService', function($scope, $http, NgMap, NavigatorGeolocation, NavService) {
 
 	$scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAXUxA57EfUTXdhcK27-kc6r6HFqPBT5J4&libraries=places";
-
-	var myLatLng = {lat: -25.363, lng: 131.044};
 
 	NavigatorGeolocation.getCurrentPosition().then(function(position) {
 		$scope.lat = position.coords.latitude;
 		$scope.lng = position.coords.longitude;
 	});
 
-
+    $scope.getNearby = function() {
+        
+        NavigatorGeolocation.getCurrentPosition().then(function(position) {
+            $scope.queryParams.lat = position.coords.latitude;
+            $scope.queryParams.long = position.coords.longitude;
+        }).catch(function(arg) {
+            console.log(arg);
+        });
+    }
 
 
 }]);
