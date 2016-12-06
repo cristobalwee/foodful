@@ -2,10 +2,10 @@ var isMobile = false;
 if (screen.width <= 640) {
   isMobile = true;
 };
-
-/*$(window).load(function() {
-  $("#loading").hide();
-});*/
+(function() {
+  var landing = $("#landing");
+  console.log(landing);
+})();
 
 var position = 0;
 var views = ['#/', '#/facts', '#/purpose', '#/legal', '#/contact'];
@@ -120,9 +120,17 @@ $(".homelink").on("click", function() {
   console.log($(this).data("link"));
 });
 
-var setPosition = function(idx) {
+/*var setPosition = function(idx) {
   position = idx;
-};
+  if (!isMobile) {
+    if (position == -1) {
+      document.body.style.overflow = "scroll";
+    }
+    else {
+      document.body.style.overflow = "hidden";
+    };
+  };
+};*/
 
 var toggleMenu = function() {
   document.getElementById("menu").style.display = "block";
