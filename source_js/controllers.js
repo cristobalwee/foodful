@@ -110,7 +110,7 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
     };
 }]);
 
-foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', 'NavService', function($scope, $http, NgMap, NavigatorGeolocation, NavService) {
+foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', 'GeoCoder', 'NavService', function($scope, $http, NgMap, NavigatorGeolocation, GeoCoder, NavService) {
 
     position = -1;
     document.body.style.overflow = "scroll";
@@ -121,11 +121,19 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
 		$scope.lng = position.coords.longitude;
 	});
     
+    $scope.temp = [];
     $scope.markers = [];
-    $scope.markers.append('908 w. stoughton st. urbana illinois 61801');
-    $scope.markers.append('603 S Wright St, Champaign, IL 61820');
-    $scope.markers.append('522 E Green St, Champaign, IL 61820');
-    
+    $scope.markers.push('908 w. stoughton st. urbana illinois 61801');
+    $scope.markers.push('603 S Wright St, Champaign, IL 61820');
+    $scope.markers.push('522 E Green St, Champaign, IL 61820');
+    $scope.markers.forEach(function(elem) {
+        GeoCoder.geocode({address: elem}).then(function(result) {
+            var lat = result[0].geometry.location.lat();
+            var lng = result[0].geometry.location.lng();
+            console.log(lat + " " + lng);
+            $scope.temp.push('[' + lat + ', ' + lng + ']');
+        });
+    });
 
     $scope.getNearby = function() {
         
