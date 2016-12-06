@@ -2,6 +2,10 @@ var isMobile = false;
 if (screen.width <= 640) {
   isMobile = true;
 };
+(function() {
+  var landing = $("#landing");
+  console.log(landing);
+})();
 
 var position = 0;
 var views = ['#/', '#/facts', '#/purpose', '#/legal', '#/contact'];
@@ -10,7 +14,7 @@ var scrollflag = true;
 if (!isMobile) {
   $("body").bind("mousewheel", function(e) {
     var $indicator = $(".currentposition");
-    if (scrollflag) {
+    if (scrollflag && position >= 0) {
       if (e.originalEvent.wheelDelta /120 < 0 && position < 4) {
         TweenLite.to($indicator, 0.75, {scale: 0.5, backgroundColor: "#d0e8f9"});
       };
@@ -116,9 +120,17 @@ $(".homelink").on("click", function() {
   console.log($(this).data("link"));
 });
 
-var setPosition = function(idx) {
+/*var setPosition = function(idx) {
   position = idx;
-};
+  if (!isMobile) {
+    if (position == -1) {
+      document.body.style.overflow = "scroll";
+    }
+    else {
+      document.body.style.overflow = "hidden";
+    };
+  };
+};*/
 
 var toggleMenu = function() {
   document.getElementById("menu").style.display = "block";
