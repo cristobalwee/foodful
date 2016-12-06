@@ -96,3 +96,41 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
 
 
 }]);
+
+foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
+  Prof.getProfile().success(function(data) {
+    console.log(data);
+    $scope.user = data.data;
+    $scope.showStatus = false;
+    if($scope.user.typeID == 1)
+      $scope.showStatus = true;
+  }).error(function(err) {
+    console.log(err);
+  });
+}]);
+
+foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
+  Prof.getProfile().success(function(data) {
+    $scope.displayText = "";
+    $scope.showDisplay = false;
+    $scope.displayBackground = "#FF0000";
+    $scope.user = data.data;
+    $scope.showStatus = false;
+    if($scope.user.typeID == 1)
+      $scope.showStatus = true;
+    $scope.updateProfile = function() {
+      if($scope.user.name !== "" && $scope.user.email !== "") {
+        Prof.updateProfile($scope.user).success(function(data) {
+          $scope.displayBackground = "#1addbd";
+          $scope.displayText = "Profile Updated";
+        }).error(function(err) {
+          $scope.displayText = err.message;
+        });
+      }
+      else {
+        $scope.displayText = "Please Fill in All Required Information";
+      }
+      $scope.showDisplay = true;
+    };
+  });
+}]);
