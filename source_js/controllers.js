@@ -127,15 +127,12 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
 		$scope.lat = position.coords.latitude;
 		$scope.lng = position.coords.longitude;
 	});
-
-
-
-
 }]);
 
-foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
+foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', 'UserAuth', '$location', function($scope, $http, Prof, UserAuth, $location) {
   position = -1;
   document.body.style.overflow = "scroll";
+
   Prof.getProfile().success(function(data) {
     console.log(data);
     $scope.user = data.data;
@@ -145,11 +142,52 @@ foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', f
   }).error(function(err) {
     console.log(err);
   });
+
+  $scope.logout = function() {
+    UserAuth.logout();
+      $location.path('/');
+  };
 }]);
 
-foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
+foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$routeParams', 'Prof', '$location', 'UserAuth', function($scope, $http, $routeParams, Prof, $location, UserAuth) {
+    position = -1;
+    document.body.style.overflow = "scroll";
+
+    $scope.profileID = $routeParams.id;
+
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
+    /* Control the Public Profile */
+    $scope.show = false
+    if (UserAuth.currentUser != null){
+        $scope.show = true;
+    }
+    console.log($scope.show);
+
+
+    Prof.getPublicProfile($scope.profileID).success(function(data) {
+        console.log(data);
+        $scope.user = data.data;
+
+    }).error(function(err){
+        console.log(err);
+    });
+
+
+
+}]);
+
+foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof', '$location', 'UserAuth', function($scope, $http, Prof, $location, UserAuth) {
   position = -1;
   document.body.style.overflow = "scroll";
+
+  $scope.logout = function() {
+    UserAuth.logout();
+      $location.path('/');
+  };
+
   Prof.getProfile().success(function(data) {
     $scope.displayText = "";
     $scope.showDisplay = false;
@@ -175,9 +213,13 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
   });
 }]);
 
-foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
+foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', '$location', 'UserAuth', function($scope, $http, Prof, $location, UserAuth) {
   position = -1;
   document.body.style.overflow = "scroll";
 
+  $scope.logout = function() {
+    UserAuth.logout();
+      $location.path('/');
+  };
   $scope.favorites = [{"name": "Southern California food bank", "description": "The Southern California food bank is the largest operating food bank in the greater Los Angeles area, serving over 1,000 people daily.", "amount": 0}, {"name": "Northern California food bank", "description": "The Northern California food bank is the largest operating food bank in the greater Sacramento area, serving over 1,000 people daily.", "amount": 1}];
 }]);

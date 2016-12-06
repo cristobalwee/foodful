@@ -2,10 +2,6 @@ var isMobile = false;
 if (screen.width <= 640) {
   isMobile = true;
 };
-(function() {
-  var landing = $("#landing");
-  console.log(landing);
-})();
 
 var position = 0;
 var views = ['#/', '#/facts', '#/purpose', '#/legal', '#/contact'];
@@ -115,10 +111,6 @@ if (!isMobile) {
     }, 950);
   };
 };
-
-$(".homelink").on("click", function() {
-  console.log($(this).data("link"));
-});
 
 /*var setPosition = function(idx) {
   position = idx;
