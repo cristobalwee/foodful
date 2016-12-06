@@ -85,12 +85,12 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
         $scope.endTime = "AM";
         $scope.registerData.typeID = 1;
         */
-        $scope.locstring = "";
-        $scope.locstring += $scope.address + " ";
-        $scope.locstring += $scope.city + " ";
-        $scope.locstring += $scope.state + " ";
-        $scope.locstring += $scope.zipcode;
-
+        $scope.registerData.address = "";
+        $scope.registerData.address += $scope.address + " ";
+        $scope.registerData.address += $scope.city + " ";
+        $scope.registerData.address += $scope.state + " ";
+        $scope.registerData.address += $scope.zipcode;
+        
         if ($scope.startTime == 'PM') {
             $scope.registerData.start_hour += 12;
         }
@@ -100,7 +100,7 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
         if ($scope.pwConfirm != $scope.registerData.password) {
             console.log('password is different');
         } else {
-            GeoCoder.geocode({address: $scope.locstring}).then(function(result) {
+            GeoCoder.geocode({address: $scope.registerData.address}).then(function(result) {
                 $scope.registerData.loc = [];
                 $scope.registerData.loc[0] = result[0].geometry.location.lng();
                 $scope.registerData.loc[1] = result[0].geometry.location.lat();
@@ -118,23 +118,71 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
     };
 }]);
 
-foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', function($scope, $http, NgMap, NavigatorGeolocation) {
-  position = -1;
-  document.body.style.overflow = "scroll";
-	$scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAXUxA57EfUTXdhcK27-kc6r6HFqPBT5J4&libraries=places";
+foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', 'GeoCoder', 'NavService', function($scope, $http, NgMap, NavigatorGeolocation, GeoCoder, NavService) {
 
-	var myLatLng = {lat: -25.363, lng: 131.044};
+    position = -1;
+    document.body.style.overflow = "scroll";
+	$scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAXUxA57EfUTXdhcK27-kc6r6HFqPBT5J4&libraries=places";
 
 	NavigatorGeolocation.getCurrentPosition().then(function(position) {
 		$scope.lat = position.coords.latitude;
 		$scope.lng = position.coords.longitude;
 	});
+    
+    //$scope.temp = [];
+    $scope.searchResults = [];
+    $scope.result = {
+      name: "Name"
+    };
+    /*
+    $scope.markers.push('908 w. stoughton st. urbana illinois 61801');
+    $scope.markers.push('603 S Wright St, Champaign, IL 61820');
+    $scope.markers.push('522 E Green St, Champaign, IL 61820');
+    
+    $scope.markers.forEach(function(elem) {
+        GeoCoder.geocode({address: elem}).then(function(result) {
+            var lat = result[0].geometry.location.lat();
+            var lng = result[0].geometry.location.lng();
+            //console.log(lat + " " + lng);
+            $scope.temp.push('[' + lat + ', ' + lng + ']');
+        });
+    });
+    */
+    $scope.getNearby = function() {
+        GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
+            $scope.search.latitude = result[0].geometry.location.lat();
+            $scope.search.longitude = result[0].geometry.location.lng();
+            NavService.getNearby($scope.search).then(function(result) {
+              var results = result.data.data;
+              results.forEach(function(elem) {
+                console.log(elem);
+                var lat = elem.location[1];
+                var lng = elem.location[0];
+                $scope.searchResults.push(elem);
+                //$scope.searchResult.push('[' + lat + ', ' + lng + ']');
+              });
+            }).catch(function(message) {
+              console.log(message);
+            });
+        });
+        /*
+        NavigatorGeolocation.getCurrentPosition().then(function(position) {
+            $scope.queryParams.lat = position.coords.latitude;
+            $scope.queryParams.long = position.coords.longitude;
+        }).catch(function(arg) {
+            console.log(arg);
+        });
+        */
+        
+    }
+
+
 }]);
 
 foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', 'UserAuth', '$location', function($scope, $http, Prof, UserAuth, $location) {
   position = -1;
   document.body.style.overflow = "scroll";
-
+  
   Prof.getProfile().success(function(data) {
     console.log(data);
     $scope.user = data.data;

@@ -2,7 +2,6 @@ var foodfulServices = angular.module('foodfulServices', []);
 
 foodfulServices.factory('UserAuth', function($http, $window) {
     var api = 'http://fa16-cs498rk-016.cs.illinois.edu:3000/api';
-
     var loginUser = function(loginData) {
         return $http.post(api + '/login', loginData);
     }
@@ -55,6 +54,19 @@ foodfulServices.factory('UserAuth', function($http, $window) {
         logout: logout,
     }
 });
+
+
+foodfulServices.factory('NavService', function($http) {
+    var api = 'http://fa16-cs498rk-016.cs.illinois.edu:3000/api';
+    var getNearby = function(params) {
+        return $http.post(api + '/search', params);
+    }
+    
+    return {
+        getNearby: getNearby
+    }
+});
+
 
 foodfulServices.factory('Prof', function($http, $window, UserAuth) {
   var api = 'http://fa16-cs498rk-016.cs.illinois.edu:3000/api';
