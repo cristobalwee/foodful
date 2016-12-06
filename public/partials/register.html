@@ -1,43 +1,86 @@
 <div id="register">
   <form name="registerForm" ng-submit="register()">
-    <div class="row">
-        <label>user type
-          <input ng-model="registerData.typeID" type="radio" name="typeid" value="1" checked><label>donatee</label>
-          <input ng-model="registerData.typeID" type="radio" name="typeid" value="0"><label>donor</label>
-        </label>
-
-        <input ng-model="registerData.name" type="text" placeholder="name">
-        <input ng-model="registerData.email" type="email" placeholder="email">
-        <input ng-model="registerData.phone_number" type="tel" placeholder="phone number">
-        <input ng-model="address" type="text" placeholder="address">
-        <input ng-model="city" type="text" placeholder="city">
-        <input ng-model="state" type="text" placeholder="state">
-        <input ng-model="zipcode" type="text" placeholder="zip code">
-
-        <label>
-        Start hour
-        <input ng-model="registerData.start_hour" type="text">
-        Start minute
-        <input ng-model="registerData.start_minute" type="text">
-        <select ng-model="startTime">
-            <option value="AM">A.M.</option>
-            <option value="PM">P.M.</option>
-        </select>
-        End hour
-        <input ng-model="registerData.end_hour" type="text">
-        End minute
-        <input ng-model="registerData.end_minute" type="text">
-        <select ng-model="endTime">
-            <option value="AM">A.M.</option>
-            <option value="PM">P.M.</option>
-        </select>
-        </label>
-
-        <input ng-model="registerData.password" type="password" placeholder="password">
-        <input ng-model="pwConfirm" type="password" placeholder="confirm password">
-        <input ng-model="registerData.description" placeholder="descritption" type="text">
-
+    <div class="row center">
+      <div class="small-12 columns">
+        <img src="./media/logo.svg">
+        <h3>foodful</h3>
+      </div>
+      <div class="small-12 columns">
+        <div class="row center">
+          <div class="medium-6 columns">
+            <select ng-model="registerData.typeID">
+              <option value="" disabled selected>donor or donatee?</option>
+              <option value="0">donor</option>
+              <option value="1">donatee</option>
+            </select>
+            <!--label>user type
+              <input ng-model="registerData.typeID" type="radio" name="typeid" value="1" checked><label>donatee</label>
+              <input ng-model="registerData.typeID" type="radio" name="typeid" value="0"><label>donor</label>
+            </label-->
+          </div>
+          <div class="medium-6 columns">
+            <input ng-model="registerData.name" type="text" placeholder="name" required>
+          </div>
+        </div>
+        <div class="row center">
+          <div class="medium-6 columns">
+            <input ng-model="registerData.email" type="email" placeholder="email" required>
+          </div>
+          <div class="medium-6 columns">
+            <input ng-model="registerData.phone_number" type="tel" placeholder="phone number" required>
+          </div>
+        </div>
+        <div class="row center">
+          <div class="medium-6 columns">
+            <input ng-model="address" type="text" placeholder="address" required>
+          </div>
+          <div class="medium-6 columns">
+            <input ng-model="city" type="text" placeholder="city" required>
+          </div>
+        </div>
+        <div class="row center">
+          <div class="medium-6 columns">
+            <input ng-model="state" type="text" placeholder="state" required>
+          </div>
+          <div class="medium-6 columns">
+            <input ng-model="zipcode" type="text" placeholder="zip code" required>
+          </div>
+        </div>
+        <div class="row center">
+          <div class="medium-6 columns">
+            <input class="hrmin" ng-model="registerData.start_hour" type="text" placeholder="opening hour" required>&nbsp;:
+            <input class="hrmin" ng-model="registerData.start_minute" type="text" placeholder="opening minute" required>
+            <select class="hrmin" ng-model="startTime">
+              <option value="" disabled selected>am or pm?</option>
+              <option value="AM">am</option>
+              <option value="PM">pm</option>
+            </select>
+          </div>
+          <div class="medium-6 columns">
+            <input class="hrmin" ng-model="registerData.end_hour" type="text" placeholder="closing hour" required>&nbsp;:
+            <input class="hrmin" ng-model="registerData.end_minute" type="text" placeholder="closing minute" required>
+            <select class="hrmin" ng-model="endTime">
+              <option value="" disabled selected>am or pm?</option>
+              <option value="AM">am</option>
+              <option value="PM">pm</option>
+            </select>
+          </div>
+        </div>
+        <div class="row center">
+          <div class="medium-6 columns">
+            <input ng-model="registerData.password" type="password" placeholder="password" required>
+          </div>
+          <div class="medium-6 columns">
+            <input ng-model="pwConfirm" type="password" placeholder="confirm password" required>
+          </div>
+          <div class="row center">
+            <div class="medium-12 columns">
+              <input id="description" ng-model="registerData.description" placeholder="description" type="text">
+            </div>
+          </div>
+        </div>
         <button type="submit" class="primary button">Submit</button>
+      </div>
     </div>
   </form>
 </div>

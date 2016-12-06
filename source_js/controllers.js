@@ -38,7 +38,7 @@ foodfulControllers.controller('ContactController', ['$scope', '$http', function(
 
 foodfulControllers.controller('AboutController', ['$scope', '$http', function($scope, $http) {
     position = -1;
-    document.body.style.overflow = "scroll";
+    document.body.style.overflow = "hidden";
 }]);
 
 foodfulControllers.controller('LoginController', ['$scope', '$location', 'UserAuth', function($scope, $location, UserAuth) {
@@ -111,6 +111,8 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
 
 foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', 'NavService', function($scope, $http, NgMap, NavigatorGeolocation, NavService) {
 
+    position = -1;
+    document.body.style.overflow = "scroll";
 	$scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAXUxA57EfUTXdhcK27-kc6r6HFqPBT5J4&libraries=places";
 
 	NavigatorGeolocation.getCurrentPosition().then(function(position) {
