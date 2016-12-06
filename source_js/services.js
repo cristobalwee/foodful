@@ -2,7 +2,7 @@ var foodfulServices = angular.module('foodfulServices', []);
 
 foodfulServices.factory('UserAuth', function($http, $window) {
     var api = 'http://fa16-cs498rk-016.cs.illinois.edu:3000/api';
-    
+
     var loginUser = function(loginData) {
         return $http.post(api + '/login', loginData);
     }
@@ -42,7 +42,7 @@ foodfulServices.factory('UserAuth', function($http, $window) {
     var logout = function() {
         $window.localStorage.removeItem('foodful-token');
     }
-    
+
     return {
         loginUser: loginUser,
         registerUser: registerUser,
@@ -50,9 +50,10 @@ foodfulServices.factory('UserAuth', function($http, $window) {
         currentUser: currentUser,
         saveToken: saveToken,
         getToken: getToken,
-        logout: logout
+        logout: logout,
     }
 });
+
 
 foodfulServices.factory('NavService', function($http) {
     
@@ -66,5 +67,22 @@ foodfulServices.factory('NavService', function($http) {
 });
 
 
+foodfulServices.factory('Prof', function($http, $window, UserAuth) {
+  var api = 'http://fa16-cs498rk-016.cs.illinois.edu:3000/api';
+  var getProfile = function() {
+    var token = UserAuth.getToken();
+    var payload;
+    payload = token.split('.')[1];
+    payload = $window.atob(payload);
+    payload = JSON.parse(payload);
+    return $http.get(api + '/profile', {
+      headers: {
+        Authorization: 'Bearer '+ UserAuth.getToken()
+      }
+    });
+  };
 
-
+  return {
+    getProfile : getProfile
+  };
+});

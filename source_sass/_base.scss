@@ -415,6 +415,85 @@ a {
   }
 }
 
+#profile {
+  width: 100vw;
+  height: 100vh;
+  padding-left: 10rem;
+  padding-right: 10rem;
+
+  .left {
+    padding-left: 3rem;
+  }
+
+  h2 {
+    font-family: $font;
+    color: $secondarycolor;
+    line-height: 110%;
+  }
+
+  h5 {
+    font-family: $font;
+    color: $secondarycolor;
+    line-height: 110%;
+  }
+
+  button {
+    padding: 1rem 1.5rem;
+    border: solid 1px $secondarycolor;
+    @include border-radius(4px);
+    font-family: $font;
+  }
+
+  input {
+    border: solid 1px $secondarycolor;
+    @include border-radius(8px);
+    display: inline !important;
+    width: 14rem;
+    font-family: $font;
+    color: $secondarycolor;
+
+    &::-webkit-input-placeholder {
+      color: $secondarycolor;
+      font-family: $font;
+    }
+
+    &::-moz-placeholder {
+      color: $secondarycolor;
+      font-family: $font;
+    }
+
+    &:-ms-input-placeholder {
+      color: $secondarycolor;
+      font-family: $font;
+    }
+
+    &:-moz-placeholder {
+      color: $secondarycolor;
+      font-family: $font;
+    }
+  }
+
+}
+
+#innerprofile {
+  position: relative;
+  top: 200px;
+}
+
+.proffiller {
+  height: 25px;
+}
+
+.midcol {
+  position: relative;
+  top: 15px;
+}
+
+.phonecol {
+  position: relative;
+  top: 25px;
+}
+
 #landing {
   width: 100vw;
   height: 100vh;
@@ -680,6 +759,17 @@ a {
   background-color: $primarycolor;
   text-align: center;
 
+  .backbtn {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+
+    p {
+      font-family: $font;
+      color: $secondarycolor;
+    }
+  }
+
   form {
     background-color: white;
     @include border-radius(8px);
@@ -762,6 +852,17 @@ a {
   background-color: $primarycolor;
   text-align: center;
   padding-bottom: 20vh;
+
+  .backbtn {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+
+    p {
+      font-family: $font;
+      color: $secondarycolor;
+    }
+  }
 
   form {
     background-color: white;

@@ -1,4 +1,7 @@
 <div id="register">
+  <div class="backbtn">
+    <a href="#/"><p>&larr; back to foodful</p></a>
+  </div>
   <form name="registerForm" ng-submit="register()">
     <div class="row center">
       <div class="small-12 columns">
@@ -36,11 +39,15 @@
           </div>
           <div class="medium-6 columns">
             <input ng-model="city" type="text" placeholder="city" required>
+
           </div>
         </div>
         <div class="row center">
           <div class="medium-6 columns">
-            <input ng-model="state" type="text" placeholder="state" required>
+            <select ng-model="state" required>
+              <option value="" disabled selected>state</option>
+              <option ng-repeat="state in states" value={{state}}>{{state}}</option>
+            </select>
           </div>
           <div class="medium-6 columns">
             <input ng-model="zipcode" type="text" placeholder="zip code" required>

@@ -36,14 +36,33 @@ app.config(function ($routeProvider) {
       templateUrl: 'partials/search.html',
       controller: 'SearchController'
     })
-    
+
     .when('/login', {
       templateUrl: 'partials/login.html',
       controller: 'LoginController'
     })
-    
+
     .when('/register', {
       templateUrl: 'partials/register.html',
       controller: 'RegisterController'
     })
+
+    .when('/profile', {
+      templateUrl: 'partials/profile.html',
+      controller: 'ProfileController'
+    })
+
+    .when('/editprofile', {
+      templateUrl: 'partials/editprofile.html',
+      controller: 'EditProfileController'
+    })
+
+})
+
+app.run(function($rootScope, $location, UserAuth) {
+  $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
+    if ($location.path() === '/profile' && !UserAuth.isLoggedIn()) {
+      $location.path('/');
+    }
+  });
 })
