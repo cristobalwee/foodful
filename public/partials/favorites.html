@@ -1,0 +1,16 @@
+<div class="expanded row small-up-1">
+	<div class="userlist" ng-repeat="user in users">
+		<div class="small-2 small-offset-2 column">
+			<a href="#/users/{{user._id}}"><h6>{{user.name}}</h6></a>
+		</div>
+		<div class="small-4 text-center column">
+			<h6>{{user.email}}</h6>
+		</div>
+		<div class="small-4 text-center column">
+			<button ng-click="delete(user)" class="button tiny info">Delete</button>
+		</div>
+		<div class="expanded row">
+			<div class="itemborder small-8 small-offset-2 column"></div>
+		</div>
+	</div>
+</div>

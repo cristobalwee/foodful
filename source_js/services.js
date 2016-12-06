@@ -69,7 +69,25 @@ foodfulServices.factory('Prof', function($http, $window, UserAuth) {
     });
   };
 
+  var updateProfile = function(user) {
+    var token = UserAuth.getToken();
+    var payload;
+    payload = token.split('.')[1];
+    payload = $window.atob(payload);
+    payload = JSON.parse(payload);
+    return $http.put(api + '/profile', user, {
+      headers: {
+        Authorization: 'Bearer ' + UserAuth.getToken()
+      }
+    });
+  };
+
+  var getPublicProfile = function(id) {
+    return $http.get(api + '/profile/' + id.toString());
+  }
+
   return {
-    getProfile : getProfile
+    getProfile : getProfile,
+    updateProfile : updateProfile,
   };
 });

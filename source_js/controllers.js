@@ -141,7 +141,7 @@ foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', f
 
 foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
   Prof.getProfile().success(function(data) {
-    $scope.displayText = "";
+    /*$scope.displayText = "";
     $scope.showDisplay = false;
     $scope.displayBackground = "#FF0000";
     $scope.user = data.data;
@@ -160,7 +160,65 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
       else {
         $scope.displayText = "Please Fill in All Required Information";
       }
-      $scope.showDisplay = true;
+      $scope.showDisplay = true;*
+    };*/
+    $scope.user = data.data;
+    $scope.states = ["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID", "IL","IN","KS","KY","LA","MA","MD","ME","MH","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
+    $scope.update = function() {
+        /*
+        $scope.registerData.name = "d";
+        $scope.registerData.email = "d234@gmail.com";
+        $scope.registerData.phone_number = "1112223333";
+        $scope.registerData.start_hour = "10";
+        $scope.registerData.start_minute = "0";
+        $scope.registerData.end_hour = "5";
+        $scope.registerData.end_minute = "30";
+        $scope.registerData.password = "pw1";
+        $scope.pwConfirm = "pw1";
+        $scope.startTime = "AM";
+        $scope.endTime = "AM";
+        $scope.registerData.typeID = 1;
+        */
+        $scope.locstring = "";
+        $scope.locstring += $scope.address + " ";
+        $scope.locstring += $scope.city + " ";
+        $scope.locstring += $scope.state + " ";
+        $scope.locstring += $scope.zipcode;
+
+        if ($scope.startTime == 'PM') {
+            $scope.user.start_hour += 12;
+        }
+        if ($scope.endTime == 'PM') {
+            $scope.user.end_hour += 12;
+        }
+        Prof.updateProfile($scope.user);
+      /*  GeoCoder.geocode({address: $scope.locstring}).then(function(result) {
+            $scope.registerData.loc = [];
+            $scope.registerData.loc[0] = result[0].geometry.location.lng();
+            $scope.registerData.loc[1] = result[0].geometry.location.lat();
+            UserAuth.registerUser($scope.registerData).then(function(arg) {
+                UserAuth.saveToken(arg.data.token);
+                console.log(arg);
+                $location.path('profile');
+            }).catch(function(arg) {
+                console.log(arg);
+            });
+        }).catch(function(arg) {
+            console.log(arg);
+        });*/
     };
   });
+}]);
+
+foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
+    Prof.getProfile().success(function(data) {
+      $scope.user = data.data;
+      var favoritesids = $scope.user.favorites;
+      $scope.favorites = [];
+      for(var i = 0; i < favoritesids.length; i++) {
+        Prof.getPublicProfile(favoritesids[i]).success(function(data) {
+          $scope.favorites.push(data.data);
+        })
+      }
+    });
 }]);

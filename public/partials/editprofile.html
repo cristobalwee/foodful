@@ -1,4 +1,4 @@
-<div data-sticky-container>
+<!--<div data-sticky-container>
   <div class="title-bar" data-sticky data-options="marginTop:0;" style="width:100%">
     <div class="title-bar-left">
       <a href="#/" onclick="setPosition(0)" class="homelink"><img src="./media/logo.svg"></a>
@@ -67,4 +67,79 @@
       </div>
     </div>
   </div>
+</div>
+-->
+<div id="register">
+  <div class="backbtn">
+    <a href="#/profile"><p>&larr; back to profile</p></a>
+  </div>
+  <form name="registerForm" ng-submit="update()">
+    <div class="row center">
+      <div class="small-12 columns">
+        <img src="./media/logo.svg">
+        <h3>{{user.name}}</h3>
+      </div>
+      <div class="small-12 columns">
+        <div class="row center">
+          <div class="medium-6 columns">
+            <input ng-model="user.name" type="text" placeholder="{{user.name}}" required>
+            <!--label>user type
+              <input ng-model="registerData.typeID" type="radio" name="typeid" value="1" checked><label>donatee</label>
+              <input ng-model="registerData.typeID" type="radio" name="typeid" value="0"><label>donor</label>
+            </label-->
+          </div>
+          <div class="medium-6 columns">
+            <input ng-model="user.phone_number" type="tel" placeholder="{{user.phone_number}}" required>
+          </div>
+        </div>
+        <div class="row center">
+          <div class="medium-6 columns">
+            <input ng-model="address" type="text" placeholder="{{user.address}}" required>
+          </div>
+          <div class="medium-6 columns">
+            <input ng-model="city" type="text" placeholder="{{user.city}}" required>
+          </div>
+        </div>
+        <div class="row center">
+          <div class="medium-6 columns">
+            <select ng-model="state" required>
+              <option value="" disabled selected>state</option>
+              <option ng-repeat="state in states" value={{user.state}}>{{state}}</option>
+            </select>
+          </div>
+          <div class="medium-6 columns">
+            <input ng-model="zipcode" type="text" placeholder="{{user.zipcode}}" required>
+          </div>
+        </div>
+        <div class="row center">
+          <div class="medium-6 columns">
+            <input class="hrmin" ng-model="registerData.start_hour" type="text" placeholder="{{user.start_hour}}" required>&nbsp;:
+            <input class="hrmin" ng-model="registerData.start_minute" type="text" placeholder="{{user.start_minute}}" required>
+            <select class="hrmin" ng-model="startTime">
+              <option value="" disabled selected>am or pm?</option>
+              <option value="AM">am</option>
+              <option value="PM">pm</option>
+            </select>
+          </div>
+          <div class="medium-6 columns">
+            <input class="hrmin" ng-model="registerData.end_hour" type="text" placeholder="{{user.end_hour}}" required>&nbsp;:
+            <input class="hrmin" ng-model="registerData.end_minute" type="text" placeholder="{{user.end_minute}}" required>
+            <select class="hrmin" ng-model="endTime">
+              <option value="" disabled selected>am or pm?</option>
+              <option value="AM">am</option>
+              <option value="PM">pm</option>
+            </select>
+          </div>
+        </div>
+        <div class="row center">
+          <div class="row center">
+            <div class="medium-12 columns">
+              <input id="description" ng-model="registerData.description" placeholder="{{user.description}}" type="text">
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="primary button">Update</button>
+      </div>
+    </div>
+  </form>
 </div>
