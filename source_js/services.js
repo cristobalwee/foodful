@@ -31,6 +31,8 @@ foodfulServices.factory('UserAuth', function($http, $window) {
                 email: payload.email,
                 name: payload.name
             };
+        }else{
+            return null;
         }
     }
     var saveToken = function(token) {
