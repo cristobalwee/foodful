@@ -2,7 +2,6 @@ var foodfulControllers = angular.module('foodfulControllers', []);
 
 foodfulControllers.controller('LandingController', ['$scope', 'UserAuth', function($scope, UserAuth) {
     $scope.isLogged = UserAuth.isLoggedIn();
-    console.log($scope.isLogged);
     position = 0;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
@@ -58,20 +57,14 @@ foodfulControllers.controller('LoginController', ['$scope', '$location', 'UserAu
     };
 }]);
 
-foodfulControllers.controller('RegisterController', ['$scope', 'UserAuth', function($scope, UserAuth) {
+foodfulControllers.controller('RegisterController', ['$scope', '$location', 'UserAuth', 'GeoCoder', function($scope, $location, UserAuth, GeoCoder) {
     position = -1;
     document.body.style.overflow = "scroll";
     $scope.registerData = {};
     $scope.register = function() {
         /*
-        $scope.registerData.location = "";
-        $scope.registerData.location += $scope.address + " ";
-        $scope.registerData.location += $scope.city + " ";
-        $scope.registerData.location += $scope.state + " ";
-        $scope.registerData.location += $scope.zipcode;
-        */
-        /*$scope.registerData.name = "d";
-        $scope.registerData.email = "dasdfsd@gmail.com";
+        $scope.registerData.name = "d";
+        $scope.registerData.email = "d234@gmail.com";
         $scope.registerData.phone_number = "1112223333";
         $scope.registerData.start_hour = "10";
         $scope.registerData.start_minute = "0";
@@ -81,8 +74,14 @@ foodfulControllers.controller('RegisterController', ['$scope', 'UserAuth', funct
         $scope.pwConfirm = "pw1";
         $scope.startTime = "AM";
         $scope.endTime = "AM";
-        $scope.registerData.typeID = 1;*/
-        $scope.registerData.location = [1, 2];
+        $scope.registerData.typeID = 1;
+        */
+        $scope.locstring = "";
+        $scope.locstring += $scope.address + " ";
+        $scope.locstring += $scope.city + " ";
+        $scope.locstring += $scope.state + " ";
+        $scope.locstring += $scope.zipcode;
+        
         if ($scope.startTime == 'PM') {
             $scope.registerData.start_hour += 12;
         }
@@ -92,9 +91,17 @@ foodfulControllers.controller('RegisterController', ['$scope', 'UserAuth', funct
         if ($scope.pwConfirm != $scope.registerData.password) {
             console.log('password is different');
         } else {
-            UserAuth.registerUser($scope.registerData).then(function(arg) {
-                UserAuth.saveToken(arg.data.token);
-                $location.path('profile');
+            GeoCoder.geocode({address: $scope.locstring}).then(function(result) {
+                $scope.registerData.loc = [];
+                $scope.registerData.loc[0] = result[0].geometry.location.lng();
+                $scope.registerData.loc[1] = result[0].geometry.location.lat();
+                UserAuth.registerUser($scope.registerData).then(function(arg) {
+                    UserAuth.saveToken(arg.data.token);
+                    console.log(arg);
+                    $location.path('profile');
+                }).catch(function(arg) {
+                    console.log(arg);
+                });
             }).catch(function(arg) {
                 console.log(arg);
             });
