@@ -16,7 +16,32 @@
     </div>
   </div>
 </div>
-
+<div class="menu">
+  <div data-sticky-container>
+    <div class="title-bar" data-sticky data-options="marginTop:0;" style="width:100%">
+      <div class="title-bar-left">
+        <a href="javascript:void(0)" class="homelink"><img src="./media/logo.svg"></a>
+        <h4>foodful</h4>
+      </div>
+      <div class="title-bar-right">
+          <button type="button" onclick="closeMenu()" data-toggle><img src="./media/closeicon.svg"></button>
+      </div>
+    </div>
+  </div>
+  <div class="menucontent">
+    <input ng-model="searchText" type="text" placeholder="find a food bank"><br>
+    <a href="#/login">login</a><br>
+    <a href="#/facts">facts</a><br>
+    <a href="#/purpose">purpose</a><br>
+    <a href="#/legal">legal</a><br>
+    <a href="#/about">about</a><br>
+  </div>
+  <div class="footer">
+    <img src="./media/social_facebook.svg">&nbsp;
+    <img src="./media/social_twitter.svg">&nbsp;
+    <img src="./media/social_tumblr.svg">&nbsp;
+  </div>
+</div>
 <div id="favorites">
   <h2>My favorites</h2>
   <div class="favorite" ng-repeat="favorite in favorites">

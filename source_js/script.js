@@ -3,6 +3,15 @@ if (screen.width <= 640) {
   isMobile = true;
 };
 
+$( window ).resize(function() {
+  if (screen.width <= 640) {
+    isMobile = true;
+  }
+  else {
+    isMobile = false;
+  };
+});
+
 var position = 0;
 var views = ['#/', '#/facts', '#/purpose', '#/legal', '#/contact'];
 var scrollflag = true;
@@ -125,13 +134,13 @@ if (!isMobile) {
 };*/
 
 var toggleMenu = function() {
-  document.getElementById("menu").style.display = "block";
-  document.getElementById("menu").style.opacity = 1;
-  document.getElementById("menu").style.zIndex = 4;
+  document.getElementsByClassName("menu")[0].style.display = "block";
+  document.getElementsByClassName("menu")[0].style.opacity = 1;
+  document.getElementsByClassName("menu")[0].style.zIndex = 4;
 };
 
 var closeMenu = function() {
-  document.getElementById("menu").style.display = "none";
-  document.getElementById("menu").style.opacity = 0;
-  document.getElementById("menu").style.zIndex = -1;
+  document.getElementsByClassName("menu")[0].style.display = "none";
+  document.getElementsByClassName("menu")[0].style.opacity = 0;
+  document.getElementsByClassName("menu")[0].style.zIndex = -1;
 };

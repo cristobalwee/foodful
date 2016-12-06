@@ -38,7 +38,9 @@ foodfulControllers.controller('ContactController', ['$scope', '$http', function(
 
 foodfulControllers.controller('AboutController', ['$scope', '$http', function($scope, $http) {
     position = -1;
-    document.body.style.overflow = "hidden";
+    if (!isMobile) {
+      document.body.style.overflow = "hidden";
+    }
 }]);
 
 foodfulControllers.controller('LoginController', ['$scope', '$location', 'UserAuth', function($scope, $location, UserAuth) {
