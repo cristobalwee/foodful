@@ -225,8 +225,8 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
           $scope.formError = true;
           $scope.errorMessage = "Passwords are different";
         }
-        
-        
+
+
         if (!$scope.formError) {
           console.log($scope.registerData);
           GeoCoder.geocode({address: "" + $scope.address + $scope.city + $scope.state + $scope.zipcode}).then(function(result) {
@@ -470,11 +470,11 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
     $scope.new_user = $scope.user;
     $scope.startstate = $scope.user.state;
     if($scope.user.typeID === 0) {
-      $scope.donoryes = "Donating"
-      $scope.donorno = "All Out";
+      $scope.donoryes = "We have food to donate at this time"
+      $scope.donorno = "We are out of food to donate at this time";
     } else {
-      $scope.donoryes = "Accepting"
-      $scope.donorno = "Filled";
+      $scope.donoryes = "We are accepting donations at this time"
+      $scope.donorno = "We are not accepting donations at this time";
     }
 
     $scope.states = ["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID", "IL","IN","KS","KY","LA","MA","MD","ME","MH","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
@@ -528,6 +528,8 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
 }]);
 
 foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', '$location', 'UserAuth', function($scope, $http, Prof, $location, UserAuth) {
+  position = -1;
+  document.body.style.overflow = "scroll";
   $scope.isLogged = UserAuth.currentUser
     Prof.getProfile().success(function(data) {
       $scope.user = data.data;

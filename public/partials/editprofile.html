@@ -66,8 +66,11 @@
               <input id="description" ng-model="user.description" placeholder="{{user.description}}" type="text">
             </div>
             <div class="medium-6 columns">
-              {{donorno}}<input ng-model="user.amount" type="radio" name="donating" value="0">
-              {{donoryes}}<input ng-model="user.amount" type="radio" name="donating" value="1">
+              <select ng-model="user.amount">
+                <option value="" disabled>Current status?</option>
+                <option value="0">{{donorno}}</option>
+                <option value="1">{{donoryes}}</option>
+              </select>
             </div>
           </div>
         </div>
