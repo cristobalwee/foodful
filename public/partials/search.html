@@ -49,7 +49,7 @@
       <div map-lazy-load="https://maps.googleapis.com/maps/api/js?libraries=places" map-lazy-load-params="{{googleMapsUrl}}">
       <!--<marker position=></marker>-->
         <ng-map id="map" center="[{{lat}}, {{lng}}]" zoom="18" style="height: 25rem; width: 100%;">
-          <marker ng-repeat="result in searchResults" position="{{result.locString}}" on-click="showDetail(result)"></marker>
+          <marker ng-repeat="result in searchResults" position="{{result.locString}}" on-click="showDetails(result)"></marker>
           <info-window id="map-info">
             <div ng-non-bindable="">
               HELLLOOWOWOWO
