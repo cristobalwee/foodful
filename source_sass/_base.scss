@@ -1077,6 +1077,47 @@ a {
   }
 }
 
+#searchresults {
+  text-align: center;
+  padding: 1rem 5rem;
+  
+  .favorite {
+    background-color: $primarycolor;
+    @include border-radius(8px);
+    font-family: $font;
+    color: $secondarycolor;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+
+    img {
+      height: 4rem;
+      margin-top: 2rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .profile {
+      margin-top: 1rem;
+      height: 8rem;
+    }
+
+    h2, p {
+      font-family: $font;
+      color: $secondarycolor;
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+
+    .center {
+      text-align: center !important;
+    }
+
+    .padded {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+  }
+}
+
 #favorites {
   text-align: center;
   position: relative;
