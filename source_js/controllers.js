@@ -1,42 +1,47 @@
 var foodfulControllers = angular.module('foodfulControllers', []);
 
 foodfulControllers.controller('LandingController', ['$scope', 'UserAuth', function($scope, UserAuth) {
-    $scope.isLogged = UserAuth.isLoggedIn();
+    $scope.isLogged = UserAuth.currentUser();
     position = 0;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
 }]);
 
-foodfulControllers.controller('FactsController', ['$scope', '$http', function($scope, $http) {
+foodfulControllers.controller('FactsController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+    $scope.isLogged = UserAuth.currentUser();
     position = 1;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
 }]);
 
-foodfulControllers.controller('PurposeController', ['$scope', '$http', function($scope, $http) {
+foodfulControllers.controller('PurposeController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+  $scope.isLogged = UserAuth.currentUser();
     position = 2;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
 }]);
 
-foodfulControllers.controller('LegalController', ['$scope', '$http', function($scope, $http) {
+foodfulControllers.controller('LegalController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+  $scope.isLogged = UserAuth.currentUser();
     position = 3;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
 }]);
 
-foodfulControllers.controller('ContactController', ['$scope', '$http', function($scope, $http) {
+foodfulControllers.controller('ContactController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+  $scope.isLogged = UserAuth.currentUser();
     position = 4;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
 }]);
 
-foodfulControllers.controller('AboutController', ['$scope', '$http', function($scope, $http) {
+foodfulControllers.controller('AboutController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+  $scope.isLogged = UserAuth.currentUser();
     position = -1;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
@@ -117,10 +122,10 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
     };
 }]);
 
-foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', 'GeoCoder', 'NavService', function($scope, $http, NgMap, NavigatorGeolocation, GeoCoder, NavService) {
-
-    position = -1;
-    document.body.style.overflow = "scroll";
+foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', 'GeoCoder', 'NavService', 'UserAuth', function($scope, $http, NgMap, NavigatorGeolocation, GeoCoder, NavService, UserAuth) {
+  $scope.isLogged = UserAuth.currentUser();
+  position = -1;
+  document.body.style.overflow = "scroll";
 	$scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAXUxA57EfUTXdhcK27-kc6r6HFqPBT5J4&libraries=places";
 
 	NavigatorGeolocation.getCurrentPosition().then(function(position) {
@@ -199,6 +204,7 @@ foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', '
 }]);
 
 foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$routeParams', 'Prof', '$location', 'UserAuth', function($scope, $http, $routeParams, Prof, $location, UserAuth) {
+    $scope.isLogged = UserAuth.currentUser();
     position = -1;
     document.body.style.overflow = "scroll";
 
@@ -242,6 +248,13 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
 
     $scope.bothelem = ($scope.show && ($scope.unfav !== true));
     $scope.notbothelem = !$scope.bothelem;
+    Prof.getPublicProfile($scope.profileID).success(function(data) {
+        console.log(data);
+        $scope.user = data.data;
+
+    }).error(function(err){
+        console.log(err);
+    });
 
     $scope.favorite = function() {
         $scope.loggedinUser.favorites.push($scope.user._id);
@@ -317,6 +330,7 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
 }]);
 
 foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
+  $scope.isLogged = UserAuth.currentUser();
     Prof.getProfile().success(function(data) {
       $scope.user = data.data;
       var favoritesids = $scope.user.favorites;
