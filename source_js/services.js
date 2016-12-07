@@ -89,11 +89,8 @@ foodfulServices.factory('Prof', function($http, $window, UserAuth) {
     payload = token.split('.')[1];
     payload = $window.atob(payload);
     payload = JSON.parse(payload);
-    return $http.put(api + '/profile', user, {
-      headers: {
-        Authorization: 'Bearer ' + UserAuth.getToken()
-      }
-    });
+    console.log(payload._id);
+    return $http.put(api + '/profile/' + payload._id.toString(), user);
   };
 
 

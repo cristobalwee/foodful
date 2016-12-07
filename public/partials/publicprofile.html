@@ -46,6 +46,11 @@
 <div id="publicprofile" class="expanded row">
   <div class="small-8 small-centered column">
     <div class="expanded row" id="innerprofile">
+      <div class="expanded row">
+        <div class="small-3 small-offset-9 text-right column">
+          <button ng-show="{{show == true}}" ng-click="favorite()" class="makedifference">Favorite!</button>
+        </div>
+      </div>
       <div class="small-3 column"><h2>Name: </h2></div>
       <div class="small-2 column midcol"><h5>{{user.name}}</h5></div>
       <div class="small-3 small-offset-2 text-left column"><h2>Email: </h2></div>
@@ -70,6 +75,4 @@
       <div class="small-4 small-offset-4 column midcol"><h5>{{user.description}}</h5></div>
     </div>
   </div>
-      <h1 ng-show="{{show == true}}"> I'm logged in!, so i have the option to favorite(bookmark) this profile!</h1>
-
 </div>

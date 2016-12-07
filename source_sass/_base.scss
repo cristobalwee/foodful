@@ -514,6 +514,18 @@ a {
 #innerprofile {
   position: relative;
   top: 200px;
+
+  button {
+    padding: 1rem 1.5rem;
+    border: solid 1px $secondarycolor;
+    @include border-radius(4px);
+    font-family: $font;
+  }
+
+  .makedifference {
+    background-color: $secondarycolor;
+    color: white;
+  }
 }
 
 .proffiller {

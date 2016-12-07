@@ -1,48 +1,42 @@
-var foodfulControllers = angular.module('foodfulControllers', ['ngMap']);
+var foodfulControllers = angular.module('foodfulControllers', []);
 
 foodfulControllers.controller('LandingController', ['$scope', 'UserAuth', function($scope, UserAuth) {
-    $scope.isLogged = UserAuth.currentUser();
-    console.log($scope.isLogged == null);
+    $scope.isLogged = UserAuth.isLoggedIn();
     position = 0;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
 }]);
 
-foodfulControllers.controller('FactsController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
-    $scope.isLogged = UserAuth.currentUser();
+foodfulControllers.controller('FactsController', ['$scope', '$http', function($scope, $http) {
     position = 1;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
 }]);
 
-foodfulControllers.controller('PurposeController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
-    $scope.isLogged = UserAuth.currentUser();
+foodfulControllers.controller('PurposeController', ['$scope', '$http', function($scope, $http) {
     position = 2;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
 }]);
 
-foodfulControllers.controller('LegalController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
-    $scope.isLogged = UserAuth.currentUser();
+foodfulControllers.controller('LegalController', ['$scope', '$http', function($scope, $http) {
     position = 3;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
 }]);
 
-foodfulControllers.controller('ContactController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
-    $scope.isLogged = UserAuth.currentUser();
+foodfulControllers.controller('ContactController', ['$scope', '$http', function($scope, $http) {
     position = 4;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
 }]);
 
-foodfulControllers.controller('AboutController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
-    $scope.isLogged = UserAuth.currentUser();
+foodfulControllers.controller('AboutController', ['$scope', '$http', function($scope, $http) {
     position = -1;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
@@ -134,38 +128,54 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
 		$scope.lng = position.coords.longitude;
 	});
 
+    //$scope.temp = [];
     $scope.searchResults = [];
-    $scope.result = {};
-    $scope.search = {};
-    NgMap.getMap('map').then(function(map) {
-      $scope.map = map;
-    }).catch(function(err) {
-      console.log(err);
+    $scope.result = {
+      name: "Name"
+    };
+    /*
+    $scope.markers.push('908 w. stoughton st. urbana illinois 61801');
+    $scope.markers.push('603 S Wright St, Champaign, IL 61820');
+    $scope.markers.push('522 E Green St, Champaign, IL 61820');
+
+    $scope.markers.forEach(function(elem) {
+        GeoCoder.geocode({address: elem}).then(function(result) {
+            var lat = result[0].geometry.location.lat();
+            var lng = result[0].geometry.location.lng();
+            //console.log(lat + " " + lng);
+            $scope.temp.push('[' + lat + ', ' + lng + ']');
+        });
     });
-    $scope.showDetail = function(info) {
-      $scope.result = info;
-      //console.log(info.latLng.lat());
-      //$scope.map.showInfoWindow('map-info', $scope.result);
-    }
+    */
     $scope.getNearby = function() {
-      $scope.searchResults = [];
         GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
             $scope.search.latitude = result[0].geometry.location.lat();
             $scope.search.longitude = result[0].geometry.location.lng();
             NavService.getNearby($scope.search).then(function(result) {
               var results = result.data.data;
               results.forEach(function(elem) {
-                elem.id = elem._id;
+                console.log(elem);
                 var lat = elem.location[1];
                 var lng = elem.location[0];
-                elem.position = '[' + lat + ', ' + lng + ']';
                 $scope.searchResults.push(elem);
+                //$scope.searchResult.push('[' + lat + ', ' + lng + ']');
               });
             }).catch(function(message) {
               console.log(message);
             });
         });
+        /*
+        NavigatorGeolocation.getCurrentPosition().then(function(position) {
+            $scope.queryParams.lat = position.coords.latitude;
+            $scope.queryParams.long = position.coords.longitude;
+        }).catch(function(arg) {
+            console.log(arg);
+        });
+        */
+
     }
+
+
 }]);
 
 foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', 'UserAuth', '$location', function($scope, $http, Prof, UserAuth, $location) {
@@ -200,11 +210,16 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
     };
     /* Control the Public Profile */
     $scope.show = false
-    if (UserAuth.currentUser != null){
+    if (UserAuth.isLoggedIn()){
         $scope.show = true;
-    }
-    console.log($scope.show);
 
+        console.log($scope.show);
+
+        Prof.getProfile().success(function(data) {
+          console.log(data);
+          $scope.loggedinUser = data.data;
+        });
+      }
 
     Prof.getPublicProfile($scope.profileID).success(function(data) {
         console.log(data);
@@ -214,11 +229,30 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
         console.log(err);
     });
 
+    var favarray = $scope.loggedinUser.favorites;
+    for(var i = 0; i < favarray)
 
+    $scope.favorite = function() {
+        $scope.loggedinUser.favorites.push($scope.user._id);
+        console.log($scope.loggedinUser);
+        Prof.updateProfile($scope.loggedinUser).success(function(args) {
+          console.log(args);
+        }).error(function(arg) {
+          console.log(arg);
+        });
+    };
+
+    $scope.unfavorite = function() {
+        var favoritearr =  $scope.loggedinUser.favorites;
+        for(var i = 0; i < favoritearr.length; i++) {
+          if(favoritearr[i] === $scope.user.id)
+            favoritearr.splice(i, 1);
+        }
+    };
 
 }]);
 
-foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof', '$location', 'UserAuth', function($scope, $http, Prof, $location, UserAuth) {
+foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof', '$location', 'UserAuth', 'GeoCoder', function($scope, $http, Prof, $location, UserAuth, GeoCoder) {
   position = -1;
   document.body.style.overflow = "scroll";
 
@@ -228,49 +262,25 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
   };
 
   Prof.getProfile().success(function(data) {
-    /*$scope.displayText = "";
-    $scope.showDisplay = false;
-    $scope.displayBackground = "#FF0000";
     $scope.user = data.data;
-    $scope.showStatus = false;
-    if($scope.user.typeID == 1)
-      $scope.showStatus = true;
-    $scope.updateProfile = function() {
-      if($scope.user.name !== "" && $scope.user.email !== "") {
-        Prof.updateProfile($scope.user).success(function(data) {
-          $scope.displayBackground = "#1addbd";
-          $scope.displayText = "Profile Updated";
-        }).error(function(err) {
-          $scope.displayText = err.message;
-        });
-      }
-      else {
-        $scope.displayText = "Please Fill in All Required Information";
-      }
-      $scope.showDisplay = true;*
-    };*/
-    $scope.user = data.data;
+    $scope.startstate = $scope.user.state;
     $scope.states = ["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID", "IL","IN","KS","KY","LA","MA","MD","ME","MH","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
+    if($scope.user.start_hour >= 12)
+      $scope.startTime = 'PM';
+    else {
+      $scope.startTime = 'AM';
+    }
+    if($scope.user.end_hour >= 12)
+      $scope.endTime = 'PM';
+    else {
+      $scope.endTime = 'AM';
+    }
     $scope.update = function() {
-        /*
-        $scope.registerData.name = "d";
-        $scope.registerData.email = "d234@gmail.com";
-        $scope.registerData.phone_number = "1112223333";
-        $scope.registerData.start_hour = "10";
-        $scope.registerData.start_minute = "0";
-        $scope.registerData.end_hour = "5";
-        $scope.registerData.end_minute = "30";
-        $scope.registerData.password = "pw1";
-        $scope.pwConfirm = "pw1";
-        $scope.startTime = "AM";
-        $scope.endTime = "AM";
-        $scope.registerData.typeID = 1;
-        */
         $scope.locstring = "";
-        $scope.locstring += $scope.address + " ";
-        $scope.locstring += $scope.city + " ";
-        $scope.locstring += $scope.state + " ";
-        $scope.locstring += $scope.zipcode;
+        $scope.locstring += $scope.user.address + " ";
+        $scope.locstring += $scope.user.city + " ";
+        $scope.locstring += $scope.user.state + " ";
+        $scope.locstring += $scope.user.zipcode;
 
         if ($scope.startTime == 'PM') {
             $scope.user.start_hour += 12;
@@ -278,36 +288,24 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
         if ($scope.endTime == 'PM') {
             $scope.user.end_hour += 12;
         }
-        Prof.updateProfile($scope.user);
-      /*  GeoCoder.geocode({address: $scope.locstring}).then(function(result) {
-            $scope.registerData.loc = [];
-            $scope.registerData.loc[0] = result[0].geometry.location.lng();
-            $scope.registerData.loc[1] = result[0].geometry.location.lat();
-            UserAuth.registerUser($scope.registerData).then(function(arg) {
-                UserAuth.saveToken(arg.data.token);
-                console.log(arg);
-                $location.path('profile');
+        GeoCoder.geocode({address: $scope.locstring}).then(function(result) {
+            $scope.user.loc = [];
+            $scope.user.loc[0] = result[0].geometry.location.lng();
+            $scope.user.loc[1] = result[0].geometry.location.lat();
+            console.log($scope.user);
+            Prof.updateProfile($scope.user).then(function(arg) {
+                console.log(arg)
             }).catch(function(arg) {
                 console.log(arg);
             });
         }).catch(function(arg) {
             console.log(arg);
-        });*/
+        });
     };
   });
 }]);
 
-foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', 'UserAuth', function($scope, $http, Prof, UserAuth) {
-  $scope.isLogged = UserAuth.currentUser();
-  position = -1;
-  document.body.style.overflow = "scroll";
-  $scope.favorites = [
-    {"_id":"584730a01c514238af6ff2cc","hash":"77982fa0d4cb0b60d2e5ed869fcbaaa8ad4e1be51584e631bdb828d4c5946568f42c3fe76a04aa6eee4d83332406cfa849c0e271afe0c5b804e27c953df3e574","salt":"dcd2b340d62e999953997013917a2aff","end_minute":20,"end_hour":15,"start_minute":20,"start_hour":2,"location":[40.2138425,-88.119828],"address":"Siebel Ave","phone_number":1234567890,"email":"henry@james.com","name":"henry james","typeID":0,
-    "__v":0,"updated_date":"2016-12-06T21:41:52.741Z","created_date":"2016-12-06T21:41:52.741Z","favorites":[],"num_ratings":[],"rating":0,"amount":1},
-    {"_id":"584730a01c514238af6ff2cd","hash":"7bb378c5c3fff71ae3191ef1ddd02a944c49cc0323265404544e3abb6c9f607d52ea4436f29758dd294dbc17d1d33f6baf9bcf68ac86184b0dbeb5cc9cfb5a53","salt":"ce5fae53d4ca0a31ed69e3eb2333fed0","end_minute":20,"end_hour":15,"start_minute":20,"start_hour":2,"location":[41.2138425,-89.219828],"city":"Urbana","state":"IL","zipcode":"61801","address":"Siebel Ave",
-    "phone_number":123456789,"email":"jerry@carter.com","name":"jerry carter","typeID":1,"__v":0,"updated_date":"2016-12-06T21:41:52.819Z","created_date":"2016-12-06T21:41:52.819Z","favorites":[],"num_ratings":[],"rating":0,"amount":1}
-  ]
-
+foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
     Prof.getProfile().success(function(data) {
       $scope.user = data.data;
       var favoritesids = $scope.user.favorites;
