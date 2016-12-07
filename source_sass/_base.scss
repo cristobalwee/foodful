@@ -1424,6 +1424,46 @@ a {
     color: $secondarycolor;
   }
 
+  .smallbtn {
+    padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
+  }
+
+  .morefoodful {
+    color: $secondarycolor;
+    background-color: white;
+  }
+
+  select {
+    border: solid 1px $secondarycolor;
+    @include border-radius(8px);
+    display: inline !important;
+    width: 10rem;
+    margin-top: 1rem;
+    font-family: $font;
+    color: $secondarycolor;
+
+    &::-webkit-input-placeholder {
+      color: $secondarycolor;
+      font-family: $font;
+    }
+
+    &::-moz-placeholder {
+      color: $secondarycolor;
+      font-family: $font;
+    }
+
+    &:-ms-input-placeholder {
+      color: $secondarycolor;
+      font-family: $font;
+    }
+
+    &:-moz-placeholder {
+      color: $secondarycolor;
+      font-family: $font;
+    }
+  }
+
   button {
     padding: 1rem 1.5rem;
     border: solid 1px $secondarycolor;

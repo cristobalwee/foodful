@@ -62,7 +62,7 @@
     <span class="bowl" ng-show="user.rating > 3"><img src="./media/logo.svg"></span>
     <span class="bowl" ng-show="user.rating > 4"><img src="./media/logo.svg"></span>
     <span class="center"><button ng-show="bothelem" ng-click="favorite()" class="makedifference">Favorite</button></span>
-    <span class="center"><button ng-show="notbothelem" ng-click="unfavorite()" class="makedifference">Unfavorite</button></span>
+    <span class="center"><button ng-show="notbothelem" ng-click="unfavorite()" class="morefoodful">Unfavorite</button></span><br>
   </div>
   <div class="medium-8 columns">
     <div class="column row description">
@@ -97,6 +97,16 @@
           <p class="center padded">we’re done for today</p>
         </div>
       </div>
+    </div>
+    <div class="center">
+      <select ng-model="rating">
+        <option value="0">Rate this place</option>
+        <option value="1">&starf;</option>
+        <option value="2">&starf;&starf;</option>
+        <option value="3">&starf;&starf;&starf;</option>
+        <option value="4">&starf;&starf;&starf;&starf;</option>
+        <option value="5">&starf;&starf;&starf;&starf;&starf;</option>
+      </select><button class="smallbtn" ng-click="submit()">Submit</button>
     </div>
   </div>
 </div>
