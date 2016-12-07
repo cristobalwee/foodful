@@ -197,6 +197,7 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
     });
   }
 
+
   $scope.getCurrentLocation = function() {
     NavigatorGeolocation.getCurrentPosition().then(function(position) {
       $scope.lat = position.coords.latitude;
