@@ -123,10 +123,10 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
     };
 }]);
 
-foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', 'GeoCoder', 'NavService', function($scope, $http, NgMap, NavigatorGeolocation, GeoCoder, NavService) {
-
-    position = -1;
-    document.body.style.overflow = "scroll";
+foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', 'GeoCoder', 'NavService', 'UserAuth', function($scope, $http, NgMap, NavigatorGeolocation, GeoCoder, NavService, UserAuth) {
+  $scope.isLogged = UserAuth.currentUser();
+  position = -1;
+  document.body.style.overflow = "scroll";
 	$scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAXUxA57EfUTXdhcK27-kc6r6HFqPBT5J4&libraries=places";
 
 	NavigatorGeolocation.getCurrentPosition().then(function(position) {

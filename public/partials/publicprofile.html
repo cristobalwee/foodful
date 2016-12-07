@@ -1,7 +1,7 @@
 <div data-sticky-container>
   <div class="title-bar" data-sticky data-options="marginTop:0;" style="width:100%">
     <div class="title-bar-left">
-      <a href="#/" onclick="setPosition(0)" class="homelink"><img src="./media/logo.svg"></a>
+      <a href="#/" class="homelink"><img src="./media/logo.svg"></a>
       <h4>foodful</h4>
     </div>
     <div class="title-bar-right">
@@ -9,8 +9,10 @@
         <button type="button" onclick="toggleMenu()" data-toggle><img src="./media/menuicon.svg"></button>
       </div>
       <div class="responsivehide">
-        <input ng-model="searchText" type="text" placeholder="find a food bank">
-        <a href="#/profile">{{user.name}}</a>
+        <a href="#/search"><button class="searchbtn">find a food bank</button></a>
+        <span ng-show="isLogged == null"><a ng-href="#/login">login</a></span>
+        <span ng-show="isLogged == null"><a href="#/about">about</a></span>
+        <span ng-show="isLogged != null"><a ng-href="#/profile" class="loggedin"><button class="navprofile">{{isLogged.name.charAt(0)}}</button></a></span>
       </div>
     </div>
   </div>

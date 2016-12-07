@@ -428,6 +428,19 @@ a {
       background-color: white;
     }
 
+    .navprofile {
+      @include border-radius(50%);
+      display: inline !important;
+      padding: 0.5rem 0.7rem;
+      background-color: $secondarycolor;
+      color: white;
+      text-align: center;
+
+      a {
+        color: white;
+      }
+    }
+
     a {
       color: $secondarycolor;
       vertical-align: middle !important;
@@ -1080,7 +1093,7 @@ a {
 #searchresults {
   text-align: center;
   padding: 1rem 5rem;
-  
+
   .favorite {
     background-color: $primarycolor;
     @include border-radius(8px);

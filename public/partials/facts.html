@@ -11,8 +11,8 @@
       <div class="responsivehide">
         <a href="#/search"><button class="searchbtn">find a food bank</button></a>
         <span ng-show="isLogged == null"><a ng-href="#/login">login</a></span>
-        <a href="#/about">about</a>
-        <span ng-show="isLogged != null"><a ng-href="#/profile" class="loggedin">{{isLogged.name}}</a></span>
+        <span ng-show="isLogged == null"><a href="#/about">about</a></span>
+        <span ng-show="isLogged != null"><a ng-href="#/profile" class="loggedin"><button class="navprofile">{{isLogged.name.charAt(0)}}</button></a></span>
       </div>
     </div>
   </div>
