@@ -85,28 +85,27 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
         $scope.endTime = "AM";
         $scope.registerData.typeID = 1;
         */
-        $scope.registerData.address = "";
-        $scope.registerData.address += $scope.address + " ";
-        $scope.registerData.address += $scope.city + " ";
-        $scope.registerData.address += $scope.state + " ";
-        $scope.registerData.address += $scope.zipcode;
-        
+        $scope.registerData.address = $scope.address;
+        $scope.registerData.city = $scope.city;
+        $scope.registerData.state = $scope.state;
+        $scope.registerData.zipcode = $scope.zipcode;
+        $scope.registerData.start_hour = $scope.starthr;
+        $scope.registerData.end_hour = $scope.endhr;
         if ($scope.startTime == 'PM') {
-            $scope.registerData.start_hour += 12;
+            $scope.registerData.start_hour = parseInt($scope.registerData.start_hour) + 12;
         }
         if ($scope.endTime == 'PM') {
-            $scope.registerData.end_hour += 12;
+            $scope.registerData.end_hour = parseInt($scope.registerData.end_hour) + 12;
         }
         if ($scope.pwConfirm != $scope.registerData.password) {
             console.log('password is different');
         } else {
-            GeoCoder.geocode({address: $scope.registerData.address}).then(function(result) {
+            GeoCoder.geocode({address: $scope.address + $scope.city + $scope.state + $scope.zipcode}).then(function(result) {
                 $scope.registerData.loc = [];
                 $scope.registerData.loc[0] = result[0].geometry.location.lng();
                 $scope.registerData.loc[1] = result[0].geometry.location.lat();
                 UserAuth.registerUser($scope.registerData).then(function(arg) {
                     UserAuth.saveToken(arg.data.token);
-                    console.log(arg);
                     $location.path('profile');
                 }).catch(function(arg) {
                     console.log(arg);
