@@ -171,7 +171,9 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
   });
 
   $scope.searchResults = [];
+  $scope.search = {};
 
+  $scope.search.typeID = 0;
   $scope.result = {};
   $scope.selected = {};
 
@@ -193,40 +195,7 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
         console.log(message);
       });
     });
-<<<<<<< HEAD
-
-    $scope.getNearby = function() {
-        GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
-            $scope.search.latitude = result[0].geometry.location.lat();
-            $scope.search.longitude = result[0].geometry.location.lng();
-            NavService.getNearby($scope.search).then(function(result) {
-              var results = result.data.data;
-              results.forEach(function(elem) {
-                console.log(elem);
-                var lat = elem.location[1];
-                var lng = elem.location[0];
-                $scope.searchResults.push(elem);
-                //$scope.searchResult.push('[' + lat + ', ' + lng + ']');
-              });
-            }).catch(function(message) {
-              console.log(message);
-            });
-        });
-        /*
-        NavigatorGeolocation.getCurrentPosition().then(function(position) {
-            $scope.queryParams.lat = position.coords.latitude;
-            $scope.queryParams.long = position.coords.longitude;
-        }).catch(function(arg) {
-            console.log(arg);
-        });
-        */
-
-    }
-
   }
-=======
-  };
->>>>>>> 3d0652a34f499fdc9e8f2cdba0307fa68de3b84f
 
   $scope.getCurrentLocation = function() {
     NavigatorGeolocation.getCurrentPosition().then(function(position) {
@@ -237,8 +206,10 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
 
   $scope.showDetails = function(e, selected) {
     $scope.selected = selected;
-    console.log($scope.map.markers);
-    $scope.map.showInfoWindow('map-info', selected.id.toString());
+    //console.log($scope.map.markers);
+    //$scope.map.showInfoWindow('map-info', selected.id.toString());
+    console.log(selected);
+    $scope.map.showInfoWindow('map-info', this);
   }
   $scope.logout = function() {
     UserAuth.logout();
