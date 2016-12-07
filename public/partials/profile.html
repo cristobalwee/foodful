@@ -66,7 +66,7 @@
   <div class="medium-8 columns">
     <div class="column row description">
       <h3>About us</h3>
-      <span ng-show="user.description == null"><p>Hmmm... Looks like you haven't input a description</p></span>
+      <span ng-show="user.description == null"><p>Hmmm... Looks like you haven't added a description</p></span>
       <p>{{user.description}}</p>
     </div>
     <div class="column row description">
@@ -74,7 +74,7 @@
       <div class="medium-6 columns">
         <p>Email: {{user.email}}</p>
         <p>Phone Number: {{user.phone_number}}</p>
-        <p>Hours: {{user.start_hour}}:{{user.start_minute}} - {{user.end_hour}}:{{user.end_minute}}</p>
+        <p>Hours: {{user.openHour}}:{{user.start_minute}} {{openampm}} - {{user.closeHour}}:{{user.end_minute}} {{closeampm}}</p>
       </div>
       <div class="medium-6 columns" ng-show="user.typeID == 1">
         <div class="column row center status" ng-show="user.amount == 1">
