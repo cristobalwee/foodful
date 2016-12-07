@@ -109,12 +109,21 @@
   <div class="favorite" ng-repeat="result in searchResults">
     <div class="row">
       <div class="medium-3 columns">
-        <img class="profile" src="./media/frontend.png">
+        <div class="initials">
+          <h1>{{result.name.charAt(0).toUpperCase()}}</h1>
+        </div>
+        <span class="bowl" ng-show="result.rating > 0"><img src="./media/logo.svg"></span>
+        <span class="bowl" ng-show="result.rating > 1"><img src="./media/logo.svg"></span>
+        <span class="bowl" ng-show="result.rating > 2"><img src="./media/logo.svg"></span>
+        <span class="bowl" ng-show="result.rating > 3"><img src="./media/logo.svg"></span>
+        <span class="bowl" ng-show="result.rating > 4"><img src="./media/logo.svg"></span>
       </div>
       <div class="medium-6 columns">
-        <h2>{{result.name}}</h2>
+        <a ng-href="#/profile/{{result._id}}"><h2>{{result.name}}</h2></a>
         <p>{{result.description}}</p>
         <p>Email: {{result.email}}</p>
+        <p>Phone Number: {{result.phone_number}}</p>
+        <p>Hours: {{result.start_hour}}:{{result.start_minute}} - {{result.end_hour}}:{{result.end_minute}}</p>
       </div>
       <div class="medium-3 columns" ng-show="result.typeID == 1">
         <div class="column row center" ng-show="result.amount == 1">

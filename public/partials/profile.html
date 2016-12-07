@@ -44,9 +44,15 @@
 <div id="profilepage">
   <div class="row content">
     <div class="medium-4 columns">
-      <img src="./media/frontend.png">
+      <div class="initials">
+        <h1>{{result.name.charAt(0).toUpperCase()}}</h1>
+      </div>
       <h2>{{user.name}}</h2>
-      <h3>{{user.rating}}</h3>
+      <span class="bowl" ng-show="user.rating > 0"><img src="./media/logo.svg"></span>
+      <span class="bowl" ng-show="user.rating > 1"><img src="./media/logo.svg"></span>
+      <span class="bowl" ng-show="user.rating > 2"><img src="./media/logo.svg"></span>
+      <span class="bowl" ng-show="user.rating > 3"><img src="./media/logo.svg"></span>
+      <span class="bowl" ng-show="user.rating > 4"><img src="./media/logo.svg"></span>
     </div>
     <div class="medium-8 columns">
       <div class="userattr">
@@ -63,33 +69,3 @@
     </div>
   </div>
 </div>
-  <!--div class="small-8 small-centered column">
-    <div class="expanded row" id="innerprofile">
-      <div class="small-3 column"><h2>Name: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.name}}</h5></div>
-      <div class="small-3 small-offset-2 text-left column"><h2>Email: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.email}}</h5></div>
-      <div class="small-12 column proffiller"></div>
-      <div class="small-3 column"><h2>Rating: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.rating}}</h5></div>
-      <div class="small-3 small-offset-2 column"><h2>Phone Number: </h2></div>
-      <div class="small-2 column phonecol"><h5>{{user.phone_number}}</h5></div>
-      <div class="small-12 column proffiller"></div>
-      <div class="small-3 column"><h2>Status: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.status}}</h5></div>
-      <div class="small-3 small-offset-2 column"><h2>Address: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.address}}</h5></div>
-      <div class="small-12 column proffiller"></div>
-      <div class="small-3 column"><h2>Opening Time: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.status}}</h5></div>
-      <div class="small-3 small-offset-2 column"><h2>Closing Time: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.location}}</h5></div>
-      <div class="small-12 column proffiller"></div>
-      <div class="small-4 text-right column"><h2>Description: </h2></div>
-      <div class="small-4 small-offset-4 column midcol"><h5>{{user.description}}</h5></div>
-      <div class="small-12 column proffiller"></div>
-      <div class="small-4 small-centered text-center column"><a href="#/editprofile"><button class="makedifference">Edit Profile</button></a></div>
-      <div class="small-12 column proffiller"></div>
-    </div>
-  </div>
-</div-->

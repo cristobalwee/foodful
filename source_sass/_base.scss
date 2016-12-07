@@ -60,6 +60,16 @@ a {
   display: inline !important;
 }
 
+.searchbtn {
+  border: solid 1px $secondarycolor;
+  @include border-radius(8px);
+  display: inline !important;
+  padding: 0.8rem 1rem;
+  font-family: $font;
+  color: $secondarycolor;
+  background-color: white;
+}
+
 #loading {
   width: 100vw;
   height: 100vh;
@@ -478,6 +488,20 @@ a {
     border: solid 1px $secondarycolor;
     @include border-radius(4px);
     font-family: $font;
+  }
+
+  .initials {
+    background-color: $secondarycolor;
+    @include border-radius(8px);
+    padding: 3rem;
+    text-align: center;
+
+    h1 {
+      font-family: $font;
+      color: white;
+      text-align: center;
+      font-size: 3.5rem;
+    }
   }
 
   input {
@@ -1104,7 +1128,7 @@ a {
 
 #searchresults {
   text-align: center;
-  padding: 1rem 5rem;
+  padding: 1rem 10rem;
 
   .favorite {
     background-color: $primarycolor;
@@ -1123,6 +1147,26 @@ a {
     .profile {
       margin-top: 1rem;
       height: 8rem;
+    }
+
+    .initials {
+      background-color: $secondarycolor;
+      @include border-radius(8px);
+      padding: 3rem;
+      text-align: center;
+
+      h1 {
+        font-family: $font;
+        color: white;
+        text-align: center;
+        font-size: 3.5rem;
+      }
+    }
+
+    .bowl {
+      img {
+        height: 0.2rem;
+      }
     }
 
     h2, p {
