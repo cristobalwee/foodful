@@ -12,13 +12,11 @@
         <a href="#/search"><button class="searchbtn">find a food bank</button></a>
         <span ng-show="isLogged == null"><a ng-href="#/login">login</a></span>
         <span ng-show="isLogged == null"><a href="#/about">about</a></span>
-        <div ng-show="isLogged != null" class="dropdown">
-          <button class="dropbtn navprofile">{{isLogged.name.charAt(0).toUpperCase()}}</button>
-          <div class="dropdown-content">
-            <a href="#/">Home</a>
-            <a href="#/profile">Profile</a>
-            <a href="javascript:void(0)" ng-click="logout()">Logout</a>
-          </div>
+        <span ng-show="isLogged != null"><a class="loggedin"><button class="navprofile" onclick="dropDown()">{{isLogged.name.charAt(0).toUpperCase()}}</button></a></span>
+        <div id="dropdown">
+          <a href="#/profile">Profile</a><br>
+          <a href="#/favorites">Favorites</a><br>
+          <a href="javascript:void(0)" ng-click="logout()">Log out</a>
         </div>
       </div>
     </div>
@@ -56,12 +54,19 @@
       <div map-lazy-load="https://maps.googleapis.com/maps/api/js?libraries=places" map-lazy-load-params="{{googleMapsUrl}}">
       <!--<marker position=></marker>-->
         <ng-map id="map" center="[{{lat}}, {{lng}}]" zoom="18" style="height: 25rem; width: 100%;">
-          <marker ng-repeat="result in searchResults" position="{{result.locString}}" on-click="showDetails(result)"></marker>
+          <marker ng-repeat="result in searchResults" position="{{result.locString}}" on-click="showDetails(event, result)"></marker>
           <info-window id="map-info">
-            <div ng-non-bindable="">
-              HELLLOOWOWOWO
-              <span ng-bind="result.name"></span>
-            </div>
+            <div ng-non-bindable="" style="text-align:center;">
+              <b><span class="center"><a ng-href="#/profile/{{selected._id}}"><span style="font-size: 18px;" ng-bind="selected.name"></span></a></span></b>
+              </br>
+              <span style="float: left;"><b>Open </b><span ng-bind="selected.start_hour"></span> : <span   ng-bind="selected.start_minute"></span></span></b>
+              </br>
+              <span style="float: left"><b>Close </b><span ng-bind="selected.end_hour"></span> : <span ng-bind="selected.end_minute"></span></span>
+              </br>
+              <span style="float: left"><b>Rating </b><span ng-bind="selected.rating"></span></span>
+              </br>
+              <span style="float: left"><b>Address </b><span ng-bind="selected.address"></span>
+           </div>
           </info-window>
         </ng-map>
 			</div>
@@ -116,12 +121,21 @@
   <div class="favorite" ng-repeat="result in searchResults">
     <div class="row">
       <div class="medium-3 columns">
-        <img class="profile" src="./media/frontend.png">
+        <div class="initials">
+          <a ng-href="#/profile/result._id"><h1>{{result.name.charAt(0).toUpperCase()}}</h1></a>
+        </div>
+        <span class="bowl" ng-show="result.rating > 0"><img src="./media/logo.svg"></span>
+        <span class="bowl" ng-show="result.rating > 1"><img src="./media/logo.svg"></span>
+        <span class="bowl" ng-show="result.rating > 2"><img src="./media/logo.svg"></span>
+        <span class="bowl" ng-show="result.rating > 3"><img src="./media/logo.svg"></span>
+        <span class="bowl" ng-show="result.rating > 4"><img src="./media/logo.svg"></span>
       </div>
       <div class="medium-6 columns">
-        <h2>{{result.name}}</h2>
+        <a ng-href="#/profile/{{result._id}}"><h2>{{result.name}}</h2></a>
         <p>{{result.description}}</p>
         <p>Email: {{result.email}}</p>
+        <p>Phone Number: {{result.phone_number}}</p>
+        <p>Hours: {{result.start_hour}}:{{result.start_minute}} - {{result.end_hour}}:{{result.end_minute}}</p>
       </div>
       <div class="medium-3 columns" ng-show="result.typeID == 1">
         <div class="column row center" ng-show="result.amount == 1">

@@ -10,13 +10,13 @@
       </div>
       <div class="responsivehide">
         <a href="#/search"><button class="searchbtn">find a food bank</button></a>
-        <div class="dropdown">
-          <button class="dropbtn navprofile">{{isLogged.name.charAt(0).toUpperCase()}}</button>
-          <div class="dropdown-content">
-            <a href="#/">Home</a>
-            <a href="#/profile">Profile</a>
-            <a href="javascript:void(0)" ng-click="logout()">Logout</a>
-          </div>
+        <span ng-show="isLogged == null"><a ng-href="#/login">login</a></span>
+        <span ng-show="isLogged == null"><a href="#/about">about</a></span>
+        <span ng-show="isLogged != null"><a class="loggedin"><button class="navprofile" onclick="dropDown()">{{isLogged.name.charAt(0).toUpperCase()}}</button></a></span>
+        <div id="dropdown">
+          <a href="#/profile">Profile</a><br>
+          <a href="#/favorites">Favorites</a><br>
+          <a href="javascript:void(0)" ng-click="logout()">Log out</a>
         </div>
       </div>
     </div>
@@ -49,54 +49,53 @@
   </div>
 </div>
 <div id="profilepage">
-  <div class="row content">
-    <div class="medium-4 columns">
-      <img src="./media/frontend.png">
-      <h2>{{user.name}}</h2>
-      <h3>{{user.rating}}</h3>
+  <div class="medium-4 columns center">
+    <div class="initials">
+      <h1>{{user.name.charAt(0).toUpperCase()}}</h1>
     </div>
-    <div class="medium-8 columns">
-      <div class="userattr">
-        <p>{{user.description}}</p>
+    <h3>{{user.name}}</h3>
+    <span class="center" ng-show="user.typeID == 1"><p>Food bank or Charity</p></span>
+    <span class="center" ng-show="user.typeID == 0"><p>Restaurant or business</p></span>
+    <span class="bowl" ng-show="user.rating > 0"><img src="./media/logo.svg"></span>
+    <span class="bowl" ng-show="user.rating > 1"><img src="./media/logo.svg"></span>
+    <span class="bowl" ng-show="user.rating > 2"><img src="./media/logo.svg"></span>
+    <span class="bowl" ng-show="user.rating > 3"><img src="./media/logo.svg"></span>
+    <span class="bowl" ng-show="user.rating > 4"><img src="./media/logo.svg"></span>
+    <span class="center"><a href="#/editprofile"><button class="makedifference">Edit profile</button></a></span>
+  </div>
+  <div class="medium-8 columns">
+    <div class="column row description">
+      <h3>About us</h3>
+      <span ng-show="user.description == null"><p>Hmmm... Looks like you haven't added a description</p></span>
+      <p>{{user.description}}</p>
+    </div>
+    <div class="column row description">
+      <h3>Contact info</h3>
+      <div class="medium-6 columns">
+        <p>Email: {{user.email}}</p>
+        <p>Phone Number: {{user.phone_number}}</p>
+        <p>Hours: {{user.openHour}}:{{user.start_minute}} {{openampm}} - {{user.closeHour}}:{{user.end_minute}} {{closeampm}}</p>
       </div>
-      <div class="column row center" ng-show="user.amount == 1">
-        <img src="./media/silverware.svg">
-        <p class="center padded">we’re taking food</p>
+      <div class="medium-6 columns" ng-show="user.typeID == 1">
+        <div class="column row center status" ng-show="user.amount == 1">
+          <img src="./media/silverware.svg">
+          <p class="center padded">we’re taking food</p>
+        </div>
+        <div class="column row center status" ng-show="user.amount == 0">
+          <img src="./media/satisfied.svg">
+          <p class="center padded">we’re good for today</p>
+        </div>
       </div>
-      <div class="column row center" ng-show="user.amount == 0">
-        <img src="./media/satisfied.svg">
-        <p class="center padded">we’re good for today</p>
+      <div class="medium-6 columns" ng-show="user.typeID == 0">
+        <div class="column row center status" ng-show="user.amount == 1">
+          <img src="./media/open.svg">
+          <p class="center padded">we have food to give</p>
+        </div>
+        <div class="column row center status" ng-show="user.amount == 0">
+          <img src="./media/sleeping.svg">
+          <p class="center padded">we’re done for today</p>
+        </div>
       </div>
     </div>
   </div>
 </div>
-  <!--div class="small-8 small-centered column">
-    <div class="expanded row" id="innerprofile">
-      <div class="small-3 column"><h2>Name: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.name}}</h5></div>
-      <div class="small-3 small-offset-2 text-left column"><h2>Email: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.email}}</h5></div>
-      <div class="small-12 column proffiller"></div>
-      <div class="small-3 column"><h2>Rating: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.rating}}</h5></div>
-      <div class="small-3 small-offset-2 column"><h2>Phone Number: </h2></div>
-      <div class="small-2 column phonecol"><h5>{{user.phone_number}}</h5></div>
-      <div class="small-12 column proffiller"></div>
-      <div class="small-3 column"><h2>Status: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.status}}</h5></div>
-      <div class="small-3 small-offset-2 column"><h2>Address: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.address}}</h5></div>
-      <div class="small-12 column proffiller"></div>
-      <div class="small-3 column"><h2>Opening Time: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.status}}</h5></div>
-      <div class="small-3 small-offset-2 column"><h2>Closing Time: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.location}}</h5></div>
-      <div class="small-12 column proffiller"></div>
-      <div class="small-4 text-right column"><h2>Description: </h2></div>
-      <div class="small-4 small-offset-4 column midcol"><h5>{{user.description}}</h5></div>
-      <div class="small-12 column proffiller"></div>
-      <div class="small-4 small-centered text-center column"><a href="#/editprofile"><button class="makedifference">Edit Profile</button></a></div>
-      <div class="small-12 column proffiller"></div>
-    </div>
-  </div>
-</div-->

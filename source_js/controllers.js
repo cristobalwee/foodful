@@ -9,6 +9,7 @@ foodfulControllers.controller('LandingController', ['$scope', 'UserAuth', '$loca
     $scope.logout = function() {
       UserAuth.logout();
         $location.path('/');
+        location.reload();
     };
 }]);
 
@@ -207,7 +208,7 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
           $scope.formError = true;
           $scope.errorMessage = "Please fill in the required fields";
         }
-        
+
         $scope.registerData.address = $scope.address;
         $scope.registerData.city = $scope.city;
         $scope.registerData.state = $scope.state;
@@ -261,7 +262,9 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
   });
 
   $scope.searchResults = [];
+  $scope.search = {};
 
+  $scope.search.typeID = 0;
   $scope.result = {};
   $scope.selected = {};
 
@@ -283,7 +286,12 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
         console.log(message);
       });
     });
+<<<<<<< HEAD
   };
+=======
+  }
+
+>>>>>>> 81ddf6402e70c22c57995c5a211f8be6edb8c600
 
   $scope.getCurrentLocation = function() {
     NavigatorGeolocation.getCurrentPosition().then(function(position) {
@@ -294,8 +302,10 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
 
   $scope.showDetails = function(e, selected) {
     $scope.selected = selected;
-    console.log($scope.map.markers);
-    $scope.map.showInfoWindow('map-info', selected.id.toString());
+    //console.log($scope.map.markers);
+    //$scope.map.showInfoWindow('map-info', selected.id.toString());
+    console.log(selected);
+    $scope.map.showInfoWindow('map-info', this);
   }
   $scope.logout = function() {
     UserAuth.logout();
@@ -315,6 +325,20 @@ foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', '
     $scope.showStatus = false;
     if($scope.user.typeID == 1)
       $scope.showStatus = true;
+    if($scope.user.start_hour > 12) {
+      $scope.user.openHour = $scope.user.start_hour-12;
+      $scope.openampm = "pm";
+    } else {
+      $scope.user.openHour = $scope.user.start_hour;
+      $scope.openampm = "am";
+    }
+    if($scope.user.end_hour > 12) {
+      $scope.user.closeHour = $scope.user.end_hour-12;
+      $scope.closeampm = "pm";
+    } else {
+      $scope.user.closeHour = $scope.user.end_hour;
+      $scope.closeampm = "am";
+    }
   }).error(function(err) {
     console.log(err);
   });
@@ -344,6 +368,20 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
       console.log("public profile");
         console.log(data);
         $scope.user = data.data;
+        if($scope.user.start_hour > 12) {
+          $scope.user.openHour = $scope.user.start_hour-12;
+          $scope.openampm = "pm";
+        } else {
+          $scope.user.openHour = $scope.user.start_hour;
+          $scope.openampm = "am";
+        }
+        if($scope.user.end_hour > 12) {
+          $scope.user.closeHour = $scope.user.end_hour-12;
+          $scope.closeampm = "pm";
+        } else {
+          $scope.user.closeHour = $scope.user.end_hour;
+          $scope.closeampm = "am";
+        }
 
     }).error(function(err){
         console.log(err);
@@ -434,14 +472,25 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
 
   Prof.getProfile().success(function(data) {
     $scope.user = data.data;
+    //$scope.new_user = $scope.user;
     $scope.startstate = $scope.user.state;
+    if($scope.user.typeID === 0) {
+      $scope.donoryes = "Donating"
+      $scope.donorno = "All Out";
+    } else {
+      $scope.donoryes = "Accepting"
+      $scope.donorno = "Filled";
+    }
+
     $scope.states = ["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID", "IL","IN","KS","KY","LA","MA","MD","ME","MH","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
-    if($scope.user.start_hour >= 12)
+
+    if($scope.user.start_hour > 12){
+      start.new_user.start_hour = +$scope.new_user.start_hour - 12;
       $scope.startTime = 'PM';
-    else {
+    }else {
       $scope.startTime = 'AM';
     }
-    if($scope.user.end_hour >= 12)
+    if($scope.user.end_hour > 12)
       $scope.endTime = 'PM';
     else {
       $scope.endTime = 'AM';
@@ -454,10 +503,10 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
         $scope.locstring += $scope.user.zipcode;
 
         if ($scope.startTime == 'PM') {
-            $scope.user.start_hour += 12;
+            $scope.user.start_hour = +$scope.user.start_hour + +12;
         }
         if ($scope.endTime == 'PM') {
-            $scope.user.end_hour += 12;
+            $scope.user.end_hour = +$scope.user.end_hour + +12;
         }
         GeoCoder.geocode({address: $scope.locstring}).then(function(result) {
             $scope.user.loc = [];
@@ -465,7 +514,10 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
             $scope.user.loc[1] = result[0].geometry.location.lat();
             console.log($scope.user);
             Prof.updateProfile($scope.user).then(function(arg) {
-                console.log(arg)
+                console.log(arg);
+                $scope.user = arg.data;
+                $location.path('/profile');
+                alert('Successfully Updated User');
             }).catch(function(arg) {
                 console.log(arg);
             });
