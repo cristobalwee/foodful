@@ -210,11 +210,16 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
     };
     /* Control the Public Profile */
     $scope.show = false
-    if (UserAuth.currentUser != null){
+    if (UserAuth.isLoggedIn()){
         $scope.show = true;
-    }
-    console.log($scope.show);
 
+        console.log($scope.show);
+
+        Prof.getProfile().success(function(data) {
+          console.log(data);
+          $scope.loggedinUser = data.data;
+        });
+      }
 
     Prof.getPublicProfile($scope.profileID).success(function(data) {
         console.log(data);
@@ -224,11 +229,27 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
         console.log(err);
     });
 
+    $scope.favorite = function() {
+        $scope.loggedinUser.favorites.push($scope.user._id);
+        console.log($scope.loggedinUser);
+        Prof.updateProfile($scope.loggedinUser).success(function(args) {
+          console.log(args);
+        }).error(function(arg) {
+          console.log(arg);
+        });
+    };
 
+    $scope.unfavorite = function() {
+        var favoritearr =  $scope.loggedinUser.favorites;
+        for(var i = 0; i < favoritearr.length; i++) {
+          if(favoritearr[i] === $scope.user.id)
+            favoritearr.splice(i, 1);
+        }
+    };
 
 }]);
 
-foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof', '$location', 'UserAuth', function($scope, $http, Prof, $location, UserAuth) {
+foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof', '$location', 'UserAuth', 'GeoCoder', function($scope, $http, Prof, $location, UserAuth, GeoCoder) {
   position = -1;
   document.body.style.overflow = "scroll";
 
@@ -238,49 +259,25 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
   };
 
   Prof.getProfile().success(function(data) {
-    /*$scope.displayText = "";
-    $scope.showDisplay = false;
-    $scope.displayBackground = "#FF0000";
     $scope.user = data.data;
-    $scope.showStatus = false;
-    if($scope.user.typeID == 1)
-      $scope.showStatus = true;
-    $scope.updateProfile = function() {
-      if($scope.user.name !== "" && $scope.user.email !== "") {
-        Prof.updateProfile($scope.user).success(function(data) {
-          $scope.displayBackground = "#1addbd";
-          $scope.displayText = "Profile Updated";
-        }).error(function(err) {
-          $scope.displayText = err.message;
-        });
-      }
-      else {
-        $scope.displayText = "Please Fill in All Required Information";
-      }
-      $scope.showDisplay = true;*
-    };*/
-    $scope.user = data.data;
+    $scope.startstate = $scope.user.state;
     $scope.states = ["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID", "IL","IN","KS","KY","LA","MA","MD","ME","MH","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
+    if($scope.user.start_hour >= 12)
+      $scope.startTime = 'PM';
+    else {
+      $scope.startTime = 'AM';
+    }
+    if($scope.user.end_hour >= 12)
+      $scope.endTime = 'PM';
+    else {
+      $scope.endTime = 'AM';
+    }
     $scope.update = function() {
-        /*
-        $scope.registerData.name = "d";
-        $scope.registerData.email = "d234@gmail.com";
-        $scope.registerData.phone_number = "1112223333";
-        $scope.registerData.start_hour = "10";
-        $scope.registerData.start_minute = "0";
-        $scope.registerData.end_hour = "5";
-        $scope.registerData.end_minute = "30";
-        $scope.registerData.password = "pw1";
-        $scope.pwConfirm = "pw1";
-        $scope.startTime = "AM";
-        $scope.endTime = "AM";
-        $scope.registerData.typeID = 1;
-        */
         $scope.locstring = "";
-        $scope.locstring += $scope.address + " ";
-        $scope.locstring += $scope.city + " ";
-        $scope.locstring += $scope.state + " ";
-        $scope.locstring += $scope.zipcode;
+        $scope.locstring += $scope.user.address + " ";
+        $scope.locstring += $scope.user.city + " ";
+        $scope.locstring += $scope.user.state + " ";
+        $scope.locstring += $scope.user.zipcode;
 
         if ($scope.startTime == 'PM') {
             $scope.user.start_hour += 12;
@@ -288,21 +285,19 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
         if ($scope.endTime == 'PM') {
             $scope.user.end_hour += 12;
         }
-        Prof.updateProfile($scope.user);
-      /*  GeoCoder.geocode({address: $scope.locstring}).then(function(result) {
-            $scope.registerData.loc = [];
-            $scope.registerData.loc[0] = result[0].geometry.location.lng();
-            $scope.registerData.loc[1] = result[0].geometry.location.lat();
-            UserAuth.registerUser($scope.registerData).then(function(arg) {
-                UserAuth.saveToken(arg.data.token);
-                console.log(arg);
-                $location.path('profile');
+        GeoCoder.geocode({address: $scope.locstring}).then(function(result) {
+            $scope.user.loc = [];
+            $scope.user.loc[0] = result[0].geometry.location.lng();
+            $scope.user.loc[1] = result[0].geometry.location.lat();
+            console.log($scope.user);
+            Prof.updateProfile($scope.user).then(function(arg) {
+                console.log(arg)
             }).catch(function(arg) {
                 console.log(arg);
             });
         }).catch(function(arg) {
             console.log(arg);
-        });*/
+        });
     };
   });
 }]);
