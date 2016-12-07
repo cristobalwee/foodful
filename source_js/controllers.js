@@ -225,8 +225,8 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
           $scope.formError = true;
           $scope.errorMessage = "Passwords are different";
         }
-        
-        
+
+
         if (!$scope.formError) {
           console.log($scope.registerData);
           GeoCoder.geocode({address: "" + $scope.address + $scope.city + $scope.state + $scope.zipcode}).then(function(result) {
@@ -449,11 +449,11 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
     };
 
     $scope.rate = function() {
-      var temp = $scope.user.rating * $scope.user.num_rating.length;
-      $scope.user.num_rating.push($scope.rating);
+      var temp = $scope.user.rating * $scope.user.num_ratings.length;
+      $scope.user.num_ratings.push($scope.rating);
       temp += $scope.rating;
-      $scope.user.rating = temp/$scope.user.num_rating.length;
-      Prof.updateProfile($scope.user).success(function(args) {
+      $scope.user.rating = temp/$scope.user.num_ratings.length;
+      Prof.updateOtherUser($scope.user).success(function(args) {
         console.log(args);
       }).error(function(arg) {
         console.log(arg);

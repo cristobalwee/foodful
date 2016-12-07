@@ -93,6 +93,9 @@ foodfulServices.factory('Prof', function($http, $window, UserAuth) {
     return $http.put(api + '/profile/' + payload._id.toString(), user);
   };
 
+  var updateOtherUser = function(user) {
+    return $http.put(api + '/profile/' + user._id.toString(), user);
+  }
 
   var getPublicProfile = function(id) {
       return $http.get(api + '/profile/' + id);
@@ -101,6 +104,7 @@ foodfulServices.factory('Prof', function($http, $window, UserAuth) {
   return {
     getProfile : getProfile,
     updateProfile : updateProfile,
-    getPublicProfile : getPublicProfile
+    getPublicProfile : getPublicProfile,
+    updateOtherUser : updateOtherUser
   };
 });
