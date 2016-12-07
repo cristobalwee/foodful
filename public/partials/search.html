@@ -54,12 +54,19 @@
       <div map-lazy-load="https://maps.googleapis.com/maps/api/js?libraries=places" map-lazy-load-params="{{googleMapsUrl}}">
       <!--<marker position=></marker>-->
         <ng-map id="map" center="[{{lat}}, {{lng}}]" zoom="18" style="height: 25rem; width: 100%;">
-          <marker ng-repeat="result in searchResults" position="{{result.locString}}" on-click="showDetails(result)"></marker>
+          <marker ng-repeat="result in searchResults" position="{{result.locString}}" on-click="showDetails(event, result)"></marker>
           <info-window id="map-info">
-            <div ng-non-bindable="">
-              HELLLOOWOWOWO
-              <span ng-bind="result.name"></span>
-            </div>
+            <div ng-non-bindable="" style="text-align:center;">
+              <b><span class="center"><a ng-href="#/profile/{{selected._id}}"><span style="font-size: 18px;" ng-bind="selected.name"></span></a></span></b>
+              </br>
+              <span style="float: left;"><b>Open </b><span ng-bind="selected.start_hour"></span> : <span   ng-bind="selected.start_minute"></span></span></b>
+              </br>
+              <span style="float: left"><b>Close </b><span ng-bind="selected.end_hour"></span> : <span ng-bind="selected.end_minute"></span></span>
+              </br>
+              <span style="float: left"><b>Rating </b></span><span ng-bind="selected.rating"></span>
+              </br>
+              <span style="float: left"><b>Address </b><span ng-bind="selected.address"></span>
+           </div>
           </info-window>
         </ng-map>
 			</div>
@@ -115,7 +122,7 @@
     <div class="row">
       <div class="medium-3 columns">
         <div class="initials">
-          <h1>{{result.name.charAt(0).toUpperCase()}}</h1>
+          <a ng-href="#/profile/result._id"><h1>{{result.name.charAt(0).toUpperCase()}}</h1></a>
         </div>
         <span class="bowl" ng-show="result.rating > 0"><img src="./media/logo.svg"></span>
         <span class="bowl" ng-show="result.rating > 1"><img src="./media/logo.svg"></span>

@@ -171,7 +171,9 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
   });
 
   $scope.searchResults = [];
+  $scope.search = {};
 
+  $scope.search.typeID = 0;
   $scope.result = {};
   $scope.selected = {};
 
@@ -193,7 +195,8 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
         console.log(message);
       });
     });
-  };
+  }
+
 
   $scope.getCurrentLocation = function() {
     NavigatorGeolocation.getCurrentPosition().then(function(position) {
@@ -204,8 +207,10 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
 
   $scope.showDetails = function(e, selected) {
     $scope.selected = selected;
-    console.log($scope.map.markers);
-    $scope.map.showInfoWindow('map-info', selected.id.toString());
+    //console.log($scope.map.markers);
+    //$scope.map.showInfoWindow('map-info', selected.id.toString());
+    console.log(selected);
+    $scope.map.showInfoWindow('map-info', this);
   }
   $scope.logout = function() {
     UserAuth.logout();
