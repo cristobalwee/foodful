@@ -136,13 +136,13 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
 
     $scope.searchResults = [];
     $scope.result = {};
-    
+
     NgMap.getMap('map').then(function(map) {
       $scope.map = map;
     }).catch(function(err) {
       console.log(err);
     });
-    $scope.showDetail = function(info) { 
+    $scope.showDetail = function(info) {
       $scope.result = info;
       //console.log(info.latLng.lat());
       //$scope.map.showInfoWindow('map-info', $scope.result);
@@ -296,7 +296,8 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
   });
 }]);
 
-foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
+foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', 'UserAuth', function($scope, $http, Prof, UserAuth) {
+  $scope.isLogged = UserAuth.currentUser();
   position = -1;
   document.body.style.overflow = "scroll";
   $scope.favorites = [

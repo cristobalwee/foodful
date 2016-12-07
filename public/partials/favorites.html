@@ -9,7 +9,7 @@
         <button type="button" onclick="toggleMenu()" data-toggle><img src="./media/menuicon.svg"></button>
       </div>
       <div class="responsivehide">
-        <a href="#/search"><button>find a food bank</button></a>
+        <a href="#/search"><button class="searchbtn">find a food bank</button></a>
         <span ng-show="isLogged == null"><a ng-href="#/login">login</a></span>
         <a href="#/about">about</a>
         <span ng-show="isLogged != null"><a ng-href="#/profile" class="loggedin">{{isLogged.name}}</a></span>
