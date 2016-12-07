@@ -1,42 +1,48 @@
 var foodfulControllers = angular.module('foodfulControllers', ['ngMap']);
 
 foodfulControllers.controller('LandingController', ['$scope', 'UserAuth', function($scope, UserAuth) {
-    $scope.isLogged = UserAuth.isLoggedIn();
+    $scope.isLogged = UserAuth.currentUser();
+    console.log($scope.isLogged == null);
     position = 0;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
 }]);
 
-foodfulControllers.controller('FactsController', ['$scope', '$http', function($scope, $http) {
+foodfulControllers.controller('FactsController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+    $scope.isLogged = UserAuth.currentUser();
     position = 1;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
 }]);
 
-foodfulControllers.controller('PurposeController', ['$scope', '$http', function($scope, $http) {
+foodfulControllers.controller('PurposeController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+    $scope.isLogged = UserAuth.currentUser();
     position = 2;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
 }]);
 
-foodfulControllers.controller('LegalController', ['$scope', '$http', function($scope, $http) {
+foodfulControllers.controller('LegalController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+    $scope.isLogged = UserAuth.currentUser();
     position = 3;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
 }]);
 
-foodfulControllers.controller('ContactController', ['$scope', '$http', function($scope, $http) {
+foodfulControllers.controller('ContactController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+    $scope.isLogged = UserAuth.currentUser();
     position = 4;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
 }]);
 
-foodfulControllers.controller('AboutController', ['$scope', '$http', function($scope, $http) {
+foodfulControllers.controller('AboutController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+    $scope.isLogged = UserAuth.currentUser();
     position = -1;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
@@ -131,13 +137,12 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
     $scope.searchResults = [];
     $scope.result = {};
     $scope.search = {};
-    
     NgMap.getMap('map').then(function(map) {
       $scope.map = map;
     }).catch(function(err) {
       console.log(err);
     });
-    $scope.showDetail = function(info) { 
+    $scope.showDetail = function(info) {
       $scope.result = info;
       //console.log(info.latLng.lat());
       //$scope.map.showInfoWindow('map-info', $scope.result);
@@ -292,7 +297,17 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
   });
 }]);
 
-foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
+foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', 'UserAuth', function($scope, $http, Prof, UserAuth) {
+  $scope.isLogged = UserAuth.currentUser();
+  position = -1;
+  document.body.style.overflow = "scroll";
+  $scope.favorites = [
+    {"_id":"584730a01c514238af6ff2cc","hash":"77982fa0d4cb0b60d2e5ed869fcbaaa8ad4e1be51584e631bdb828d4c5946568f42c3fe76a04aa6eee4d83332406cfa849c0e271afe0c5b804e27c953df3e574","salt":"dcd2b340d62e999953997013917a2aff","end_minute":20,"end_hour":15,"start_minute":20,"start_hour":2,"location":[40.2138425,-88.119828],"address":"Siebel Ave","phone_number":1234567890,"email":"henry@james.com","name":"henry james","typeID":0,
+    "__v":0,"updated_date":"2016-12-06T21:41:52.741Z","created_date":"2016-12-06T21:41:52.741Z","favorites":[],"num_ratings":[],"rating":0,"amount":1},
+    {"_id":"584730a01c514238af6ff2cd","hash":"7bb378c5c3fff71ae3191ef1ddd02a944c49cc0323265404544e3abb6c9f607d52ea4436f29758dd294dbc17d1d33f6baf9bcf68ac86184b0dbeb5cc9cfb5a53","salt":"ce5fae53d4ca0a31ed69e3eb2333fed0","end_minute":20,"end_hour":15,"start_minute":20,"start_hour":2,"location":[41.2138425,-89.219828],"city":"Urbana","state":"IL","zipcode":"61801","address":"Siebel Ave",
+    "phone_number":123456789,"email":"jerry@carter.com","name":"jerry carter","typeID":1,"__v":0,"updated_date":"2016-12-06T21:41:52.819Z","created_date":"2016-12-06T21:41:52.819Z","favorites":[],"num_ratings":[],"rating":0,"amount":1}
+  ]
+
     Prof.getProfile().success(function(data) {
       $scope.user = data.data;
       var favoritesids = $scope.user.favorites;
