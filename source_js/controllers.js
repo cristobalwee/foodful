@@ -130,6 +130,7 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
 
     $scope.searchResults = [];
     $scope.result = {};
+    $scope.search = {};
     
     NgMap.getMap('map').then(function(map) {
       $scope.map = map;
