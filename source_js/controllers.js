@@ -103,24 +103,109 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
     document.body.style.overflow = "scroll";
     $scope.states = ["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID", "IL","IN","KS","KY","LA","MA","MD","ME","MH","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
     $scope.registerData = {};
+    $scope.formError = false;
     $scope.register = function() {
-        /*
-        $scope.registerData.name = "d";
-        $scope.registerData.email = "d234@gmail.com";
-        $scope.registerData.phone_number = "1112223333";
-        $scope.registerData.start_hour = "10";
-        $scope.registerData.start_minute = "0";
-        $scope.registerData.end_hour = "5";
-        $scope.registerData.end_minute = "30";
-        $scope.registerData.password = "pw1";
-        $scope.pwConfirm = "pw1";
-        $scope.startTime = "AM";
-        $scope.endTime = "AM";
-        $scope.registerData.typeID = 1;
-        */
         // Form validation
-        if ($scope.registerData.name == undefined) {
 
+        $scope.errorStyleTypeID = {};
+        $scope.errorStyleName = {};
+        $scope.errorStyleEmail = {};
+        $scope.errorStylePhoneNumber = {};
+        $scope.errorStyleAddress = {};
+        $scope.errorStyleCity = {};
+        $scope.errorStyleState = {};
+        $scope.errorStyleZipcode = {};
+        $scope.errorStyleStartHour = {};
+        $scope.errorStyleStartMinute = {};
+        $scope.errorStyleStartTime = {};
+        $scope.errorStyleEndHour = {};
+        $scope.errorStyleEndMinute = {};
+        $scope.errorStyleEndTime = {};
+        $scope.errorStylePassword = {};
+
+        $scope.errorMessage = "";
+        $scope.formError = false;
+
+
+        if ($scope.registerData.typeID == undefined) {
+          $scope.errorStyleTypeID = {'border-style': 'solid', 'border-width': '2px', 'border-color': '#FF0000'};
+          $scope.formError = true;
+          $scope.errorMessage = "Please fill in the required fields";
+        }
+        if ($scope.registerData.name == undefined) {
+          $scope.errorStyleName = {'border-style': 'solid', 'border-width': '2px', 'border-color': '#FF0000'};
+          $scope.formError = true;
+          $scope.errorMessage = "Please fill in the required fields";
+        }
+        if ($scope.registerData.email == undefined) {
+          $scope.errorStyleEmail = {'border-style': 'solid', 'border-width': '2px', 'border-color': '#FF0000'};
+          $scope.formError = true;
+          $scope.errorMessage = "Please fill in the required fields";
+        } else if ($scope.registerData.email.indexOf('@') == -1 ||
+                  $scope.registerData.email.indexOf('@') == $scope.registerData.email.length - 1) {
+          $scope.errorStyleEmail = {'border-style': 'solid', 'border-width': '2px', 'border-color': '#FF0000'};
+          $scope.formError = true;
+          $scope.errorMessage = "Please enter a valid email";
+        }
+        if ($scope.registerData.phone_number == undefined) {
+          $scope.errorStylePhoneNumber = {'border-style': 'solid', 'border-width': '2px', 'border-color': '#FF0000'};
+          $scope.formError = true;
+          $scope.errorMessage = "Please fill in the required fields";
+        }
+        if ($scope.address == undefined) {
+          $scope.errorStyleAddress = {'border-style': 'solid', 'border-width': '2px', 'border-color': '#FF0000'};
+          $scope.formError = true;
+          $scope.errorMessage = "Please fill in the required fields";
+        }
+        if ($scope.city == undefined) {
+          $scope.errorStyleCity = {'border-style': 'solid', 'border-width': '2px', 'border-color': '#FF0000'};
+          $scope.formError = true;
+          $scope.errorMessage = "Please fill in the required fields";
+        }
+        if ($scope.state == undefined) {
+          $scope.errorStyleState = {'border-style': 'solid', 'border-width': '2px', 'border-color': '#FF0000'};
+          $scope.formError = true;
+          $scope.errorMessage = "Please fill in the required fields";
+        }
+        if ($scope.zipcode == undefined) {
+          $scope.errorStyleZipcode = {'border-style': 'solid', 'border-width': '2px', 'border-color': '#FF0000'};
+          $scope.formError = true;
+          $scope.errorMessage = "Please fill in the required fields";
+        }
+        if ($scope.starthr == undefined) {
+          $scope.errorStyleStartHour = {'border-style': 'solid', 'border-width': '2px', 'border-color': '#FF0000'};
+          $scope.formError = true;
+          $scope.errorMessage = "Please fill in the required fields";
+        }
+        if ($scope.registerData.start_minute == undefined) {
+          $scope.errorStyleStartMinute = {'border-style': 'solid', 'border-width': '2px', 'border-color': '#FF0000'};
+          $scope.formError = true;
+          $scope.errorMessage = "Please fill in the required fields";
+        }
+        if ($scope.startTime == undefined) {
+          $scope.errorStyleStartTime = {'border-style': 'solid', 'border-width': '2px', 'border-color': '#FF0000'};
+          $scope.formError = true;
+          $scope.errorMessage = "Please fill in the required fields";
+        }
+        if ($scope.endhr == undefined) {
+          $scope.errorStyleEndHour = {'border-style': 'solid', 'border-width': '2px', 'border-color': '#FF0000'};
+          $scope.formError = true;
+          $scope.errorMessage = "Please fill in the required fields";
+        }
+        if ($scope.registerData.end_minute == undefined) {
+          $scope.errorStyleEndMinute = {'border-style': 'solid', 'border-width': '2px', 'border-color': '#FF0000'};
+          $scope.formError = true;
+          $scope.errorMessage = "Please fill in the required fields";
+        }
+        if ($scope.endTime == undefined) {
+          $scope.errorStyleEndTime = {'border-style': 'solid', 'border-width': '2px', 'border-color': '#FF0000'};
+          $scope.formError = true;
+          $scope.errorMessage = "Please fill in the required fields";
+        }
+        if ($scope.registerData.password == undefined) {
+          $scope.errorStylePassword = {'border-style': 'solid', 'border-width': '2px', 'border-color': '#FF0000'};
+          $scope.formError = true;
+          $scope.errorMessage = "Please fill in the required fields";
         }
         
         $scope.registerData.address = $scope.address;
@@ -130,27 +215,32 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
         $scope.registerData.start_hour = $scope.starthr;
         $scope.registerData.end_hour = $scope.endhr;
         if ($scope.startTime == 'PM') {
-            $scope.registerData.start_hour = parseInt($scope.registerData.start_hour) + 12;
+          $scope.registerData.start_hour = parseInt($scope.registerData.start_hour) + 12;
         }
         if ($scope.endTime == 'PM') {
-            $scope.registerData.end_hour = parseInt($scope.registerData.end_hour) + 12;
+          $scope.registerData.end_hour = parseInt($scope.registerData.end_hour) + 12;
         }
         if ($scope.pwConfirm != $scope.registerData.password) {
-            console.log('password is different');
-        } else {
-            GeoCoder.geocode({address: $scope.address + $scope.city + $scope.state + $scope.zipcode}).then(function(result) {
-                $scope.registerData.loc = [];
-                $scope.registerData.loc[0] = result[0].geometry.location.lng();
-                $scope.registerData.loc[1] = result[0].geometry.location.lat();
-                UserAuth.registerUser($scope.registerData).then(function(arg) {
-                    UserAuth.saveToken(arg.data.token);
-                    $location.path('profile');
-                }).catch(function(arg) {
-                    console.log(arg);
-                });
+          $scope.formError = true;
+          $scope.errorMessage = "Passwords are different";
+        }
+        
+        
+        if (!$scope.formError) {
+          console.log($scope.registerData);
+          GeoCoder.geocode({address: "" + $scope.address + $scope.city + $scope.state + $scope.zipcode}).then(function(result) {
+            $scope.registerData.loc = [];
+            $scope.registerData.loc[0] = result[0].geometry.location.lng();
+            $scope.registerData.loc[1] = result[0].geometry.location.lat();
+            UserAuth.registerUser($scope.registerData).then(function(arg) {
+              UserAuth.saveToken(arg.data.token);
+              $location.path('profile');
             }).catch(function(arg) {
-                console.log(arg);
+              console.log(arg);
             });
+          }).catch(function(arg) {
+            console.log(arg);
+          });
         }
     };
 }]);
@@ -193,40 +283,7 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
         console.log(message);
       });
     });
-<<<<<<< HEAD
-
-    $scope.getNearby = function() {
-        GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
-            $scope.search.latitude = result[0].geometry.location.lat();
-            $scope.search.longitude = result[0].geometry.location.lng();
-            NavService.getNearby($scope.search).then(function(result) {
-              var results = result.data.data;
-              results.forEach(function(elem) {
-                console.log(elem);
-                var lat = elem.location[1];
-                var lng = elem.location[0];
-                $scope.searchResults.push(elem);
-                //$scope.searchResult.push('[' + lat + ', ' + lng + ']');
-              });
-            }).catch(function(message) {
-              console.log(message);
-            });
-        });
-        /*
-        NavigatorGeolocation.getCurrentPosition().then(function(position) {
-            $scope.queryParams.lat = position.coords.latitude;
-            $scope.queryParams.long = position.coords.longitude;
-        }).catch(function(arg) {
-            console.log(arg);
-        });
-        */
-
-    }
-
-  }
-=======
   };
->>>>>>> 3d0652a34f499fdc9e8f2cdba0307fa68de3b84f
 
   $scope.getCurrentLocation = function() {
     NavigatorGeolocation.getCurrentPosition().then(function(position) {
