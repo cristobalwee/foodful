@@ -10,7 +10,14 @@
       </div>
       <div class="responsivehide">
         <a href="#/search"><button class="searchbtn">find a food bank</button></a>
-        <a href="javascript:void(0)" ng-click="logout()">log out</a>
+        <div class="dropdown">
+          <button class="dropbtn navprofile">{{isLogged.name.charAt(0).toUpperCase()}}</button>
+          <div class="dropdown-content">
+            <a href="#/">Home</a>
+            <a href="#/profile">Profile</a>
+            <a href="javascript:void(0)" ng-click="logout()">Logout</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>

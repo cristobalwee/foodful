@@ -1,51 +1,75 @@
 var foodfulControllers = angular.module('foodfulControllers', []);
 
-foodfulControllers.controller('LandingController', ['$scope', 'UserAuth', function($scope, UserAuth) {
+foodfulControllers.controller('LandingController', ['$scope', 'UserAuth', '$location', function($scope, UserAuth, $location) {
     $scope.isLogged = UserAuth.currentUser();
     position = 0;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
 }]);
 
-foodfulControllers.controller('FactsController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+foodfulControllers.controller('FactsController', ['$scope', '$http', 'UserAuth', '$location', function($scope, $http, UserAuth, $location) {
     $scope.isLogged = UserAuth.currentUser();
     position = 1;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
 }]);
 
-foodfulControllers.controller('PurposeController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+foodfulControllers.controller('PurposeController', ['$scope', '$http', 'UserAuth', '$location', function($scope, $http, UserAuth, $location) {
   $scope.isLogged = UserAuth.currentUser();
     position = 2;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
 }]);
 
-foodfulControllers.controller('LegalController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+foodfulControllers.controller('LegalController', ['$scope', '$http', 'UserAuth', '$location', function($scope, $http, UserAuth, $location) {
   $scope.isLogged = UserAuth.currentUser();
     position = 3;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
 }]);
 
-foodfulControllers.controller('ContactController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+foodfulControllers.controller('ContactController', ['$scope', '$http', 'UserAuth', '$location', function($scope, $http, UserAuth, $location) {
   $scope.isLogged = UserAuth.currentUser();
     position = 4;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
 }]);
 
-foodfulControllers.controller('AboutController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+foodfulControllers.controller('AboutController', ['$scope', '$http', 'UserAuth', '$location', function($scope, $http, UserAuth, $location) {
   $scope.isLogged = UserAuth.currentUser();
     position = -1;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
 }]);
 
 foodfulControllers.controller('LoginController', ['$scope', '$location', 'UserAuth', function($scope, $location, UserAuth) {
@@ -68,6 +92,10 @@ foodfulControllers.controller('LoginController', ['$scope', '$location', 'UserAu
         // redirect to login page
         $location.path('/profile');
     }
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
 }]);
 
 foodfulControllers.controller('RegisterController', ['$scope', '$location', 'UserAuth', 'GeoCoder', function($scope, $location, UserAuth, GeoCoder) {
@@ -76,6 +104,7 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
     $scope.states = ["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID", "IL","IN","KS","KY","LA","MA","MD","ME","MH","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
     $scope.registerData = {};
     $scope.register = function() {
+<<<<<<< HEAD
         /*
         $scope.registerData.name = "d";
         $scope.registerData.email = "d234@gmail.com";
@@ -95,6 +124,8 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
 
         }
 
+=======
+>>>>>>> 104ac8f596f8bbb9ee04719b9d2bab5fb9589176
         $scope.registerData.address = $scope.address;
         $scope.registerData.city = $scope.city;
         $scope.registerData.state = $scope.state;
@@ -127,7 +158,7 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
     };
 }]);
 
-foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', 'GeoCoder', 'NavService', 'UserAuth', function($scope, $http, NgMap, NavigatorGeolocation, GeoCoder, NavService, UserAuth) {
+foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', 'GeoCoder', 'NavService', 'UserAuth', '$location', function($scope, $http, NgMap, NavigatorGeolocation, GeoCoder, NavService, UserAuth, $location) {
   $scope.isLogged = UserAuth.currentUser();
   position = -1;
   document.body.style.overflow = "scroll";
@@ -143,9 +174,10 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
   });
 
   $scope.searchResults = [];
+
   $scope.result = {};
   $scope.selected = {};
-  
+
   $scope.getNearby = function() {
     $scope.searchResults = [];
     GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
@@ -164,7 +196,40 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
         console.log(message);
       });
     });
+<<<<<<< HEAD
+
+    $scope.getNearby = function() {
+        GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
+            $scope.search.latitude = result[0].geometry.location.lat();
+            $scope.search.longitude = result[0].geometry.location.lng();
+            NavService.getNearby($scope.search).then(function(result) {
+              var results = result.data.data;
+              results.forEach(function(elem) {
+                console.log(elem);
+                var lat = elem.location[1];
+                var lng = elem.location[0];
+                $scope.searchResults.push(elem);
+                //$scope.searchResult.push('[' + lat + ', ' + lng + ']');
+              });
+            }).catch(function(message) {
+              console.log(message);
+            });
+        });
+        /*
+        NavigatorGeolocation.getCurrentPosition().then(function(position) {
+            $scope.queryParams.lat = position.coords.latitude;
+            $scope.queryParams.long = position.coords.longitude;
+        }).catch(function(arg) {
+            console.log(arg);
+        });
+        */
+
+    }
+
+  }
+=======
   };
+>>>>>>> 3d0652a34f499fdc9e8f2cdba0307fa68de3b84f
 
   $scope.getCurrentLocation = function() {
     NavigatorGeolocation.getCurrentPosition().then(function(position) {
@@ -178,11 +243,17 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
     console.log($scope.map.markers);
     $scope.map.showInfoWindow('map-info', selected.id.toString());
   }
+  $scope.logout = function() {
+    UserAuth.logout();
+      $location.path('/');
+  };
 }]);
 
 foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', 'UserAuth', '$location', function($scope, $http, Prof, UserAuth, $location) {
   position = -1;
   document.body.style.overflow = "scroll";
+
+  $scope.isLogged = UserAuth.currentUser();
 
   Prof.getProfile().success(function(data) {
     console.log(data);
@@ -204,6 +275,7 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
     $scope.isLogged = UserAuth.currentUser();
     position = -1;
     document.body.style.overflow = "scroll";
+    $scope.rating = 0;
 
     $scope.profileID = $routeParams.id;
 
@@ -282,6 +354,19 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
         $scope.notbothelem = false;
     };
 
+    $scope.rate = function() {
+      var temp = $scope.user.rating * $scope.user.num_rating.length;
+      $scope.user.num_rating.push($scope.rating);
+      temp += $scope.rating;
+      $scope.user.rating = temp/$scope.user.num_rating.length;
+      Prof.updateProfile($scope.user).success(function(args) {
+        console.log(args);
+      }).error(function(arg) {
+        console.log(arg);
+      });
+    };
+
+
 }]);
 
 foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof', '$location', 'UserAuth', 'GeoCoder', function($scope, $http, Prof, $location, UserAuth, GeoCoder) {
@@ -337,8 +422,8 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
   });
 }]);
 
-foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
-  $scope.isLogged = UserAuth.currentUser();
+foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', '$location', 'UserAuth', function($scope, $http, Prof, $location, UserAuth) {
+  $scope.isLogged = UserAuth.currentUser
     Prof.getProfile().success(function(data) {
       $scope.user = data.data;
       var favoritesids = $scope.user.favorites;
@@ -349,4 +434,9 @@ foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof',
         })
       }
     });
+
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
 }]);
