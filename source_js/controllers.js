@@ -1,51 +1,75 @@
 var foodfulControllers = angular.module('foodfulControllers', []);
 
-foodfulControllers.controller('LandingController', ['$scope', 'UserAuth', function($scope, UserAuth) {
+foodfulControllers.controller('LandingController', ['$scope', 'UserAuth', '$location', function($scope, UserAuth, $location) {
     $scope.isLogged = UserAuth.currentUser();
     position = 0;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
 }]);
 
-foodfulControllers.controller('FactsController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+foodfulControllers.controller('FactsController', ['$scope', '$http', 'UserAuth', '$location', function($scope, $http, UserAuth, $location) {
     $scope.isLogged = UserAuth.currentUser();
     position = 1;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
 }]);
 
-foodfulControllers.controller('PurposeController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+foodfulControllers.controller('PurposeController', ['$scope', '$http', 'UserAuth', '$location', function($scope, $http, UserAuth, $location) {
   $scope.isLogged = UserAuth.currentUser();
     position = 2;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
 }]);
 
-foodfulControllers.controller('LegalController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+foodfulControllers.controller('LegalController', ['$scope', '$http', 'UserAuth', '$location', function($scope, $http, UserAuth, $location) {
   $scope.isLogged = UserAuth.currentUser();
     position = 3;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
 }]);
 
-foodfulControllers.controller('ContactController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+foodfulControllers.controller('ContactController', ['$scope', '$http', 'UserAuth', '$location', function($scope, $http, UserAuth, $location) {
   $scope.isLogged = UserAuth.currentUser();
     position = 4;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
 }]);
 
-foodfulControllers.controller('AboutController', ['$scope', '$http', 'UserAuth', function($scope, $http, UserAuth) {
+foodfulControllers.controller('AboutController', ['$scope', '$http', 'UserAuth', '$location', function($scope, $http, UserAuth, $location) {
   $scope.isLogged = UserAuth.currentUser();
     position = -1;
     if (!isMobile) {
       document.body.style.overflow = "hidden";
     }
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
 }]);
 
 foodfulControllers.controller('LoginController', ['$scope', '$location', 'UserAuth', function($scope, $location, UserAuth) {
@@ -68,6 +92,10 @@ foodfulControllers.controller('LoginController', ['$scope', '$location', 'UserAu
         // redirect to login page
         $location.path('/profile');
     }
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
 }]);
 
 foodfulControllers.controller('RegisterController', ['$scope', '$location', 'UserAuth', 'GeoCoder', function($scope, $location, UserAuth, GeoCoder) {
@@ -90,6 +118,11 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
         $scope.endTime = "AM";
         $scope.registerData.typeID = 1;
         */
+        // Form validation
+        if ($scope.registerData.name == undefined) {
+
+        }
+        
         $scope.registerData.address = $scope.address;
         $scope.registerData.city = $scope.city;
         $scope.registerData.state = $scope.state;
@@ -122,7 +155,7 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
     };
 }]);
 
-foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', 'GeoCoder', 'NavService', 'UserAuth', function($scope, $http, NgMap, NavigatorGeolocation, GeoCoder, NavService, UserAuth) {
+foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', 'GeoCoder', 'NavService', 'UserAuth', '$location', function($scope, $http, NgMap, NavigatorGeolocation, GeoCoder, NavService, UserAuth, $location) {
   $scope.isLogged = UserAuth.currentUser();
   position = -1;
   document.body.style.overflow = "scroll";
@@ -133,59 +166,58 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
 		$scope.lng = position.coords.longitude;
 	});
 
-    //$scope.temp = [];
+  NgMap.getMap().then(function(map) {
+    $scope.map = map;
+  });
+
+  $scope.searchResults = [];
+
+  $scope.result = {};
+  $scope.selected = {};
+
+  $scope.getNearby = function() {
     $scope.searchResults = [];
-    $scope.result = {
-      name: "Name"
-    };
-    /*
-    $scope.markers.push('908 w. stoughton st. urbana illinois 61801');
-    $scope.markers.push('603 S Wright St, Champaign, IL 61820');
-    $scope.markers.push('522 E Green St, Champaign, IL 61820');
-
-    $scope.markers.forEach(function(elem) {
-        GeoCoder.geocode({address: elem}).then(function(result) {
-            var lat = result[0].geometry.location.lat();
-            var lng = result[0].geometry.location.lng();
-            //console.log(lat + " " + lng);
-            $scope.temp.push('[' + lat + ', ' + lng + ']');
+    GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
+      $scope.search.latitude = result[0].geometry.location.lat();
+      $scope.search.longitude = result[0].geometry.location.lng();
+      NavService.getNearby($scope.search).then(function(result) {
+        var results = result.data.data;
+        results.forEach(function(elem) {
+          elem.id = elem._id;
+          var lat = elem.location[1];
+          var lng = elem.location[0];
+          elem.locString = '[' + lat + ', ' + lng + ']';
+          $scope.searchResults.push(elem);
         });
+      }).catch(function(message) {
+        console.log(message);
+      });
     });
-    */
-    $scope.getNearby = function() {
-        GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
-            $scope.search.latitude = result[0].geometry.location.lat();
-            $scope.search.longitude = result[0].geometry.location.lng();
-            NavService.getNearby($scope.search).then(function(result) {
-              var results = result.data.data;
-              results.forEach(function(elem) {
-                console.log(elem);
-                var lat = elem.location[1];
-                var lng = elem.location[0];
-                $scope.searchResults.push(elem);
-                //$scope.searchResult.push('[' + lat + ', ' + lng + ']');
-              });
-            }).catch(function(message) {
-              console.log(message);
-            });
-        });
-        /*
-        NavigatorGeolocation.getCurrentPosition().then(function(position) {
-            $scope.queryParams.lat = position.coords.latitude;
-            $scope.queryParams.long = position.coords.longitude;
-        }).catch(function(arg) {
-            console.log(arg);
-        });
-        */
+  };
 
-    }
+  $scope.getCurrentLocation = function() {
+    NavigatorGeolocation.getCurrentPosition().then(function(position) {
+      $scope.lat = position.coords.latitude;
+      $scope.lng = position.coords.longitude;
+    });
+  };
 
-
+  $scope.showDetails = function(e, selected) {
+    $scope.selected = selected;
+    console.log($scope.map.markers);
+    $scope.map.showInfoWindow('map-info', selected.id.toString());
+  }
+  $scope.logout = function() {
+    UserAuth.logout();
+      $location.path('/');
+  };
 }]);
 
 foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', 'UserAuth', '$location', function($scope, $http, Prof, UserAuth, $location) {
   position = -1;
   document.body.style.overflow = "scroll";
+
+  $scope.isLogged = UserAuth.currentUser();
 
   Prof.getProfile().success(function(data) {
     console.log(data);
@@ -207,6 +239,7 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
     $scope.isLogged = UserAuth.currentUser();
     position = -1;
     document.body.style.overflow = "scroll";
+    $scope.rating = 0;
 
     $scope.profileID = $routeParams.id;
 
@@ -285,6 +318,19 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
         $scope.notbothelem = false;
     };
 
+    $scope.rate = function() {
+      var temp = $scope.user.rating * $scope.user.num_rating.length;
+      $scope.user.num_rating.push($scope.rating);
+      temp += $scope.rating;
+      $scope.user.rating = temp/$scope.user.num_rating.length;
+      Prof.updateProfile($scope.user).success(function(args) {
+        console.log(args);
+      }).error(function(arg) {
+        console.log(arg);
+      });
+    };
+
+
 }]);
 
 foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof', '$location', 'UserAuth', 'GeoCoder', function($scope, $http, Prof, $location, UserAuth, GeoCoder) {
@@ -340,8 +386,8 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
   });
 }]);
 
-foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
-  $scope.isLogged = UserAuth.currentUser();
+foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', '$location', 'UserAuth', function($scope, $http, Prof, $location, UserAuth) {
+  $scope.isLogged = UserAuth.currentUser
     Prof.getProfile().success(function(data) {
       $scope.user = data.data;
       var favoritesids = $scope.user.favorites;
@@ -352,4 +398,9 @@ foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof',
         })
       }
     });
+
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
 }]);

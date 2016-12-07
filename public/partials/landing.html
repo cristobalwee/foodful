@@ -14,9 +14,9 @@
         <span ng-show="isLogged == null"><a href="#/about">about</a></span>
         <span ng-show="isLogged != null"><a class="loggedin"><button class="navprofile" onclick="dropDown()">{{isLogged.name.charAt(0).toUpperCase()}}</button></a></span>
         <div id="dropdown">
-          <a class="droplink" href="#/profile">Profile</a><br>
-          <a class="droplink" href="#/favorites">Favorites</a><br>
-          <a class="droplink" href="javascript:void(0)" ng-click="logout()">Log out</a>
+          <a href="#/profile">Profile</a><br>
+          <a href="#/favorites">Favorites</a><br>
+          <a href="javascript:void(0)" ng-click="logout()">Log out</a>
         </div>
       </div>
     </div>
