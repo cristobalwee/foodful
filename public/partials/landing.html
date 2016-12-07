@@ -9,9 +9,10 @@
         <button type="button" onclick="toggleMenu()" data-toggle><img src="./media/menuicon.svg"></button>
       </div>
       <div class="responsivehide">
-        <input ng-model="searchText" type="text" placeholder="find a food bank">
-        <a href="#/login">login</a>
+        <a href="#/search"><button class="searchbtn">find a food bank</button></a>
+        <span ng-show="isLogged == null"><a ng-href="#/login">login</a></span>
         <a href="#/about">about</a>
+        <span ng-show="isLogged != null"><a ng-href="#/profile" class="loggedin">{{isLogged.name}}</a></span>
       </div>
     </div>
   </div>

@@ -9,9 +9,10 @@
         <button type="button" onclick="toggleMenu()" data-toggle><img src="./media/menuicon.svg"></button>
       </div>
       <div class="responsivehide">
-        <input ng-model="searchText" type="text" placeholder="find a food bank">
-        <a href="#/login">login</a>
+        <a href="#/search"><button class="searchbtn">find a food bank</button></a>
+        <span ng-show="isLogged == null"><a ng-href="#/login">login</a></span>
         <a href="#/about">about</a>
+        <span ng-show="isLogged != null"><a ng-href="#/profile" class="loggedin">{{isLogged.name}}</a></span>
       </div>
     </div>
   </div>
@@ -24,7 +25,7 @@
         <h4>foodful</h4>
       </div>
       <div class="title-bar-right">
-          <button type="button" onclick="closeMenu()" data-toggle><img src="./media/closeicon.svg"></button>
+        <button type="button" onclick="closeMenu()" data-toggle><img src="./media/closeicon.svg"></button>
       </div>
     </div>
   </div>
@@ -63,7 +64,7 @@
     <div class="column row">
       <a href="#/login"><button id="signup">sign up for free</button></a>&nbsp;&nbsp;
       <a href="#/about"><button id="learnmore">learn more</button></a><br><br><br>
-      <a id="fontsrc" href="http://www.onlinewebfonts.com">Athelas font from oNline Web Fonts</a>
+      <!--a id="fontsrc" href="http://www.onlinewebfonts.com">Athelas font from oNline Web Fonts</a-->
     </div>
   </div>
 </div>
