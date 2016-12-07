@@ -321,18 +321,26 @@ foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', '
     if($scope.user.typeID == 1)
       $scope.showStatus = true;
     if($scope.user.start_hour > 12) {
-      $scope.user.openHour = $scope.user.start_hour-12;
+      $scope.user.openHour = +$scope.user.start_hour- +12;
       $scope.openampm = "pm";
     } else {
       $scope.user.openHour = $scope.user.start_hour;
       $scope.openampm = "am";
     }
     if($scope.user.end_hour > 12) {
-      $scope.user.closeHour = $scope.user.end_hour-12;
+      $scope.user.closeHour = +$scope.user.end_hour- +12;
       $scope.closeampm = "pm";
     } else {
       $scope.user.closeHour = $scope.user.end_hour;
       $scope.closeampm = "am";
+    }
+
+    if ($scope.user.start_minute < 10){
+      $scope.user.start_minute = "0" + $scope.user.start_minute;
+    }
+
+    if ($scope.user.end_minute < 10){
+      $scope.user.end_minute = "0" + $scope.user.end_minute;
     }
   }).error(function(err) {
     console.log(err);
@@ -363,21 +371,28 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
       console.log("public profile");
         console.log(data);
         $scope.user = data.data;
-        if($scope.user.start_hour > 12) {
-          $scope.user.openHour = $scope.user.start_hour-12;
+        if(+$scope.user.start_hour > 12) {
+          $scope.user.openHour = +$scope.user.start_hour - 12;
           $scope.openampm = "pm";
         } else {
-          $scope.user.openHour = $scope.user.start_hour;
+          $scope.user.openHour = +$scope.user.start_hour;
           $scope.openampm = "am";
         }
-        if($scope.user.end_hour > 12) {
-          $scope.user.closeHour = $scope.user.end_hour-12;
+        if(+$scope.user.end_hour > 12) {
+          $scope.user.closeHour = +$scope.user.end_hour- 12;
           $scope.closeampm = "pm";
         } else {
           $scope.user.closeHour = $scope.user.end_hour;
           $scope.closeampm = "am";
         }
 
+      if ($scope.user.start_minute < 10){
+        $scope.user.start_minute = "0" + $scope.user.start_minute;
+      }
+
+      if ($scope.user.end_minute < 10){
+        $scope.user.end_minute = "0" + $scope.user.end_minute;
+      }
     }).error(function(err){
         console.log(err);
     });
@@ -405,14 +420,6 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
         });
     }
 
-
-    Prof.getPublicProfile($scope.profileID).success(function(data) {
-        console.log(data);
-        $scope.user = data.data;
-
-    }).error(function(err){
-        console.log(err);
-    });
 
     $scope.favorite = function() {
         $scope.loggedinUser.favorites.push($scope.user._id);
@@ -480,7 +487,7 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
     $scope.states = ["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID", "IL","IN","KS","KY","LA","MA","MD","ME","MH","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
 
     if($scope.user.start_hour > 12){
-      $scope.new_user.start_hour = +$scope.user.start_hour - 12;
+      $scope.new_user.start_hour = +$scope.user.start_hour - +12;
       $scope.startTime = 'PM';
     }else {
       $scope.startTime = 'AM';
@@ -488,7 +495,7 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
     }
     if($scope.user.end_hour > 12) {
       $scope.endTime = 'PM';
-      $scope.new_user.end_hour = +$scope.user.end_hour - 12;
+      $scope.new_user.end_hour = +$scope.user.end_hour - +12;
     }
     else {
       $scope.endTime = 'AM';
