@@ -90,6 +90,11 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
         $scope.endTime = "AM";
         $scope.registerData.typeID = 1;
         */
+        // Form validation
+        if ($scope.registerData.name == undefined) {
+
+        }
+
         $scope.registerData.address = $scope.address;
         $scope.registerData.city = $scope.city;
         $scope.registerData.state = $scope.state;
@@ -142,6 +147,7 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
   $scope.selected = {};
   
   $scope.getNearby = function() {
+    $scope.searchResults = [];
     GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
       $scope.search.latitude = result[0].geometry.location.lat();
       $scope.search.longitude = result[0].geometry.location.lng();
