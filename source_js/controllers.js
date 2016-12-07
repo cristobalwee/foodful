@@ -264,7 +264,7 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
   $scope.searchResults = [];
   $scope.search = {};
 
-  $scope.search.typeID = 0;
+  $scope.search.typeID = "0";
   $scope.result = {};
   $scope.selected = {};
 
@@ -382,7 +382,7 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
           $scope.user.closeHour = +$scope.user.end_hour- 12;
           $scope.closeampm = "pm";
         } else {
-          $scope.user.closeHour = $scope.user.end_hour;
+          $scope.close = $scope.user.end_hour;
           $scope.closeampm = "am";
         }
 
@@ -449,10 +449,13 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
     };
 
     $scope.rate = function() {
-      var temp = $scope.user.rating * $scope.user.num_ratings.length;
+      var temp = +$scope.user.rating * $scope.user.num_ratings.length;
       $scope.user.num_ratings.push($scope.rating);
-      temp += $scope.rating;
-      $scope.user.rating = temp/$scope.user.num_ratings.length;
+      console.log($scope.user.num_ratings);
+      temp = +temp + +$scope.rating;
+      console.log("temp is " + temp);
+      $scope.user.rating = +(temp/$scope.user.num_ratings.length);
+      console.log("new rating is " + $scope.user.rating);
       Prof.updateOtherUser($scope.user).success(function(args) {
         console.log(args);
       }).error(function(arg) {
@@ -535,9 +538,10 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
 }]);
 
 foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', '$location', 'UserAuth', function($scope, $http, Prof, $location, UserAuth) {
+  $scope.isLogged = UserAuth.currentUser();
   position = -1;
   document.body.style.overflow = "scroll";
-  $scope.isLogged = UserAuth.currentUser();
+
     Prof.getProfile().success(function(data) {
       $scope.user = data.data;
       console.log($scope.user.rating);
