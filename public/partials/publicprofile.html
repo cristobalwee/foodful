@@ -72,12 +72,17 @@
     </div>
     <div class="column row description">
       <h3>Contact info</h3>
-      <div class="medium-6 columns">
+      <div class="medium-4 columns">
         <p>Email: {{user.email}}</p>
         <p>Phone Number: {{user.phone_number}}</p>
         <p>Hours: {{user.openHour}}:{{user.start_minute}} {{openampm}} - {{user.closeHour}}:{{user.end_minute}} {{closeampm}}</p>
       </div>
-      <div class="medium-6 columns" ng-show="user.typeID == 1">
+      <div class="medium-4 columns">
+        <p>Address: {{user.address}}</p>
+        <p>&emsp;&emsp;&emsp;&emsp;{{user.city}}, {{user.state}}</p>
+        <p>&emsp;&emsp;&emsp;&emsp;{{user.zipcode}}</p>
+      </div>
+      <div class="medium-4 columns" ng-show="user.typeID == 1">
         <div class="column row center status" ng-show="user.amount == 1">
           <img src="./media/silverware.svg">
           <p class="center padded">we’re taking food</p>
@@ -87,7 +92,7 @@
           <p class="center padded">we’re good for today</p>
         </div>
       </div>
-      <div class="medium-6 columns" ng-show="user.typeID == 0">
+      <div class="medium-4 columns" ng-show="user.typeID == 0">
         <div class="column row center status" ng-show="user.amount == 1">
           <img src="./media/open.svg">
           <p class="center padded">we have food to give</p>
