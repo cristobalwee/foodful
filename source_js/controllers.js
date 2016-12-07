@@ -242,12 +242,14 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
             if(favarray[i] == $scope.user._id)
               $scope.unfav = true;
           }
-          console.log("unfav is " + $scope.unfav);
+          $scope.bothelem = ($scope.show && ($scope.unfav !== true));
+          $scope.notbothelem = !$scope.bothelem;
+          console.log("bothelem is " + $scope.bothelem);
+          console.log("notbothelem is " + $scope.notbothelem);
         });
-      }
+    }
 
-    $scope.bothelem = ($scope.show && ($scope.unfav !== true));
-    $scope.notbothelem = !$scope.bothelem;
+
     Prof.getPublicProfile($scope.profileID).success(function(data) {
         console.log(data);
         $scope.user = data.data;
@@ -264,14 +266,23 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
         }).error(function(arg) {
           console.log(arg);
         });
+        $scope.bothelem = false;
+        $scope.notbothelem = true;
     };
 
     $scope.unfavorite = function() {
-        var favoritearr =  $scope.loggedinUser.favorites;
-        for(var i = 0; i < favoritearr.length; i++) {
-          if(favoritearr[i] === $scope.user.id)
-            favoritearr.splice(i, 1);
+        $scope.loggedinUser.favorites;
+        for(var i = 0; i < $scope.loggedinUser.favorites.length; i++) {
+          if($scope.loggedinUser.favorites[i] === $scope.user._id)
+            $scope.loggedinUser.favorites.splice(i, 1);
         }
+        Prof.updateProfile($scope.loggedinUser).success(function(args) {
+          console.log(args);
+        }).error(function(arg) {
+          console.log(arg);
+        });
+        $scope.bothelem = true;
+        $scope.notbothelem = false;
     };
 
 }]);
