@@ -7,6 +7,8 @@
     "sskhandek <sskhandek@gmail.com>"
   ],
   "scripts": {
+    "postinstall": "npm install",
+    "postinstall": "bower install",
     "start": "node app.js"
   },
   "dependencies": {
