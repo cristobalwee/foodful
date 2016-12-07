@@ -49,15 +49,18 @@
       <div map-lazy-load="https://maps.googleapis.com/maps/api/js?libraries=places" map-lazy-load-params="{{googleMapsUrl}}">
       <!--<marker position=></marker>-->
         <ng-map id="map" center="[{{lat}}, {{lng}}]" zoom="18" style="height: 25rem; width: 100%;">
-          <marker ng-repeat="result in searchResults" position="{{result.location}}" on-click="showDetail(result)"></marker>
+          <marker ng-repeat="ret in searchResults" position="{{ret.position}}" on-click="showDetail(ret)"></marker>
           <info-window id="map-info">
             <div ng-non-bindable="">
               HELLLOOWOWOWO
               <span ng-bind="result.name"></span>
             </div>
           </info-window>
-        </ng-map>          
+        </ng-map>
 			</div>
+      <p ng-repeat="ret in searchResults">
+        wtf {{ret.name}}
+      </p>
 		</div>
 		<div class="medium-4 columns">
 			<form class="center" ng-submit="getNearby()">

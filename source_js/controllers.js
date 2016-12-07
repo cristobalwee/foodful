@@ -142,29 +142,30 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
     }).catch(function(err) {
       console.log(err);
     });
-    $scope.showDetail = function(info) {
+    $scope.showDetail = function(e, info) {
       $scope.result = info;
-      //console.log(info.latLng.lat());
-      //$scope.map.showInfoWindow('map-info', $scope.result);
+      console.log($scope.searchResults);
+      console.log(info);
+      $scope.map.showInfoWindow('map-info', info.id);
     }
     $scope.getNearby = function() {
       $scope.searchResults = [];
-        GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
-            $scope.search.latitude = result[0].geometry.location.lat();
-            $scope.search.longitude = result[0].geometry.location.lng();
-            NavService.getNearby($scope.search).then(function(result) {
-              var results = result.data.data;
-              results.forEach(function(elem) {
-                elem.id = elem._id;
-                var lat = elem.location[1];
-                var lng = elem.location[0];
-                elem.position = '[' + lat + ', ' + lng + ']';
-                $scope.searchResults.push(elem);
-              });
-            }).catch(function(message) {
-              console.log(message);
+      GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
+          $scope.search.latitude = result[0].geometry.location.lat();
+          $scope.search.longitude = result[0].geometry.location.lng();
+          NavService.getNearby($scope.search).then(function(result) {
+            var results = result.data.data;
+            results.forEach(function(elem) {
+              elem.id = elem._id;
+              var lat = elem.location[1];
+              var lng = elem.location[0];
+              elem.position = '[' + lat + ', ' + lng + ']';
+              $scope.searchResults.push(elem);
             });
-        });
+          }).catch(function(message) {
+            console.log(message);
+          });
+      });
     }
 }]);
 
