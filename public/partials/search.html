@@ -48,17 +48,15 @@
     <div class="medium-8 columns">
       <div map-lazy-load="https://maps.googleapis.com/maps/api/js?libraries=places" map-lazy-load-params="{{googleMapsUrl}}">
       <!--<marker position=></marker>-->
-                <ng-map id="map" center="[{{lat}}, {{lng}}]" zoom="18" style="height: 25rem; width: 100%;">
-                <marker ng-repeat="result in searchResults" position="{{result.location}}" on-click="showDetail(result)"></marker>
-                </ng-map>
-
-                <!--
-                <info-window id="map-info">
-                  <div ng-non-bindable="">
-                    <span ng-bind="result.name"></span>
-                  </div>
-                </info-window>
-                -->
+        <ng-map id="map" center="[{{lat}}, {{lng}}]" zoom="18" style="height: 25rem; width: 100%;">
+          <marker ng-repeat="result in searchResults" position="{{result.location}}" on-click="showDetail(result)"></marker>
+          <info-window id="map-info">
+            <div ng-non-bindable="">
+              HELLLOOWOWOWO
+              <span ng-bind="result.name"></span>
+            </div>
+          </info-window>
+        </ng-map>          
 			</div>
 		</div>
 		<div class="medium-4 columns">
@@ -109,6 +107,9 @@
 </div>
 <div class="row">
   <div class="medium-8 columns">
-
+  <div class="medium-8 columns" ng-repeat="result in searchResults">
+    <p>
+      Name: <span ng-bind="result.name"></span>
+    </p>
   </div>
 </div>
