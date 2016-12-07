@@ -147,10 +147,14 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
 		$scope.lng = position.coords.longitude;
 	});
 
+  NgMap.getMap().then(function(map) {
+    $scope.map = map;
+  });
+
   $scope.searchResults = [];
-  $scope.result = {
-    name: "Name"
-  };
+
+  $scope.result = {};
+  $scope.selected = {};
 
   $scope.getNearby = function() {
     GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
@@ -159,7 +163,7 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
       NavService.getNearby($scope.search).then(function(result) {
         var results = result.data.data;
         results.forEach(function(elem) {
-          //console.log(elem);
+          elem.id = elem._id;
           var lat = elem.location[1];
           var lng = elem.location[0];
           elem.locString = '[' + lat + ', ' + lng + ']';
@@ -169,6 +173,7 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
         console.log(message);
       });
     });
+<<<<<<< HEAD
 
     $scope.getNearby = function() {
         GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
@@ -199,12 +204,21 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
     }
 
   }
+=======
+  };
+>>>>>>> 3d0652a34f499fdc9e8f2cdba0307fa68de3b84f
 
   $scope.getCurrentLocation = function() {
     NavigatorGeolocation.getCurrentPosition().then(function(position) {
       $scope.lat = position.coords.latitude;
       $scope.lng = position.coords.longitude;
     });
+  };
+
+  $scope.showDetails = function(e, selected) {
+    $scope.selected = selected;
+    console.log($scope.map.markers);
+    $scope.map.showInfoWindow('map-info', selected.id.toString());
   }
   $scope.logout = function() {
     UserAuth.logout();
