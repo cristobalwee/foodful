@@ -148,6 +148,7 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
       //$scope.map.showInfoWindow('map-info', $scope.result);
     }
     $scope.getNearby = function() {
+      $scope.searchResults = [];
         GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
             $scope.search.latitude = result[0].geometry.location.lat();
             $scope.search.longitude = result[0].geometry.location.lng();
