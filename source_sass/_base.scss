@@ -438,6 +438,32 @@ a {
       background-color: white;
     }
 
+    #dropdown {
+      height: 8rem;
+      display: none;
+      position: fixed;
+      z-index: 99;
+      background-color: $secondarycolor;
+      @include border-radius(4px);
+      right: 1rem;
+      padding: 1rem;
+      @include transition(all 0.5s ease);
+
+      a {
+        font-family: $font;
+        color: white;
+        font-size: 1rem;
+        text-decoration: none;
+        padding-right: 0.5rem;
+        padding-bottom: 0.5rem;
+
+        &:hover {
+          color: white;
+          text-decoration: none;
+        }
+      }
+    }
+
     .navprofile {
       @include border-radius(50%);
       display: inline !important;
@@ -462,25 +488,13 @@ a {
 }
 
 #profilepage {
-  width: 100vw;
-  height: 100vh;
-  padding-left: 10rem;
-  padding-right: 10rem;
+  margin-top: 8rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
 
-  .left {
-    padding-left: 3rem;
-  }
-
-  h2 {
+  p {
     font-family: $font;
     color: $secondarycolor;
-    line-height: 110%;
-  }
-
-  h5 {
-    font-family: $font;
-    color: $secondarycolor;
-    line-height: 110%;
   }
 
   button {
@@ -488,6 +502,8 @@ a {
     border: solid 1px $secondarycolor;
     @include border-radius(4px);
     font-family: $font;
+    background-color: $secondarycolor;
+    color: white;
   }
 
   .initials {
@@ -501,6 +517,47 @@ a {
       color: white;
       text-align: center;
       font-size: 3.5rem;
+    }
+  }
+
+  h3 {
+    font-family: $font;
+    color: $secondarycolor;
+    text-align: center;
+    padding-top: 1rem;
+  }
+
+  .description {
+    border: solid 1px $secondarycolor;
+    @include border-radius(8px);
+    padding: 1rem;
+    text-align: center;
+    margin-bottom: 1rem;
+
+    h2 {
+      font-family: $font;
+      color: $secondarycolor;
+    }
+
+    p {
+      font-family: $font;
+      color: $secondarycolor;
+      text-align: left;
+    }
+
+    .status {
+      text-align: center;
+
+      p {
+        text-align: center;
+        padding-top: 0.5rem;
+      }
+    }
+  }
+
+  .bowl {
+    img {
+      height: 0.2rem;
     }
   }
 
@@ -1234,6 +1291,81 @@ a {
     .padded {
       padding-left: 3rem;
       padding-right: 3rem;
+    }
+  }
+}
+
+#publicprofile {
+  margin-top: 8rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
+
+  p {
+    font-family: $font;
+    color: $secondarycolor;
+  }
+
+  button {
+    padding: 1rem 1.5rem;
+    border: solid 1px $secondarycolor;
+    @include border-radius(4px);
+    font-family: $font;
+    background-color: $secondarycolor;
+    color: white;
+  }
+
+  .initials {
+    background-color: $secondarycolor;
+    @include border-radius(8px);
+    padding: 3rem;
+    text-align: center;
+
+    h1 {
+      font-family: $font;
+      color: white;
+      text-align: center;
+      font-size: 3.5rem;
+    }
+  }
+
+  h3 {
+    font-family: $font;
+    color: $secondarycolor;
+    text-align: center;
+    padding-top: 1rem;
+  }
+
+  .description {
+    border: solid 1px $secondarycolor;
+    @include border-radius(8px);
+    padding: 1rem;
+    text-align: center;
+    margin-bottom: 1rem;
+
+    h2 {
+      font-family: $font;
+      color: $secondarycolor;
+    }
+
+    p {
+      font-family: $font;
+      color: $secondarycolor;
+      text-align: left;
+    }
+
+    .status {
+      text-align: center;
+
+      p {
+        text-align: center;
+        padding-top: 0.5rem;
+      }
+    }
+  }
+
+  .bowl {
+    img {
+      height: 0.2rem;
     }
   }
 }

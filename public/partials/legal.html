@@ -12,7 +12,12 @@
         <a href="#/search"><button class="searchbtn">find a food bank</button></a>
         <span ng-show="isLogged == null"><a ng-href="#/login">login</a></span>
         <span ng-show="isLogged == null"><a href="#/about">about</a></span>
-        <span ng-show="isLogged != null"><a ng-href="#/profile" class="loggedin"><button class="navprofile">{{isLogged.name.charAt(0).toUpperCase()}}</button></a></span>
+        <span ng-show="isLogged != null"><a class="loggedin"><button class="navprofile" onclick="dropDown()">{{isLogged.name.charAt(0).toUpperCase()}}</button></a></span>
+        <div id="dropdown">
+          <a href="#/profile">Profile</a><br>
+          <a href="#/favorites">Favorites</a><br>
+          <a href="javascript:void(0)" ng-click="logout()">Log out</a>
+        </div>
       </div>
     </div>
   </div>

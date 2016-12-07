@@ -144,3 +144,13 @@ var closeMenu = function() {
   document.getElementsByClassName("menu")[0].style.opacity = 0;
   document.getElementsByClassName("menu")[0].style.zIndex = -1;
 };
+
+var dropDown = function() {
+  document.getElementById("dropdown").style.display = "block";
+}
+
+window.onclick = function(event) {
+  if (!event.target.matches('.navprofile')) {
+    document.getElementById("dropdown").style.display = "none";
+  };
+};

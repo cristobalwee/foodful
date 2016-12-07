@@ -44,36 +44,86 @@
   </div>
 </div>
 <div id="publicprofile" class="expanded row">
-  <div class="small-8 small-centered column">
-    <div class="expanded row" id="innerprofile">
-      <div class="expanded row">
-        <div class="small-3 small-offset-9 text-right column">
-          <button ng-show="bothelem" ng-click="favorite()" class="makedifference">Favorite!</button>
-          <button ng-show="notbothelem" ng-click="unfavorite()" class="makedifference">Unfavorite!</button>
+  <div class="medium-4 columns center">
+    <div class="initials">
+      <h1>{{user.name.charAt(0).toUpperCase()}}</h1>
+    </div>
+    <h3>{{user.name}}</h3>
+    <span class="center" ng-show="user.typeID == 1"><p>Food bank or Charity</p></span>
+    <span class="center" ng-show="user.typeID == 0"><p>Restaurant or business</p></span>
+    <span class="bowl" ng-show="user.rating > 0"><img src="./media/logo.svg"></span>
+    <span class="bowl" ng-show="user.rating > 1"><img src="./media/logo.svg"></span>
+    <span class="bowl" ng-show="user.rating > 2"><img src="./media/logo.svg"></span>
+    <span class="bowl" ng-show="user.rating > 3"><img src="./media/logo.svg"></span>
+    <span class="bowl" ng-show="user.rating > 4"><img src="./media/logo.svg"></span>
+    <span class="center"><button ng-show="bothelem" ng-click="favorite()" class="makedifference">Favorite</button></span>
+    <span class="center"><button ng-show="notbothelem" ng-click="unfavorite()" class="makedifference">Unfavorite</button></span>
+  </div>
+  <div class="medium-8 columns">
+    <div class="column row description">
+      <h3>About us</h3>
+      <span ng-show="user.description == null"><p>Hmmm... Looks like this user hasn't input a description</p></span>
+      <p>{{user.description}}</p>
+    </div>
+    <div class="column row description">
+      <h3>Contact info</h3>
+      <div class="small-6 columns">
+        <p>Email: {{user.email}}</p>
+        <p>Phone Number: {{user.phone_number}}</p>
+        <p>Hours: {{user.start_hour}}:{{user.start_minute}} - {{user.end_hour}}:{{user.end_minute}}</p>
+      </div>
+      <div class="small-6 columns" ng-show="user.typeID == 1">
+        <div class="column row center status" ng-show="user.amount == 1">
+          <img src="./media/silverware.svg">
+          <p class="center padded">we’re taking food</p>
+        </div>
+        <div class="column row center status" ng-show="user.amount == 0">
+          <img src="./media/satisfied.svg">
+          <p class="center padded">we’re good for today</p>
         </div>
       </div>
-      <div class="small-3 column"><h2>Name: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.name}}</h5></div>
-      <div class="small-3 small-offset-2 text-left column"><h2>Email: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.email}}</h5></div>
-      <div class="small-12 column proffiller"></div>
-      <div class="small-3 column"><h2>Rating: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.rating}}</h5></div>
-      <div class="small-3 small-offset-2 column"><h2>Phone Number: </h2></div>
-      <div class="small-2 column phonecol"><h5>{{user.phone_number}}</h5></div>
-      <div class="small-12 column proffiller"></div>
-      <div class="small-3 column"><h2>Status: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.status}}</h5></div>
-      <div class="small-3 small-offset-2 column"><h2>Address: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.address}}</h5></div>
-      <div class="small-12 column proffiller"></div>
-      <div class="small-3 column"><h2>Opening Time: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.status}}</h5></div>
-      <div class="small-3 small-offset-2 column"><h2>Closing Time: </h2></div>
-      <div class="small-2 column midcol"><h5>{{user.location}}</h5></div>
-      <div class="small-12 column proffiller"></div>
-      <div class="small-4 text-right column"><h2>Description: </h2></div>
-      <div class="small-4 small-offset-4 column midcol"><h5>{{user.description}}</h5></div>
+      <div class="small-6 columns" ng-show="user.typeID == 0">
+        <div class="column row center status" ng-show="user.amount == 1">
+          <img src="./media/open.svg">
+          <p class="center padded">we have food to give</p>
+        </div>
+        <div class="column row center status" ng-show="user.amount == 0">
+          <img src="./media/sleeping.svg">
+          <p class="center padded">we’re done for today</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+<!--div class="small-8 small-centered column">
+  <div class="expanded row" id="innerprofile">
+    <div class="expanded row">
+      <div class="small-3 small-offset-9 text-right column">
+        <button ng-show="bothelem" ng-click="favorite()" class="makedifference">Favorite!</button>
+        <button ng-show="notbothelem" ng-click="unfavorite()" class="makedifference">Unfavorite!</button>
+      </div>
+    </div>
+    <div class="small-3 column"><h2>Name: </h2></div>
+    <div class="small-2 column midcol"><h5>{{user.name}}</h5></div>
+    <div class="small-3 small-offset-2 text-left column"><h2>Email: </h2></div>
+    <div class="small-2 column midcol"><h5>{{user.email}}</h5></div>
+    <div class="small-12 column proffiller"></div>
+    <div class="small-3 column"><h2>Rating: </h2></div>
+    <div class="small-2 column midcol"><h5>{{user.rating}}</h5></div>
+    <div class="small-3 small-offset-2 column"><h2>Phone Number: </h2></div>
+    <div class="small-2 column phonecol"><h5>{{user.phone_number}}</h5></div>
+    <div class="small-12 column proffiller"></div>
+    <div class="small-3 column"><h2>Status: </h2></div>
+    <div class="small-2 column midcol"><h5>{{user.status}}</h5></div>
+    <div class="small-3 small-offset-2 column"><h2>Address: </h2></div>
+    <div class="small-2 column midcol"><h5>{{user.address}}</h5></div>
+    <div class="small-12 column proffiller"></div>
+    <div class="small-3 column"><h2>Opening Time: </h2></div>
+    <div class="small-2 column midcol"><h5>{{user.status}}</h5></div>
+    <div class="small-3 small-offset-2 column"><h2>Closing Time: </h2></div>
+    <div class="small-2 column midcol"><h5>{{user.location}}</h5></div>
+    <div class="small-12 column proffiller"></div>
+    <div class="small-4 text-right column"><h2>Description: </h2></div>
+    <div class="small-4 small-offset-4 column midcol"><h5>{{user.description}}</h5></div>
+  </div>
+</div-->
