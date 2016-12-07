@@ -209,19 +209,10 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
         $location.path('/');
     };
     /* Control the Public Profile */
-    $scope.show = false
-    if (UserAuth.isLoggedIn()){
-        $scope.show = true;
 
-        console.log($scope.show);
-
-        Prof.getProfile().success(function(data) {
-          console.log(data);
-          $scope.loggedinUser = data.data;
-        });
-      }
 
     Prof.getPublicProfile($scope.profileID).success(function(data) {
+      console.log("public profile");
         console.log(data);
         $scope.user = data.data;
 
@@ -229,8 +220,28 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
         console.log(err);
     });
 
-    var favarray = $scope.loggedinUser.favorites;
-    for(var i = 0; i < favarray)
+    $scope.show = false
+    if (UserAuth.isLoggedIn()){
+        $scope.show = true;
+
+        console.log($scope.show);
+
+        Prof.getProfile().success(function(data) {
+          console.log("logged in user");
+          console.log(data);
+          $scope.loggedinUser = data.data;
+          var favarray = $scope.loggedinUser.favorites;
+          $scope.unfav = false;
+          for(var i = 0; i < favarray.length; i++) {
+            if(favarray[i] == $scope.user._id)
+              $scope.unfav = true;
+          }
+          console.log("unfav is " + $scope.unfav);
+        });
+      }
+
+    $scope.bothelem = ($scope.show && ($scope.unfav !== true));
+    $scope.notbothelem = !$scope.bothelem;
 
     $scope.favorite = function() {
         $scope.loggedinUser.favorites.push($scope.user._id);
