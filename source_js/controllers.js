@@ -349,11 +349,12 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
 
   Prof.getProfile().success(function(data) {
     $scope.user = data.data;
+    $scope.new_user = $scope.user;
     $scope.startstate = $scope.user.state;
     $scope.states = ["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID", "IL","IN","KS","KY","LA","MA","MD","ME","MH","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
-    if($scope.user.start_hour >= 12)
+    if($scope.user.start_hour >= 12){
       $scope.startTime = 'PM';
-    else {
+    }else {
       $scope.startTime = 'AM';
     }
     if($scope.user.end_hour >= 12)
@@ -369,18 +370,20 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
         $scope.locstring += $scope.user.zipcode;
 
         if ($scope.startTime == 'PM') {
-            $scope.user.start_hour += 12;
+            $scope.new_user.start_hour = +$scope.new_user.start_hour + +12;
         }
         if ($scope.endTime == 'PM') {
-            $scope.user.end_hour += 12;
+            $scope.new_user.end_hour = +$scope.new_user.end_hour + +12;
         }
         GeoCoder.geocode({address: $scope.locstring}).then(function(result) {
-            $scope.user.loc = [];
-            $scope.user.loc[0] = result[0].geometry.location.lng();
-            $scope.user.loc[1] = result[0].geometry.location.lat();
-            console.log($scope.user);
-            Prof.updateProfile($scope.user).then(function(arg) {
-                console.log(arg)
+            $scope.new_user.loc = [];
+            $scope.new_user.loc[0] = result[0].geometry.location.lng();
+            $scope.new_user.loc[1] = result[0].geometry.location.lat();
+            console.log($scope.new_user);
+            Prof.updateProfile($scope.new_user).then(function(arg) {
+                console.log(arg);
+                $location.path('/profile');
+                alert('Successfully Updated User');
             }).catch(function(arg) {
                 console.log(arg);
             });
