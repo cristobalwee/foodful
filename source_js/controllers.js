@@ -537,14 +537,16 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
 foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', '$location', 'UserAuth', function($scope, $http, Prof, $location, UserAuth) {
   position = -1;
   document.body.style.overflow = "scroll";
-  $scope.isLogged = UserAuth.currentUser
+  $scope.isLogged = UserAuth.currentUser();
     Prof.getProfile().success(function(data) {
       $scope.user = data.data;
+      console.log($scope.user.rating);
       var favoritesids = $scope.user.favorites;
       $scope.favorites = [];
       for(var i = 0; i < favoritesids.length; i++) {
         Prof.getPublicProfile(favoritesids[i]).success(function(data) {
           $scope.favorites.push(data.data);
+          console.log(data.data.rating);
         })
       }
     });
