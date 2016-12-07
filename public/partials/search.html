@@ -16,26 +16,64 @@
     </div>
   </div>
 </div>
+<div class="menu">
+  <div data-sticky-container>
+    <div class="title-bar" data-sticky data-options="marginTop:0;" style="width:100%">
+      <div class="title-bar-left">
+        <a href="#/" class="homelink"><img src="./media/logo.svg"></a>
+        <h4>foodful</h4>
+      </div>
+      <div class="title-bar-right">
+          <button type="button" onclick="closeMenu()" data-toggle><img src="./media/closeicon.svg"></button>
+      </div>
+    </div>
+  </div>
+  <div class="menucontent">
+    <input ng-model="searchText" type="text" placeholder="find a food bank"><br>
+    <a href="#/login">login</a><br>
+    <a href="#/facts">facts</a><br>
+    <a href="#/purpose">purpose</a><br>
+    <a href="#/legal">legal</a><br>
+    <a href="#/about">about</a><br>
+  </div>
+  <div class="footer">
+    <img src="./media/social_facebook.svg">&nbsp;
+    <img src="./media/social_twitter.svg">&nbsp;
+    <img src="./media/social_tumblr.svg">&nbsp;
+  </div>
+</div>
 <div id="search">
-	<div class="row">
-		<div class="medium-8 columns">
-			<div map-lazy-load="https://maps.googleapis.com/maps/api/js?libraries=places"
-				map-lazy-load-params="{{googleMapsUrl}}">
-				<ng-map id="map" center="[{{lat}}, {{lng}}]" zoom="18" style="height: 25rem; width: 100%;">
-				</ng-map>
+  <div class="row">
+    <div class="medium-8 columns">
+      <div map-lazy-load="https://maps.googleapis.com/maps/api/js?libraries=places" map-lazy-load-params="{{googleMapsUrl}}">
+      <!--<marker position=></marker>-->
+                <ng-map id="map" center="[{{lat}}, {{lng}}]" zoom="18" style="height: 25rem; width: 100%;">
+                <marker ng-repeat="ret in searchResults" position="{{ret.position}}" on-click="showDetail()"></marker>
+                <info-window id="map-info">
+                  <div ng-non-bindable="">
+                    HELLLOOWOWOWO
+                    <span ng-bind="result.name"></span>
+                  </div>
+                </info-window>
+
+                </ng-map>
+                
+                
+                
+                
 			</div>
 		</div>
 		<div class="medium-4 columns">
-			<form class="center">
+			<form class="center" ng-submit="getNearby()">
 				<div class="column row">
 					<h4>Search</h4>
 				</div>
 				<div class="column row">
-					<input id="mapsearch" places-auto-complete types="['geocode']" on-place-changed="myCallback(place)" component-restrictions="{country:'us'}">
+					<input id="mapsearch" places-auto-complete types="['geocode']" on-place-changed="myCallback(place)" component-restrictions="{country:'us'}" ng-model="searchAddress">
 				</div>
         <div class="row">
 					<div class="small-6 columns">
-						<select ng-model="filter">
+						<select ng-model="search.distance">
               <option value="" disabled selected>distance</option>
               <option value="10">within 10mi</option>
               <option value="20">within 20mi</option>
@@ -45,8 +83,9 @@
             </select>
 					</div>
           <div class="small-6 columns">
-            <select ng-model="filter">
+            <select ng-model="search.rating">
               <option value="" disabled selected>rating</option>
+              <option value="0">All ratings</option>
               <option value="1">&starf; and above</option>
               <option value="2">&starf;&starf; and above</option>
               <option value="3">&starf;&starf;&starf; and above</option>
@@ -57,10 +96,10 @@
 				</div>
 				<div class="row">
 					<div class="small-6 columns">
-						<p class="inline">donators</p>&nbsp;<input class="radio" type="radio" name="type">
+						<p class="inline">donators</p>&nbsp;<input class="radio" value="0" type="radio" name="type" ng-model="search.typeID">
 					</div>
 					<div class="small-6 columns">
-						<p class="inline">donatees</p>&nbsp;<input class="radio" type="radio" name="type">
+						<p class="inline">donatees</p>&nbsp;<input class="radio" value="1" type="radio" name="type" ng-model="search.typeID">
 					</div>
         </div>
 				<div>
@@ -70,3 +109,14 @@
 		</div>
 	</div>
 </div>
+<div class="row">
+  <div class="medium-8 columns" ng-repeat="result in searchResults">
+    <p>
+      Name: <span ng-bind="result.name"></span>
+    </p>
+  </div>
+</div>
+
+
+
+

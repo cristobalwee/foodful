@@ -57,6 +57,16 @@ app.config(function ($routeProvider) {
       controller: 'EditProfileController'
     })
 
+    .when('/profile/:id', {
+      templateUrl: 'partials/publicprofile.html',
+      controller: 'PublicProfileController'
+    })
+
+    .when('/favorites', {
+      templateUrl: 'partials/favorites.html',
+      controller: 'FavoritesController'
+    })
+
 })
 
 app.run(function($rootScope, $location, UserAuth) {

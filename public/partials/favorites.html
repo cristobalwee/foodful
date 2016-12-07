@@ -9,7 +9,7 @@
         <button type="button" onclick="toggleMenu()" data-toggle><img src="./media/menuicon.svg"></button>
       </div>
       <div class="responsivehide">
-        <input ng-model="searchText" type="text" placeholder="find a food bank">
+				<input ng-model="searchText" type="text" placeholder="find a food bank">
         <a href="#/login">login</a>
         <a href="#/about">about</a>
       </div>
@@ -42,28 +42,27 @@
     <img src="./media/social_tumblr.svg">&nbsp;
   </div>
 </div>
-<div id="legal" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}" class="animelement">
-  <div class="row" id="legalcontent">
-    <div class="medium-6 columns padleft">
-      <h2>Hold up, is all this legal?</h2>
-      <p>I’m glad you asked - yes it is. The primary reason restaurants don’t donate their leftover food is liability: if the food brings someone harm, it’d be the restaurant’s fault, right? Not exactly.</p>
-      <p>See, food waste has been a concern in America for quite some time, and the liability restaurants face has always hindered progress in this front. Luckily though, a cool guy named Bill Clinton (the former president, in case you were wondering), passed a bill called the Bill Emerson good samaritan food donation act of 1996. The Bill bill passed by Bill (hehe) allows restaurants and businesses to donate their leftover food with no liabilty - and yes, it was passed a whole 20 years ago.</p>
-    </div>
-    <div class="medium-6 columns center">
-      <img src="./media/gavel.svg">
+<div id="favorites">
+  <h2>My favorites</h2>
+  <div class="favorite" ng-repeat="favorite in favorites">
+    <div class="row">
+      <div class="medium-3 columns">
+        <img class="profile" src="./media/frontend.png">
+      </div>
+      <div class="medium-6 columns">
+        <h2>{{favorite.name}}</h2>
+        <p>{{favorite.description}}</p>
+      </div>
+      <div class="medium-3 columns">
+        <div class="column row center" ng-show="favorite.amount == 1">
+          <img src="./media/silverware.svg">
+          <p class="center padded">we’re taking food</p>
+        </div>
+        <div class="column row center" ng-show="favorite.amount == 0">
+          <img src="./media/satisfied.svg">
+          <p class="center padded">we’re good for today</p>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-<div class="indicator responsivehide">
-  <a href="#/"><div id="house">
-    <img src="./media/house.svg">
-  </div></a>
-  <a href="#/facts"><div class="otherposition">
-  </div></a>
-  <a href="#/purpose"><div class="otherposition">
-  </div></a>
-  <div class="currentposition">
-  </div>
-  <a href="#/contact"><div class="otherposition">
-  </div></a>
 </div>

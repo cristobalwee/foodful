@@ -1,4 +1,4 @@
-var foodfulControllers = angular.module('foodfulControllers', []);
+var foodfulControllers = angular.module('foodfulControllers', ['ngMap']);
 
 foodfulControllers.controller('LandingController', ['$scope', 'UserAuth', function($scope, UserAuth) {
     $scope.isLogged = UserAuth.isLoggedIn();
@@ -38,29 +38,37 @@ foodfulControllers.controller('ContactController', ['$scope', '$http', function(
 
 foodfulControllers.controller('AboutController', ['$scope', '$http', function($scope, $http) {
     position = -1;
-    document.body.style.overflow = "hidden";
+    if (!isMobile) {
+      document.body.style.overflow = "hidden";
+    }
 }]);
 
 foodfulControllers.controller('LoginController', ['$scope', '$location', 'UserAuth', function($scope, $location, UserAuth) {
     position = -1;
     document.body.style.overflow = "scroll";
-    $scope.loginData = {};
-    $scope.login = function() {
-        UserAuth.loginUser($scope.loginData).then(function(arg) {
-            UserAuth.saveToken(arg.data.token);
-            console.log('logged in!');
-            console.log(arg);
-            $location.path('profile');
-        }).catch(function(arg) {
-            console.log(arg);
-        });
-    };
+    // If there is no userlogged in, the login page
+    if (UserAuth.currentUser() == null){
+        $scope.loginData = {};
+        $scope.login = function() {
+            UserAuth.loginUser($scope.loginData).then(function(arg) {
+                UserAuth.saveToken(arg.data.token);
+                console.log('logged in!');
+                console.log(arg);
+                $location.path('profile');
+            }).catch(function(arg) {
+                console.log(arg);
+            });
+        };
+    }else{
+        // redirect to login page
+        $location.path('/profile');
+    }
 }]);
 
 foodfulControllers.controller('RegisterController', ['$scope', '$location', 'UserAuth', 'GeoCoder', function($scope, $location, UserAuth, GeoCoder) {
     position = -1;
     document.body.style.overflow = "scroll";
-      $scope.states = ["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID", "IL","IN","KS","KY","LA","MA","MD","ME","MH","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
+    $scope.states = ["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID", "IL","IN","KS","KY","LA","MA","MD","ME","MH","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
     $scope.registerData = {};
     $scope.register = function() {
         /*
@@ -77,28 +85,27 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
         $scope.endTime = "AM";
         $scope.registerData.typeID = 1;
         */
-        $scope.locstring = "";
-        $scope.locstring += $scope.address + " ";
-        $scope.locstring += $scope.city + " ";
-        $scope.locstring += $scope.state + " ";
-        $scope.locstring += $scope.zipcode;
-
+        $scope.registerData.address = $scope.address;
+        $scope.registerData.city = $scope.city;
+        $scope.registerData.state = $scope.state;
+        $scope.registerData.zipcode = $scope.zipcode;
+        $scope.registerData.start_hour = $scope.starthr;
+        $scope.registerData.end_hour = $scope.endhr;
         if ($scope.startTime == 'PM') {
-            $scope.registerData.start_hour += 12;
+            $scope.registerData.start_hour = parseInt($scope.registerData.start_hour) + 12;
         }
         if ($scope.endTime == 'PM') {
-            $scope.registerData.end_hour += 12;
+            $scope.registerData.end_hour = parseInt($scope.registerData.end_hour) + 12;
         }
         if ($scope.pwConfirm != $scope.registerData.password) {
             console.log('password is different');
         } else {
-            GeoCoder.geocode({address: $scope.locstring}).then(function(result) {
+            GeoCoder.geocode({address: $scope.address + $scope.city + $scope.state + $scope.zipcode}).then(function(result) {
                 $scope.registerData.loc = [];
                 $scope.registerData.loc[0] = result[0].geometry.location.lng();
                 $scope.registerData.loc[1] = result[0].geometry.location.lat();
                 UserAuth.registerUser($scope.registerData).then(function(arg) {
                     UserAuth.saveToken(arg.data.token);
-                    console.log(arg);
                     $location.path('profile');
                 }).catch(function(arg) {
                     console.log(arg);
@@ -110,24 +117,58 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
     };
 }]);
 
-foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', function($scope, $http, NgMap, NavigatorGeolocation) {
-  position = -1;
-  document.body.style.overflow = "scroll";
-	$scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAXUxA57EfUTXdhcK27-kc6r6HFqPBT5J4&libraries=places";
+foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', 'NavigatorGeolocation', 'GeoCoder', 'NavService', function($scope, $http, NgMap, NavigatorGeolocation, GeoCoder, NavService) {
 
-	var myLatLng = {lat: -25.363, lng: 131.044};
+    position = -1;
+    document.body.style.overflow = "scroll";
+	$scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAXUxA57EfUTXdhcK27-kc6r6HFqPBT5J4&libraries=places";
 
 	NavigatorGeolocation.getCurrentPosition().then(function(position) {
 		$scope.lat = position.coords.latitude;
 		$scope.lng = position.coords.longitude;
 	});
-
-
+    
+    
+    $scope.searchResults = [];
+    $scope.result = {};
+    
+    NgMap.getMap('map').then(function(map) {
+      $scope.map = map;
+    }).catch(function(err) {
+      console.log(err);
+    });
+    $scope.showDetail = function(info) { 
+      $scope.result = info;
+      //console.log(info.latLng.lat());
+      //$scope.map.showInfoWindow('map-info', $scope.result);
+    }
+    $scope.getNearby = function() {
+        GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
+            $scope.search.latitude = result[0].geometry.location.lat();
+            $scope.search.longitude = result[0].geometry.location.lng();
+            NavService.getNearby($scope.search).then(function(result) {
+              var results = result.data.data;
+              results.forEach(function(elem) {
+                elem.id = elem._id;
+                var lat = elem.location[1];
+                var lng = elem.location[0];
+                elem.position = '[' + lat + ', ' + lng + ']';
+                $scope.searchResults.push(elem);
+              });
+            }).catch(function(message) {
+              console.log(message);
+            });
+        });
+        
+    }
 
 
 }]);
 
-foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
+foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', 'UserAuth', '$location', function($scope, $http, Prof, UserAuth, $location) {
+  position = -1;
+  document.body.style.overflow = "scroll";
+  
   Prof.getProfile().success(function(data) {
     console.log(data);
     $scope.user = data.data;
@@ -137,9 +178,52 @@ foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', f
   }).error(function(err) {
     console.log(err);
   });
+
+  $scope.logout = function() {
+    UserAuth.logout();
+      $location.path('/');
+  };
 }]);
 
-foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof', function($scope, $http, Prof) {
+foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$routeParams', 'Prof', '$location', 'UserAuth', function($scope, $http, $routeParams, Prof, $location, UserAuth) {
+    position = -1;
+    document.body.style.overflow = "scroll";
+
+    $scope.profileID = $routeParams.id;
+
+    $scope.logout = function() {
+      UserAuth.logout();
+        $location.path('/');
+    };
+    /* Control the Public Profile */
+    $scope.show = false
+    if (UserAuth.currentUser != null){
+        $scope.show = true;
+    }
+    console.log($scope.show);
+
+
+    Prof.getPublicProfile($scope.profileID).success(function(data) {
+        console.log(data);
+        $scope.user = data.data;
+
+    }).error(function(err){
+        console.log(err);
+    });
+
+
+
+}]);
+
+foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof', '$location', 'UserAuth', function($scope, $http, Prof, $location, UserAuth) {
+  position = -1;
+  document.body.style.overflow = "scroll";
+
+  $scope.logout = function() {
+    UserAuth.logout();
+      $location.path('/');
+  };
+
   Prof.getProfile().success(function(data) {
     $scope.displayText = "";
     $scope.showDisplay = false;
@@ -163,4 +247,15 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
       $scope.showDisplay = true;
     };
   });
+}]);
+
+foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', '$location', 'UserAuth', function($scope, $http, Prof, $location, UserAuth) {
+  position = -1;
+  document.body.style.overflow = "scroll";
+
+  $scope.logout = function() {
+    UserAuth.logout();
+      $location.path('/');
+  };
+  $scope.favorites = [{"name": "Southern California food bank", "description": "The Southern California food bank is the largest operating food bank in the greater Los Angeles area, serving over 1,000 people daily.", "amount": 0}, {"name": "Northern California food bank", "description": "The Northern California food bank is the largest operating food bank in the greater Sacramento area, serving over 1,000 people daily.", "amount": 1}];
 }]);
