@@ -1,7 +1,7 @@
 <div data-sticky-container>
   <div class="title-bar" data-sticky data-options="marginTop:0;" style="width:100%">
     <div class="title-bar-left">
-      <a href="#/" onclick="setPosition(0)" class="homelink"><img src="./media/logo.svg"></a>
+      <a href="#/" class="homelink"><img src="./media/logo.svg"></a>
       <h4>foodful</h4>
     </div>
     <div class="title-bar-right">
@@ -9,8 +9,10 @@
         <button type="button" onclick="toggleMenu()" data-toggle><img src="./media/menuicon.svg"></button>
       </div>
       <div class="responsivehide">
-        <input ng-model="searchText" type="text" placeholder="find a food bank">
-        <a href="#/profile">{{user.name}}</a>
+        <a href="#/search"><button class="searchbtn">find a food bank</button></a>
+        <span ng-show="isLogged == null"><a ng-href="#/login">login</a></span>
+        <span ng-show="isLogged == null"><a href="#/about">about</a></span>
+        <span ng-show="isLogged != null"><a ng-href="#/profile" class="loggedin"><button class="navprofile">{{isLogged.name.charAt(0).toUpperCase()}}</button></a></span>
       </div>
     </div>
   </div>
@@ -44,6 +46,12 @@
 <div id="publicprofile" class="expanded row">
   <div class="small-8 small-centered column">
     <div class="expanded row" id="innerprofile">
+      <div class="expanded row">
+        <div class="small-3 small-offset-9 text-right column">
+          <button ng-show="bothelem" ng-click="favorite()" class="makedifference">Favorite!</button>
+          <button ng-show="notbothelem" ng-click="unfavorite()" class="makedifference">Unfavorite!</button>
+        </div>
+      </div>
       <div class="small-3 column"><h2>Name: </h2></div>
       <div class="small-2 column midcol"><h5>{{user.name}}</h5></div>
       <div class="small-3 small-offset-2 text-left column"><h2>Email: </h2></div>
@@ -68,6 +76,4 @@
       <div class="small-4 small-offset-4 column midcol"><h5>{{user.description}}</h5></div>
     </div>
   </div>
-      <h1 ng-show="{{show == true}}"> I'm logged in!, so i have the option to favorite(bookmark) this profile!</h1>
-
 </div>

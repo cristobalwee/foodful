@@ -95,38 +95,38 @@
         </div>
         <div class="row center">
           <div class="medium-6 columns">
-            <input ng-model="address" type="text" placeholder="{{user.address}}" required>
+            <input ng-model="user.address" type="text" placeholder="{{user.address}}" required>
           </div>
           <div class="medium-6 columns">
-            <input ng-model="city" type="text" placeholder="{{user.city}}" required>
+            <input ng-model="user.city" type="text" placeholder="{{user.city}}" required>
           </div>
         </div>
         <div class="row center">
           <div class="medium-6 columns">
-            <select ng-model="state" required>
-              <option value="" disabled selected>state</option>
-              <option ng-repeat="state in states" value={{user.state}}>{{state}}</option>
+            <select ng-model="user.state" required>
+              <option value="" disabled selected>{{startstate}}</option>
+              <option ng-repeat="state in states" value={{state}}>{{state}}</option>
             </select>
           </div>
           <div class="medium-6 columns">
-            <input ng-model="zipcode" type="text" placeholder="{{user.zipcode}}" required>
+            <input ng-model="user.zipcode" type="text" placeholder="{{user.zipcode}}" required>
           </div>
         </div>
         <div class="row center">
           <div class="medium-6 columns">
-            <input class="hrmin" ng-model="registerData.start_hour" type="text" placeholder="{{user.start_hour}}" required>&nbsp;:
-            <input class="hrmin" ng-model="registerData.start_minute" type="text" placeholder="{{user.start_minute}}" required>
+            <input class="hrmin" ng-model="user.start_hour" type="text" placeholder="{{user.start_hour}}" required>&nbsp;:
+            <input class="hrmin" ng-model="user.start_minute" type="text" placeholder="{{user.start_minute}}" required>
             <select class="hrmin" ng-model="startTime">
-              <option value="" disabled selected>am or pm?</option>
+              <option value="" disabled>am or pm?</option>
               <option value="AM">am</option>
               <option value="PM">pm</option>
             </select>
           </div>
           <div class="medium-6 columns">
-            <input class="hrmin" ng-model="registerData.end_hour" type="text" placeholder="{{user.end_hour}}" required>&nbsp;:
-            <input class="hrmin" ng-model="registerData.end_minute" type="text" placeholder="{{user.end_minute}}" required>
+            <input class="hrmin" ng-model="user.end_hour" type="text" placeholder="{{user.end_hour}}" required>&nbsp;:
+            <input class="hrmin" ng-model="user.end_minute" type="text" placeholder="{{user.end_minute}}" required>
             <select class="hrmin" ng-model="endTime">
-              <option value="" disabled selected>am or pm?</option>
+              <option value="" disabled>am or pm?</option>
               <option value="AM">am</option>
               <option value="PM">pm</option>
             </select>
