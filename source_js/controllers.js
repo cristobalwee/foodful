@@ -363,18 +363,20 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
       console.log("public profile");
         console.log(data);
         $scope.user = data.data;
+        $scope.open = 0;
+        $scope.close = 0;
         if($scope.user.start_hour > 12) {
-          $scope.user.openHour = $scope.user.start_hour-12;
+          $scope.open = $scope.user.start_hour-12;
           $scope.openampm = "pm";
         } else {
-          $scope.user.openHour = $scope.user.start_hour;
+          $scope.open = $scope.user.start_hour;
           $scope.openampm = "am";
         }
         if($scope.user.end_hour > 12) {
-          $scope.user.closeHour = $scope.user.end_hour-12;
+          $scope.close = $scope.user.end_hour-12;
           $scope.closeampm = "pm";
         } else {
-          $scope.user.closeHour = $scope.user.end_hour;
+          $scope.close = $scope.user.end_hour;
           $scope.closeampm = "am";
         }
 
