@@ -10,13 +10,13 @@
       </div>
       <div class="responsivehide">
         <a href="#/search"><button class="searchbtn">find a food bank</button></a>
-        <div class="dropdown">
-          <button class="dropbtn navprofile">{{isLogged.name.charAt(0).toUpperCase()}}</button>
-          <div class="dropdown-content">
-            <a href="#/">Home</a>
-            <a href="#/profile">Profile</a>
-            <a href="javascript:void(0)" ng-click="logout()">Logout</a>
-          </div>
+        <span ng-show="isLogged == null"><a ng-href="#/login">login</a></span>
+        <span ng-show="isLogged == null"><a href="#/about">about</a></span>
+        <span ng-show="isLogged != null"><a class="loggedin"><button class="navprofile" onclick="dropDown()">{{isLogged.name.charAt(0).toUpperCase()}}</button></a></span>
+        <div id="dropdown">
+          <a href="#/profile">Profile</a><br>
+          <a href="#/favorites">Favorites</a><br>
+          <a href="javascript:void(0)" ng-click="logout()">Log out</a>
         </div>
       </div>
     </div>
@@ -71,12 +71,12 @@
     </div>
     <div class="column row description">
       <h3>Contact info</h3>
-      <div class="small-6 columns">
+      <div class="medium-6 columns">
         <p>Email: {{user.email}}</p>
         <p>Phone Number: {{user.phone_number}}</p>
         <p>Hours: {{user.start_hour}}:{{user.start_minute}} - {{user.end_hour}}:{{user.end_minute}}</p>
       </div>
-      <div class="small-6 columns" ng-show="user.typeID == 1">
+      <div class="medium-6 columns" ng-show="user.typeID == 1">
         <div class="column row center status" ng-show="user.amount == 1">
           <img src="./media/silverware.svg">
           <p class="center padded">we’re taking food</p>
@@ -86,7 +86,7 @@
           <p class="center padded">we’re good for today</p>
         </div>
       </div>
-      <div class="small-6 columns" ng-show="user.typeID == 0">
+      <div class="medium-6 columns" ng-show="user.typeID == 0">
         <div class="column row center status" ng-show="user.amount == 1">
           <img src="./media/open.svg">
           <p class="center padded">we have food to give</p>

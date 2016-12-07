@@ -9,6 +9,7 @@ foodfulControllers.controller('LandingController', ['$scope', 'UserAuth', '$loca
     $scope.logout = function() {
       UserAuth.logout();
         $location.path('/');
+        location.reload();
     };
 }]);
 
@@ -122,7 +123,7 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
         if ($scope.registerData.name == undefined) {
 
         }
-        
+
         $scope.registerData.address = $scope.address;
         $scope.registerData.city = $scope.city;
         $scope.registerData.state = $scope.state;

@@ -50,7 +50,52 @@
 </div>
 <div id="favorites">
   <h2>My favorites</h2>
-  <div class="favorite" ng-repeat="favorite in favorites">
+  <div class="nofavorite" ng-show="favorites.length == 0">
+    <h3>Looks like you have no favorites</h3>
+    <p>Why don't you go ahead and click that there button on the nav bar to search for some food banks and charities</p>
+  </div>
+  <div class="favorite" ng-repeat="result in favorites">
+    <div class="row">
+      <div class="medium-3 columns">
+        <div class="initials">
+          <h1>{{result.name.charAt(0).toUpperCase()}}</h1>
+        </div>
+        <span class="bowl" ng-show="result.rating > 0"><img src="./media/logo.svg"></span>
+        <span class="bowl" ng-show="result.rating > 1"><img src="./media/logo.svg"></span>
+        <span class="bowl" ng-show="result.rating > 2"><img src="./media/logo.svg"></span>
+        <span class="bowl" ng-show="result.rating > 3"><img src="./media/logo.svg"></span>
+        <span class="bowl" ng-show="result.rating > 4"><img src="./media/logo.svg"></span>
+      </div>
+      <div class="medium-6 columns">
+        <a ng-href="#/profile/{{result._id}}"><h2>{{result.name}}</h2></a>
+        <p>{{result.description}}</p>
+        <p>Email: {{result.email}}</p>
+        <p>Phone Number: {{result.phone_number}}</p>
+        <p>Hours: {{result.start_hour}}:{{result.start_minute}} - {{result.end_hour}}:{{result.end_minute}}</p>
+      </div>
+      <div class="medium-3 columns" ng-show="result.typeID == 1">
+        <div class="column row center" ng-show="result.amount == 1">
+          <img src="./media/silverware.svg">
+          <p class="center padded">we’re taking food</p>
+        </div>
+        <div class="column row center" ng-show="result.amount == 0">
+          <img src="./media/satisfied.svg">
+          <p class="center padded">we’re good for today</p>
+        </div>
+      </div>
+      <div class="medium-3 columns" ng-show="result.typeID == 0">
+        <div class="column row center" ng-show="result.amount == 1">
+          <img src="./media/open.svg">
+          <p class="center padded">we have food to give</p>
+        </div>
+        <div class="column row center" ng-show="result.amount == 0">
+          <img src="./media/sleeping.svg">
+          <p class="center padded">we’re done for today</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--div class="favorite" ng-repeat="favorite in favorites">
     <div class="row">
       <div class="medium-3 columns">
         <img class="profile" src="./media/frontend.png">
@@ -80,5 +125,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </div-->
 </div>
