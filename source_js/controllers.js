@@ -215,6 +215,17 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
         $location.path('/');
     };
     /* Control the Public Profile */
+
+
+    Prof.getPublicProfile($scope.profileID).success(function(data) {
+      console.log("public profile");
+        console.log(data);
+        $scope.user = data.data;
+
+    }).error(function(err){
+        console.log(err);
+    });
+
     $scope.show = false
     if (UserAuth.isLoggedIn()){
         $scope.show = true;
@@ -222,10 +233,22 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
         console.log($scope.show);
 
         Prof.getProfile().success(function(data) {
+          console.log("logged in user");
           console.log(data);
           $scope.loggedinUser = data.data;
+          var favarray = $scope.loggedinUser.favorites;
+          $scope.unfav = false;
+          for(var i = 0; i < favarray.length; i++) {
+            if(favarray[i] == $scope.user._id)
+              $scope.unfav = true;
+          }
+          $scope.bothelem = ($scope.show && ($scope.unfav !== true));
+          $scope.notbothelem = !$scope.bothelem;
+          console.log("bothelem is " + $scope.bothelem);
+          console.log("notbothelem is " + $scope.notbothelem);
         });
-      }
+    }
+
 
     Prof.getPublicProfile($scope.profileID).success(function(data) {
         console.log(data);
@@ -235,8 +258,6 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
         console.log(err);
     });
 
-    var favarray = $scope.loggedinUser.favorites;
-
     $scope.favorite = function() {
         $scope.loggedinUser.favorites.push($scope.user._id);
         console.log($scope.loggedinUser);
@@ -245,14 +266,23 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
         }).error(function(arg) {
           console.log(arg);
         });
+        $scope.bothelem = false;
+        $scope.notbothelem = true;
     };
 
     $scope.unfavorite = function() {
-        var favoritearr =  $scope.loggedinUser.favorites;
-        for(var i = 0; i < favoritearr.length; i++) {
-          if(favoritearr[i] === $scope.user.id)
-            favoritearr.splice(i, 1);
+        $scope.loggedinUser.favorites;
+        for(var i = 0; i < $scope.loggedinUser.favorites.length; i++) {
+          if($scope.loggedinUser.favorites[i] === $scope.user._id)
+            $scope.loggedinUser.favorites.splice(i, 1);
         }
+        Prof.updateProfile($scope.loggedinUser).success(function(args) {
+          console.log(args);
+        }).error(function(arg) {
+          console.log(arg);
+        });
+        $scope.bothelem = true;
+        $scope.notbothelem = false;
     };
 
 }]);
