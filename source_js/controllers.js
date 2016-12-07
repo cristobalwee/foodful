@@ -229,6 +229,9 @@ foodfulControllers.controller('PublicProfileController', ['$scope', '$http','$ro
         console.log(err);
     });
 
+    var favarray = $scope.loggedinUser.favorites;
+    for(var i = 0; i < favarray)
+
     $scope.favorite = function() {
         $scope.loggedinUser.favorites.push($scope.user._id);
         console.log($scope.loggedinUser);

@@ -1,7 +1,7 @@
 <div data-sticky-container>
   <div class="title-bar" data-sticky data-options="marginTop:0;" style="width:100%">
     <div class="title-bar-left">
-      <a href="#/" onclick="setPosition(0)" class="homelink"><img src="./media/logo.svg"></a>
+      <a href="#/" class="homelink"><img src="./media/logo.svg"></a>
       <h4>foodful</h4>
     </div>
     <div class="title-bar-right">
@@ -9,9 +9,10 @@
         <button type="button" onclick="toggleMenu()" data-toggle><img src="./media/menuicon.svg"></button>
       </div>
       <div class="responsivehide">
-        <input ng-model="searchText" type="text" placeholder="find a food bank">
-        <a href="#/profile">{{user.name}}</a>
-        <a href="javascript:void(0)" ng-click="logout()">log out</a>
+        <a href="#/search"><button class="searchbtn">find a food bank</button></a>
+        <span ng-show="isLogged == null"><a ng-href="#/login">login</a></span>
+        <a href="#/about">about</a>
+        <span ng-show="isLogged != null"><a ng-href="#/profile" class="loggedin">{{isLogged.name}}</a></span>
       </div>
     </div>
   </div>
@@ -53,18 +54,18 @@
       <div class="userattr">
         <p>{{user.description}}</p>
       </div>
-      <div class="column row center" ng-show="favorite.amount == 1">
+      <div class="column row center" ng-show="user.amount == 1">
         <img src="./media/silverware.svg">
         <p class="center padded">we’re taking food</p>
       </div>
-      <div class="column row center" ng-show="favorite.amount == 0">
+      <div class="column row center" ng-show="user.amount == 0">
         <img src="./media/satisfied.svg">
         <p class="center padded">we’re good for today</p>
       </div>
     </div>
   </div>
 </div>
-  <div class="small-8 small-centered column">
+  <!--div class="small-8 small-centered column">
     <div class="expanded row" id="innerprofile">
       <div class="small-3 column"><h2>Name: </h2></div>
       <div class="small-2 column midcol"><h5>{{user.name}}</h5></div>
@@ -93,4 +94,4 @@
       <div class="small-12 column proffiller"></div>
     </div>
   </div>
-</div>
+</div-->

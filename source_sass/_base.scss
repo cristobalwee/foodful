@@ -387,6 +387,7 @@ a {
     text-align: right;
     vertical-align: middle;
     padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 
     input {
       border: solid 1px $secondarycolor;
@@ -415,6 +416,16 @@ a {
         color: $secondarycolor;
         font-family: $font;
       }
+    }
+
+    .searchbtn {
+      border: solid 1px $secondarycolor;
+      @include border-radius(8px);
+      display: inline !important;
+      padding: 0.8rem 1rem;
+      font-family: $font;
+      color: $secondarycolor;
+      background-color: white;
     }
 
     a {
@@ -1078,6 +1089,47 @@ a {
   }
 }
 
+#searchresults {
+  text-align: center;
+  padding: 1rem 5rem;
+  
+  .favorite {
+    background-color: $primarycolor;
+    @include border-radius(8px);
+    font-family: $font;
+    color: $secondarycolor;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+
+    img {
+      height: 4rem;
+      margin-top: 2rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .profile {
+      margin-top: 1rem;
+      height: 8rem;
+    }
+
+    h2, p {
+      font-family: $font;
+      color: $secondarycolor;
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+
+    .center {
+      text-align: center !important;
+    }
+
+    .padded {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+  }
+}
+
 #favorites {
   text-align: center;
   position: relative;
@@ -1397,6 +1449,17 @@ a {
 }
 
 @media only screen and (max-width: 340px) and (max-height: 720px) {
+  .content {
+    @include transform(none);
+    top: 5rem;
+  }
+
+  #factscontent, #purposecontent, #legalcontent, #aboutcontent {
+    @include transform(translateY(0));
+    padding-top: 5rem;
+    top: 0;
+  }
+
   #landing {
     img {
       height: 10rem;
