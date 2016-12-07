@@ -377,7 +377,7 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
 
   Prof.getProfile().success(function(data) {
     $scope.user = data.data;
-    //$scope.new_user = $scope.user;
+    $scope.new_user = $scope.user;
     $scope.startstate = $scope.user.state;
     if($scope.user.typeID === 0) {
       $scope.donoryes = "Donating"
@@ -390,15 +390,19 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
     $scope.states = ["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID", "IL","IN","KS","KY","LA","MA","MD","ME","MH","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
 
     if($scope.user.start_hour > 12){
-      start.new_user.start_hour = +$scope.new_user.start_hour - 12;
+      $scope.new_user.start_hour = +$scope.user.start_hour - 12;
       $scope.startTime = 'PM';
     }else {
       $scope.startTime = 'AM';
+      $scope.new_user.start_hour = $scope.user.start_hour;
     }
-    if($scope.user.end_hour > 12)
+    if($scope.user.end_hour > 12) {
       $scope.endTime = 'PM';
+      $scope.new_user.end_hour = +$scope.user.end_hour - 12;
+    }
     else {
       $scope.endTime = 'AM';
+      $scope.new_user.end_hour = $scope.user.end_hour;
     }
     $scope.update = function() {
         $scope.locstring = "";
@@ -408,10 +412,10 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
         $scope.locstring += $scope.user.zipcode;
 
         if ($scope.startTime == 'PM') {
-            $scope.user.start_hour = +$scope.user.start_hour + +12;
+            $scope.user.start_hour = +$scope.new_user.start_hour + +12;
         }
         if ($scope.endTime == 'PM') {
-            $scope.user.end_hour = +$scope.user.end_hour + +12;
+            $scope.user.end_hour = +$scope.new_user.end_hour + +12;
         }
         GeoCoder.geocode({address: $scope.locstring}).then(function(result) {
             $scope.user.loc = [];

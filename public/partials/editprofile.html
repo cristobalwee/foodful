@@ -42,7 +42,7 @@
         </div>
         <div class="row center">
           <div class="medium-6 columns">
-            <input class="hrmin" ng-model="opening" type="text" placeholder="{{opening}}" required>&nbsp;:
+            <input class="hrmin" ng-model="new_user.start_hour" type="text" placeholder="{{new_user.start_hour}}" required>&nbsp;:
             <input class="hrmin" ng-model="user.start_minute" type="text" placeholder="{{user.start_minute}}" required>
             <select class="hrmin" ng-model="startTime">
               <option value="" disabled>am or pm?</option>
@@ -51,7 +51,7 @@
             </select>
           </div>
           <div class="medium-6 columns">
-            <input class="hrmin" ng-model="ending" type="text" placeholder="{{ending}}" required>&nbsp;:
+            <input class="hrmin" ng-model="new_user.end_hour" type="text" placeholder="{{new_user.end_hour}}" required>&nbsp;:
             <input class="hrmin" ng-model="user.end_minute" type="text" placeholder="{{user.end_minute}}" required>
             <select class="hrmin" ng-model="endTime">
               <option value="" disabled>am or pm?</option>
