@@ -22,41 +22,41 @@
             </label-->
           </div>
           <div class="medium-6 columns">
-            <input ng-model="registerData.name" type="text" placeholder="name" required>
+            <input ng-model="registerData.name" type="text" placeholder="name" >
           </div>
         </div>
         <div class="row center">
           <div class="medium-6 columns">
-            <input ng-model="registerData.email" type="email" placeholder="email" required>
+            <input ng-model="registerData.email" type="email" placeholder="email" >
           </div>
           <div class="medium-6 columns">
-            <input ng-model="registerData.phone_number" type="tel" placeholder="phone number" required>
+            <input ng-model="registerData.phone_number" type="tel" placeholder="phone number" >
           </div>
         </div>
         <div class="row center">
           <div class="medium-6 columns">
-            <input ng-model="address" type="text" placeholder="address" required>
+            <input ng-model="address" type="text" placeholder="address" >
           </div>
           <div class="medium-6 columns">
-            <input ng-model="city" type="text" placeholder="city" required>
+            <input ng-model="city" type="text" placeholder="city" >
 
           </div>
         </div>
         <div class="row center">
           <div class="medium-6 columns">
-            <select ng-model="state" required>
+            <select ng-model="state" >
               <option value="" disabled selected>state</option>
               <option ng-repeat="state in states" value={{state}}>{{state}}</option>
             </select>
           </div>
           <div class="medium-6 columns">
-            <input ng-model="zipcode" type="text" placeholder="zip code" required>
+            <input ng-model="zipcode" type="text" placeholder="zip code" >
           </div>
         </div>
         <div class="row center">
           <div class="medium-6 columns">
-            <input class="hrmin" ng-model="starthr" type="text" placeholder="opening hour" required>&nbsp;:
-            <input class="hrmin" ng-model="registerData.start_minute" type="text" placeholder="opening minute" required>
+            <input class="hrmin" ng-model="starthr" type="text" placeholder="opening hour" >&nbsp;:
+            <input class="hrmin" ng-model="registerData.start_minute" type="text" placeholder="opening minute" >
             <select class="hrmin" ng-model="startTime">
               <option value="" disabled selected>am or pm?</option>
               <option value="AM">am</option>
@@ -64,8 +64,8 @@
             </select>
           </div>
           <div class="medium-6 columns">
-            <input class="hrmin" ng-model="endhr" type="text" placeholder="closing hour" required>&nbsp;:
-            <input class="hrmin" ng-model="registerData.end_minute" type="text" placeholder="closing minute" required>
+            <input class="hrmin" ng-model="endhr" type="text" placeholder="closing hour" >&nbsp;:
+            <input class="hrmin" ng-model="registerData.end_minute" type="text" placeholder="closing minute" >
             <select class="hrmin" ng-model="endTime">
               <option value="" disabled selected>am or pm?</option>
               <option value="AM">am</option>
@@ -75,10 +75,10 @@
         </div>
         <div class="row center">
           <div class="medium-6 columns">
-            <input ng-model="registerData.password" type="password" placeholder="password" required>
+            <input ng-model="registerData.password" type="password" placeholder="password" >
           </div>
           <div class="medium-6 columns">
-            <input ng-model="pwConfirm" type="password" placeholder="confirm password" required>
+            <input ng-model="pwConfirm" type="password" placeholder="confirm password" >
           </div>
           <div class="row center">
             <div class="medium-12 columns">

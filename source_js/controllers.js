@@ -104,6 +104,25 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
     $scope.states = ["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID", "IL","IN","KS","KY","LA","MA","MD","ME","MH","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
     $scope.registerData = {};
     $scope.register = function() {
+        /*
+        $scope.registerData.name = "d";
+        $scope.registerData.email = "d234@gmail.com";
+        $scope.registerData.phone_number = "1112223333";
+        $scope.registerData.start_hour = "10";
+        $scope.registerData.start_minute = "0";
+        $scope.registerData.end_hour = "5";
+        $scope.registerData.end_minute = "30";
+        $scope.registerData.password = "pw1";
+        $scope.pwConfirm = "pw1";
+        $scope.startTime = "AM";
+        $scope.endTime = "AM";
+        $scope.registerData.typeID = 1;
+        */
+        // Form validation
+        if ($scope.registerData.name == undefined) {
+
+        }
+        
         $scope.registerData.address = $scope.address;
         $scope.registerData.city = $scope.city;
         $scope.registerData.state = $scope.state;
@@ -157,6 +176,7 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
   $scope.selected = {};
 
   $scope.getNearby = function() {
+    $scope.searchResults = [];
     GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
       $scope.search.latitude = result[0].geometry.location.lat();
       $scope.search.longitude = result[0].geometry.location.lng();
