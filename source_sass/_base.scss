@@ -467,6 +467,7 @@ a {
       @include border-radius(8px);
       display: inline !important;
       padding: 0.8rem 1rem;
+      margin-right: 0.8rem;
       font-family: $font;
       color: $secondarycolor;
       background-color: white;
