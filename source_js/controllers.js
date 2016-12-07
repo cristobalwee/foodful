@@ -286,12 +286,7 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
         console.log(message);
       });
     });
-<<<<<<< HEAD
-  };
-=======
   }
-
->>>>>>> 81ddf6402e70c22c57995c5a211f8be6edb8c600
 
   $scope.getCurrentLocation = function() {
     NavigatorGeolocation.getCurrentPosition().then(function(position) {
