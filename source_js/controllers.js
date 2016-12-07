@@ -147,25 +147,29 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
 		$scope.lng = position.coords.longitude;
 	});
 
-    //$scope.temp = [];
-    $scope.searchResults = [];
-    $scope.result = {
-      name: "Name"
-    };
-    /*
-    $scope.markers.push('908 w. stoughton st. urbana illinois 61801');
-    $scope.markers.push('603 S Wright St, Champaign, IL 61820');
-    $scope.markers.push('522 E Green St, Champaign, IL 61820');
+  $scope.searchResults = [];
+  $scope.result = {
+    name: "Name"
+  };
 
-    $scope.markers.forEach(function(elem) {
-        GeoCoder.geocode({address: elem}).then(function(result) {
-            var lat = result[0].geometry.location.lat();
-            var lng = result[0].geometry.location.lng();
-            //console.log(lat + " " + lng);
-            $scope.temp.push('[' + lat + ', ' + lng + ']');
+  $scope.getNearby = function() {
+    GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
+      $scope.search.latitude = result[0].geometry.location.lat();
+      $scope.search.longitude = result[0].geometry.location.lng();
+      NavService.getNearby($scope.search).then(function(result) {
+        var results = result.data.data;
+        results.forEach(function(elem) {
+          //console.log(elem);
+          var lat = elem.location[1];
+          var lng = elem.location[0];
+          elem.locString = '[' + lat + ', ' + lng + ']';
+          $scope.searchResults.push(elem);
         });
+      }).catch(function(message) {
+        console.log(message);
+      });
     });
-    */
+
     $scope.getNearby = function() {
         GeoCoder.geocode({address: $scope.searchAddress}).then(function(result) {
             $scope.search.latitude = result[0].geometry.location.lat();
@@ -194,12 +198,18 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
 
     }
 
-    $scope.logout = function() {
-      UserAuth.logout();
-        $location.path('/');
-    };
+  }
 
-
+  $scope.getCurrentLocation = function() {
+    NavigatorGeolocation.getCurrentPosition().then(function(position) {
+      $scope.lat = position.coords.latitude;
+      $scope.lng = position.coords.longitude;
+    });
+  }
+  $scope.logout = function() {
+    UserAuth.logout();
+      $location.path('/');
+  };
 }]);
 
 foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', 'UserAuth', '$location', function($scope, $http, Prof, UserAuth, $location) {
