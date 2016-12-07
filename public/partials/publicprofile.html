@@ -75,7 +75,7 @@
       <div class="small-6 columns">
         <p>Email: {{user.email}}</p>
         <p>Phone Number: {{user.phone_number}}</p>
-        <p>Hours: {{user.start_hour}}:{{user.start_minute}} - {{user.end_hour}}:{{user.end_minute}}</p>
+        <p>Hours: {{user.openHour}}:{{user.start_minute}} {{openampm}} - {{user.closeHour}}:{{user.end_minute}} {{closeampm}}</p>
       </div>
       <div class="small-6 columns" ng-show="user.typeID == 1">
         <div class="column row center status" ng-show="user.amount == 1">
