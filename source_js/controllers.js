@@ -104,7 +104,6 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
     $scope.states = ["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID", "IL","IN","KS","KY","LA","MA","MD","ME","MH","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
     $scope.registerData = {};
     $scope.register = function() {
-<<<<<<< HEAD
         /*
         $scope.registerData.name = "d";
         $scope.registerData.email = "d234@gmail.com";
@@ -123,9 +122,7 @@ foodfulControllers.controller('RegisterController', ['$scope', '$location', 'Use
         if ($scope.registerData.name == undefined) {
 
         }
-
-=======
->>>>>>> 104ac8f596f8bbb9ee04719b9d2bab5fb9589176
+        
         $scope.registerData.address = $scope.address;
         $scope.registerData.city = $scope.city;
         $scope.registerData.state = $scope.state;
