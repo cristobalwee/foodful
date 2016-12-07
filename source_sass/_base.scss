@@ -387,6 +387,7 @@ a {
     text-align: right;
     vertical-align: middle;
     padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 
     input {
       border: solid 1px $secondarycolor;
@@ -415,6 +416,16 @@ a {
         color: $secondarycolor;
         font-family: $font;
       }
+    }
+
+    .searchbtn {
+      border: solid 1px $secondarycolor;
+      @include border-radius(8px);
+      display: inline !important;
+      padding: 0.8rem 1rem;
+      font-family: $font;
+      color: $secondarycolor;
+      background-color: white;
     }
 
     a {

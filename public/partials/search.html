@@ -9,9 +9,10 @@
         <button type="button" onclick="toggleMenu()" data-toggle><img src="./media/menuicon.svg"></button>
       </div>
       <div class="responsivehide">
-				<input ng-model="searchText" type="text" placeholder="find a food bank">
-        <a href="#/login">login</a>
+        <a href="#/search"><button class="searchbtn">find a food bank</button></a>
+        <span ng-show="isLogged == null"><a ng-href="#/login">login</a></span>
         <a href="#/about">about</a>
+        <span ng-show="isLogged != null"><a ng-href="#/profile" class="loggedin">{{isLogged.name}}</a></span>
       </div>
     </div>
   </div>
@@ -50,7 +51,7 @@
                 <ng-map id="map" center="[{{lat}}, {{lng}}]" zoom="18" style="height: 25rem; width: 100%;">
                 <marker ng-repeat="result in searchResults" position="{{result.location}}" on-click="showDetail(result)"></marker>
                 </ng-map>
-                
+
                 <!--
                 <info-window id="map-info">
                   <div ng-non-bindable="">
@@ -93,10 +94,10 @@
 				</div>
 				<div class="row">
 					<div class="small-6 columns">
-						<p class="inline">donators</p>&nbsp;<input class="radio" value="0" type="radio" name="type" ng-model="search.typeID">
+						<p class="inline">restaurants</p>&nbsp;<input class="radio" value="0" type="radio" name="type" ng-model="search.typeID">
 					</div>
 					<div class="small-6 columns">
-						<p class="inline">donatees</p>&nbsp;<input class="radio" value="1" type="radio" name="type" ng-model="search.typeID">
+						<p class="inline">food banks</p>&nbsp;<input class="radio" value="1" type="radio" name="type" ng-model="search.typeID">
 					</div>
         </div>
 				<div>
@@ -108,10 +109,6 @@
 </div>
 <div class="row">
   <div class="medium-8 columns">
-    
+
   </div>
 </div>
-
-
-
-
