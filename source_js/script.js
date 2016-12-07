@@ -146,11 +146,13 @@ var closeMenu = function() {
 };
 
 var dropDown = function() {
+  document.getElementById("dropdown").style.height = "8rem";
   document.getElementById("dropdown").style.display = "block";
-}
+};
 
 window.onclick = function(event) {
   if (!event.target.matches('.navprofile')) {
+    document.getElementById("dropdown").style.height= "0";
     document.getElementById("dropdown").style.display = "none";
   };
 };

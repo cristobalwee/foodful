@@ -439,9 +439,9 @@ a {
     }
 
     #dropdown {
-      height: 8rem;
-      display: none;
+      height: 0;
       position: fixed;
+      display: none;
       z-index: 99;
       background-color: $secondarycolor;
       @include border-radius(4px);
