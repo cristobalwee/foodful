@@ -1235,7 +1235,7 @@ a {
 
     .bowl {
       img {
-        height: 0.2rem;
+        height: 2rem;
       }
     }
 
@@ -1320,7 +1320,7 @@ a {
 
     .bowl {
       img {
-        height: 0.2rem;
+        height: 2rem;
       }
     }
 
@@ -1595,6 +1595,11 @@ a {
   #landing, #facts, #purpose, #legal, #contact, #about {
     padding-left: 0;
     padding-right: 0;
+  }
+
+  .menu {
+    position: fixed;
+    top: 0;
   }
 
   .responsive {

@@ -35,8 +35,10 @@
     </div>
   </div>
   <div class="menucontent">
-    <input ng-model="searchText" type="text" placeholder="find a food bank"><br>
-    <a href="#/login">login</a><br>
+    <a href="#/search"><button class="searchbtn">find a food bank</button></a><br>
+    <span ng-show="isLogged == null"><a ng-href="#/login">login</a></span><br>
+    <span ng-show="isLogged != null"><a ng-href="#/profile">profile</a></span><br>
+    <span ng-show="isLogged != null"><a href="javascript:void(0)" ng-click="logout()">log out</a></span><br>
     <a href="#/facts">facts</a><br>
     <a href="#/purpose">purpose</a><br>
     <a href="#/legal">legal</a><br>
@@ -56,14 +58,14 @@
     <h3>{{user.name}}</h3>
     <span class="bowl" ng-show="user.rating > 0"><img src="./media/logo.svg"></span>
     <span class="bowl" ng-hide="user.rating > 0"><img src="./media/logolight.svg"></span>
-    <span class="bowl" ng-show="user.rating > 1"><img src="./media/logo.svg"></span>
-    <span class="bowl" ng-hide="user.rating > 1"><img src="./media/logolight.svg"></span>
-    <span class="bowl" ng-show="user.rating > 2"><img src="./media/logo.svg"></span>
-    <span class="bowl" ng-hide="user.rating > 2"><img src="./media/logolight.svg"></span>
-    <span class="bowl" ng-show="user.rating > 3"><img src="./media/logo.svg"></span>
-    <span class="bowl" ng-hide="user.rating > 3"><img src="./media/logolight.svg"></span>
-    <span class="bowl" ng-show="user.rating > 4"><img src="./media/logo.svg"></span>
-    <span class="bowl" ng-hide="user.rating > 4"><img src="./media/logolight.svg"></span><br><br>
+    <span class="bowl" ng-show="user.rating > 1.5"><img src="./media/logo.svg"></span>
+    <span class="bowl" ng-hide="user.rating > 1.5"><img src="./media/logolight.svg"></span>
+    <span class="bowl" ng-show="user.rating > 2.5"><img src="./media/logo.svg"></span>
+    <span class="bowl" ng-hide="user.rating > 2.5"><img src="./media/logolight.svg"></span>
+    <span class="bowl" ng-show="user.rating > 3.5"><img src="./media/logo.svg"></span>
+    <span class="bowl" ng-hide="user.rating > 3.5"><img src="./media/logolight.svg"></span>
+    <span class="bowl" ng-show="user.rating > 4.5"><img src="./media/logo.svg"></span>
+    <span class="bowl" ng-hide="user.rating > 4.5"><img src="./media/logolight.svg"></span><br><br>
     <!--span class="center" ng-show="user.typeID == 1"><p>Food bank or Charity</p></span>
     <span class="center" ng-show="user.typeID == 0"><p>Restaurant or business</p></span-->
     <span class="center"><a href="#/editprofile"><button class="makedifference">Edit profile</button></a></span>
@@ -83,8 +85,8 @@
       </div>
       <div class="medium-4 columns">
         <p>Address: {{user.address}}</p>
-        <p>&emsp;&emsp;&emsp;&emsp;{{user.city}}, {{user.state}}</p>
-        <p>&emsp;&emsp;&emsp;&emsp;{{user.zipcode}}</p>
+        <p>City: {{user.city}}, {{user.state}}</p>
+        <p>Zipcode: {{user.zipcode}}</p>
       </div>
       <div class="medium-4 columns" ng-show="user.typeID == 1">
         <div class="column row center status" ng-show="user.amount == 1">

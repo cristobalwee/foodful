@@ -7,6 +7,8 @@
     "sskhandek <sskhandek@gmail.com>"
   ],
   "scripts": {
+    "postinstall": "npm install",
+    "postinstall": "bower install",
     "start": "node app.js"
   },
   "dependencies": {
@@ -21,6 +23,7 @@
     "grunt-copy": "^0.1.0",
     "grunt-express-server": "^0.4.19",
     "matchdep": "~0.1.2",
-    "ngmap": "^1.17.8"
+    "ngmap": "^1.17.8",
+    "bower": "^1.5.2"
   }
 }

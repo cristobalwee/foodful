@@ -264,7 +264,7 @@ foodfulControllers.controller('SearchController', ['$scope', '$http', 'NgMap', '
   $scope.searchResults = [];
   $scope.search = {};
 
-  $scope.search.typeID = 0;
+  $scope.search.typeID = "0";
   $scope.result = {};
   $scope.selected = {};
 
@@ -544,11 +544,13 @@ foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof',
 
     Prof.getProfile().success(function(data) {
       $scope.user = data.data;
+      console.log($scope.user.rating);
       var favoritesids = $scope.user.favorites;
       $scope.favorites = [];
       for(var i = 0; i < favoritesids.length; i++) {
         Prof.getPublicProfile(favoritesids[i]).success(function(data) {
           $scope.favorites.push(data.data);
+          console.log(data.data.rating);
         })
       }
     });

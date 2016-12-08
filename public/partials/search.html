@@ -35,8 +35,10 @@
     </div>
   </div>
   <div class="menucontent">
-    <input ng-model="searchText" type="text" placeholder="find a food bank"><br>
-    <a href="#/login">login</a><br>
+    <a href="#/search"><button class="searchbtn">find a food bank</button></a><br>
+    <span ng-show="isLogged == null"><a ng-href="#/login">login</a></span><br>
+    <span ng-show="isLogged != null"><a ng-href="#/profile">profile</a></span><br>
+    <span ng-show="isLogged != null"><a href="javascript:void(0)" ng-click="logout()">log out</a></span><br>
     <a href="#/facts">facts</a><br>
     <a href="#/purpose">purpose</a><br>
     <a href="#/legal">legal</a><br>
@@ -125,10 +127,15 @@
           <a ng-href="#/profile/result._id"><h1>{{result.name.charAt(0).toUpperCase()}}</h1></a>
         </div>
         <span class="bowl" ng-show="result.rating > 0"><img src="./media/logo.svg"></span>
+        <span class="bowl" ng-hide="result.rating > 0"><img src="./media/logolight.svg"></span>
         <span class="bowl" ng-show="result.rating > 1"><img src="./media/logo.svg"></span>
+        <span class="bowl" ng-hide="result.rating > 1"><img src="./media/logolight.svg"></span>
         <span class="bowl" ng-show="result.rating > 2"><img src="./media/logo.svg"></span>
+        <span class="bowl" ng-hide="result.rating > 2"><img src="./media/logolight.svg"></span>
         <span class="bowl" ng-show="result.rating > 3"><img src="./media/logo.svg"></span>
+        <span class="bowl" ng-hide="result.rating > 3"><img src="./media/logolight.svg"></span>
         <span class="bowl" ng-show="result.rating > 4"><img src="./media/logo.svg"></span>
+        <span class="bowl" ng-hide="result.rating > 4"><img src="./media/logolight.svg"></span>
       </div>
       <div class="medium-6 columns">
         <a ng-href="#/profile/{{result._id}}"><h2>{{result.name}}</h2></a>
