@@ -320,15 +320,15 @@ foodfulControllers.controller('ProfileController', ['$scope', '$http', 'Prof', '
     $scope.showStatus = false;
     if($scope.user.typeID == 1)
       $scope.showStatus = true;
-    if($scope.user.start_hour > 12) {
-      $scope.user.openHour = +$scope.user.start_hour- +12;
+    if(+$scope.user.start_hour > 12) {
+      $scope.user.openHour = +$scope.user.start_hour - 12;
       $scope.openampm = "pm";
     } else {
       $scope.user.openHour = $scope.user.start_hour;
       $scope.openampm = "am";
     }
-    if($scope.user.end_hour > 12) {
-      $scope.user.closeHour = +$scope.user.end_hour- +12;
+    if(+$scope.user.end_hour > 12) {
+      $scope.user.closeHour = +$scope.user.end_hour - 12;
       $scope.closeampm = "pm";
     } else {
       $scope.user.closeHour = $scope.user.end_hour;
@@ -538,13 +538,10 @@ foodfulControllers.controller('EditProfileController', ['$scope', '$http', 'Prof
 }]);
 
 foodfulControllers.controller('FavoritesController', ['$scope', '$http', 'Prof', '$location', 'UserAuth', function($scope, $http, Prof, $location, UserAuth) {
-<<<<<<< HEAD
   $scope.isLogged = UserAuth.currentUser();
-=======
   position = -1;
   document.body.style.overflow = "scroll";
-  $scope.isLogged = UserAuth.currentUser
->>>>>>> 001dde87b61ee5d7d093c612de5149376701a6ce
+
     Prof.getProfile().success(function(data) {
       $scope.user = data.data;
       var favoritesids = $scope.user.favorites;
